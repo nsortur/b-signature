@@ -53,48 +53,57 @@ class FormPage extends React.Component {
   async runSigning (event) {
     event.preventDefault();
     console.log(this.state);
-    await this.runLogin();
-
-    fetch('/api/eg001',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        // transmit form info to backend
-        childName: this.state.childName, 
-        childDOB: this.state.childDOB, 
-        childGender: this.state.childGender,
-        childEthnicity: this.state.childEthnicity,
-        parentName: this.state.parentName,
-        parentAddress: this.state.parentAddress,
-        parentCity: this.state.parentCity,
-        parentState: this.state.parentState,
-        parentZip: this.state.parentZip,
-        parentPhone: this.state.parentPhone,
-        parentCell: this.state.parentCell,
-        parentEmail: this.state.parentEmail,
-        annualIncome: this.state.annualIncome,
-        requestedGrant: this.state.requestedGrant,
-        intendedUse: this.state.intendedUse
-      }),
-      credentials: 'include'
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.setState({signingUrl: data.signingUrl}, () => {
-        window.location.href = data.signingUrl;
-      });
-    })
-    .catch(error => {
+    try {
+      await this.runLogin();
+      fetch('/api/eg001',
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          // transmit form info to backend
+          childName: this.state.childName, 
+          childDOB: this.state.childDOB, 
+          childGender: this.state.childGender,
+          childEthnicity: this.state.childEthnicity,
+          parentName: this.state.parentName,
+          parentAddress: this.state.parentAddress,
+          parentCity: this.state.parentCity,
+          parentState: this.state.parentState,
+          parentZip: this.state.parentZip,
+          parentPhone: this.state.parentPhone,
+          parentCell: this.state.parentCell,
+          parentEmail: this.state.parentEmail,
+          annualIncome: this.state.annualIncome,
+          requestedGrant: this.state.requestedGrant,
+          intendedUse: this.state.intendedUse
+        }),
+        credentials: 'include'
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({signingUrl: data.signingUrl}, () => {
+          window.location.href = data.signingUrl;
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        throw new Error('Signing ceremony failed');
+      })
+    } catch (error) {
       console.log(error);
-    })
+      return;
+    }
   }
 
   runLogin() {
-    const res = fetch('/api/login', {credentials: 'include'});
+    const res = fetch('/api/login', {credentials: 'include'})
+    .catch(err => {
+      console.log(err);
+      throw new Error('Login failed');
+    });
     return res;
   }
 
