@@ -79,7 +79,8 @@ class FormPage extends React.Component {
         annualIncome: this.state.annualIncome,
         requestedGrant: this.state.requestedGrant,
         intendedUse: this.state.intendedUse
-      })
+      }),
+      credentials: 'include'
     })
     .then(res => res.json())
     .then(data => {
@@ -90,7 +91,7 @@ class FormPage extends React.Component {
   }
 
   runLogin() {
-    const res = fetch('/api/login');
+    const res = fetch('/api/login', {credentials: 'include'});
     return res;
   }
 

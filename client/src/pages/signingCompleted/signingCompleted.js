@@ -8,7 +8,7 @@ class SigningDone extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/ds_return" + this.props.location.search)
+    fetch("/ds_return" + this.props.location.search, {credentials: 'include'})
     .then(res => res.json())
     .then(data => {
       this.setState({signResult: data.signResult});
