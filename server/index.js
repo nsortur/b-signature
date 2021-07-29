@@ -56,17 +56,10 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.get("/", (req, res) => {
   res.send('<h1> Backend homepage! </h1>');
 })
-app.get("/api/login", (req, res, next) => {
+app.post("/api/login", (req, res, next) => {
   req.dsAuthJwt.login(req, res, next);
 });
 app.post('/api/eg001', eg001.createController);
-//app.get("/eg001", eg001.createController);
-app.get("/ds_return", (req, res) => {
-  let event = req.query && req.query.event,
-    state = req.query && req.query.state,
-    envelopeId = req.query && req.query.envelopeId;
-  res.json({signResult: event})
-});
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {

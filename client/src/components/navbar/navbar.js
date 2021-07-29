@@ -4,7 +4,7 @@ const { Navbar, Nav, NavDropdown, Container} = require("react-bootstrap");
 
 const MyNav = () => {
   return (
-    <Navbar style={{marginBottom: "20px"}} bg="light" expand="lg">
+    <Navbar bg="light" expand="lg">
       <Container>
       <Navbar.Brand>
         <img
@@ -23,10 +23,10 @@ const MyNav = () => {
           <Nav.Link href='/'>
             Home
           </Nav.Link>
-          <Nav.Link href='/content/'>
-            Usage
+          <Nav.Link href='/form/'>
+            Form
           </Nav.Link>
-          <NavDropdown title="Resources" id="basic-nav-dropdown">
+          <NavDropdown title="External resources" id="basic-nav-dropdown">
             <NavDropdown.Item href='https://bepositive.org'>B+ Official</NavDropdown.Item>
             <NavDropdown.Item href='https://www.docusign.com/'>DocuSign</NavDropdown.Item>
             <NavDropdown.Divider />

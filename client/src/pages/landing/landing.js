@@ -20,7 +20,7 @@ class LandingPage extends React.Component {
       </Popover>
     );
     return (
-      <Container>
+      <Container id='homeContainer'>
         <Row>
           <Col>
             <div className='Landing-card'>

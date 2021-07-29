@@ -1,4 +1,5 @@
 import React from "react"
+const queryString = require('query-string');
 
 class SigningDone extends React.Component {
 
@@ -8,14 +9,7 @@ class SigningDone extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/ds_return" + this.props.location.search, {credentials: 'include'})
-    .then(res => res.json())
-    .then(data => {
-      this.setState({signResult: data.signResult});
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    this.setState({signResult: queryString.parse(this.props.location.search).event});
   }
 
   render() {

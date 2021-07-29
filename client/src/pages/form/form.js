@@ -99,7 +99,14 @@ class FormPage extends React.Component {
   }
 
   runLogin() {
-    const res = fetch('/api/login', {credentials: 'include'})
+    const res = fetch('/api/login', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      credentials: 'include'
+    })
     .catch(err => {
       console.log(err);
       throw new Error('Login failed');
