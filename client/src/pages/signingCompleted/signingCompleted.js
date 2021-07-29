@@ -13,6 +13,9 @@ class SigningDone extends React.Component {
     .then(data => {
       this.setState({signResult: data.signResult});
     })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   render() {

@@ -87,7 +87,10 @@ class FormPage extends React.Component {
       this.setState({signingUrl: data.signingUrl}, () => {
         window.location.href = data.signingUrl;
       });
-    });
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   runLogin() {
