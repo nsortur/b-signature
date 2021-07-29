@@ -3,6 +3,26 @@ import beposLogo from '../../beposLogo.png'
 import {Button, Popover, OverlayTrigger, Container, Image, Row, Col} from "react-bootstrap"
 
 class LandingPage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {result: ''};
+  }
+
+  componentDidMount() {
+    fetch('/api/stuff', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      credentials: 'include'
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({result: data.info})
+    })
+  }
   
   render() {
     const popover = (
@@ -37,6 +57,7 @@ class LandingPage extends React.Component {
             <Image src={beposLogo} className="App-logo" alt="logo" />
           </Col>
         </Row>
+        {this.state.result}
       </Container>
     )
   }

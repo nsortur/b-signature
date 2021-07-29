@@ -53,8 +53,8 @@ const app = express()
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // handle node api requests
-app.get("/", (req, res) => {
-  res.send('<h1> Backend homepage! </h1>');
+app.post("/api/stuff", (req, res) => {
+  res.json({info: '<h1> Backend homepage! </h1>'});
 })
 app.post("/api/login", (req, res, next) => {
   req.dsAuthJwt.login(req, res, next);
