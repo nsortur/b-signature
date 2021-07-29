@@ -68,10 +68,6 @@ app.get("/ds_return", (req, res) => {
   res.json({signResult: event})
 });
 
-// app.get("/api", (req, res) => {
-//   res.json({ message: 'hello from server!' });
-// });
-
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
