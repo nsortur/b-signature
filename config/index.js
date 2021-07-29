@@ -22,9 +22,10 @@ settings.sessionSecret = process.env.SESSION_SECRET || settings.sessionSecret;
 settings.production = process.env.PRODUCTION || settings.production;
 settings.privateKey = process.env.PRIVATE_KEY || settings.privateKey;
 
-const dsOauthServer = settings.production
-  ? 'https://account.docusign.com'
-  : 'https://account-d.docusign.com';
+// const dsOauthServer = settings.production
+//   ? 'https://account.docusign.com'
+//   : 'https://account-d.docusign.com';
+const dsOauthServer = 'https://account-d.docusign.com'
 
 exports.config = {
   dsOauthServer,
