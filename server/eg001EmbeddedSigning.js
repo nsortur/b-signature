@@ -64,6 +64,7 @@ eg001EmbeddedSigning.createController = async (req, res) => {
             dsPingUrl: dsPingUrl
         }
       , args = {
+            
             accessToken: req.user.accessToken,
             basePath: req.session.basePath,
             accountId: req.session.accountId,
