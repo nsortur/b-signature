@@ -35,7 +35,6 @@ class FormPage extends React.Component {
     const target = event.target;
     const name = target.name;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    console.log(target)
     
     // handle option to input other ethnicity
     if (name === 'childEthnicity' && value === 'Other') {
@@ -52,7 +51,6 @@ class FormPage extends React.Component {
   
   async runSigning (event) {
     event.preventDefault();
-    console.log(this.state);
     try {
       await this.runLogin();
       fetch('/api/eg001',

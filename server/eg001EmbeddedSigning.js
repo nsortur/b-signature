@@ -37,7 +37,6 @@ eg001EmbeddedSigning.createController = async (req, res) => {
         // req.flash('info', 'Sorry, you need to re-authenticate.');
         // Save the current operation so it will be resumed after authentication
         req.dsAuth.setEg(req, eg);
-        console.log('should redirect');
         // res.redirect(mustAuthenticate);
     }
 

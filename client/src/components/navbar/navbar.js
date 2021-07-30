@@ -30,7 +30,7 @@ const MyNav = () => {
             <NavDropdown.Item href='https://bepositive.org'>B+ Official</NavDropdown.Item>
             <NavDropdown.Item href='https://www.docusign.com/'>DocuSign</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="https://github.com/nsortur/b-connected">Source code</NavDropdown.Item>
+            <NavDropdown.Item href="https://github.com/nsortur/b-signature">Source code</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         {/* <Navbar.Text>
