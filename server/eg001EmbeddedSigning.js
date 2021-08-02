@@ -284,8 +284,8 @@ function makeEnvelope(args){
         , parentCity = makeTextTab('City:', 0.25, 100, args.parentCity)
         , parentState = makeTextTab('State:', 0.35, 80, args.parentState)
         , parentZipcode = makeTextTab('Zip Code', 0.7, 200, args.parentZip)
-        , parentPhone = makeTextTab('Phone:', 0.45, 100, args.parentPhone)
-        , parentCell = makeTextTab('Cell phon:', 0.6, 150, args.parentCell)
+        , parentPhone = makeTextTab('Cell', -1.75, 100, args.parentPhone)
+        , parentCell = makeTextTab('Cell', 0.8, 150, args.parentCell)
         , parentEmail = makeTextTab('E-mail Address:', 1.4, 400, args.parentEmail)
         , usFormat = new Intl.NumberFormat('en-US',
           {style: 'currency', currency: 'USD', minimumFractionDigits: 0})
