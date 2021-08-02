@@ -150,7 +150,7 @@ function makeTextTab(anchorString, xOffset, xWidth, value) {
             anchorYOffset: '-0.12', anchorXOffset: xOffset,
             font: 'helvetica', fontSize: 'size11',
             bold: 'true', value: value,
-            locked: 'true', tabId: anchorString,
+            locked: 'false', tabId: anchorString,
             tabLabel: anchorString, width:xWidth
         })
     )
@@ -278,7 +278,7 @@ function makeEnvelope(args){
             anchorYOffset: '1.05', anchorXOffset: '0.7',
             font: 'helvetica', fontSize: 'size11',
             bold: 'true', value: args.parentAddress,
-            locked: 'true', tabId: 'Address',
+            locked: 'false', tabId: 'Address',
             tabLabel: 'Address', width:450
         })
         , parentCity = makeTextTab('City:', 0.25, 100, args.parentCity)
@@ -297,7 +297,7 @@ function makeEnvelope(args){
             anchorYOffset: '0.1', anchorXOffset: 0,
             font: 'helvetica', fontSize: 'size7',
             bold: 'true', value: args.intendedUse,
-            locked: 'true', tabId: 'account number',
+            locked: 'false', tabId: 'account number',
             tabLabel: 'account number', width:600, height: 15
         })
 
