@@ -198,7 +198,7 @@ function makeEnvelope(args){
 
     // create the envelope definition
     let env = new docusign.EnvelopeDefinition();
-    env.emailSubject = 'Please sign this document';
+    env.emailSubject = 'Family Agreement';
 
     // add the documents
     let doc1 = new docusign.Document()

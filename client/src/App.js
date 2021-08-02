@@ -1,7 +1,7 @@
 import React from "react"
 import './App.css';
 import MyNav from "./components/navbar/navbar"
-import FormPage from './pages/form/form'
+import MultiForm from "./pages/form/multiForm";
 import ContentPage from './pages/content/content'
 import LandingPage from './pages/landing/landing'
 import SigningDone from './pages/signingCompleted/signingCompleted'
@@ -20,7 +20,7 @@ function App() {
       <MyNav></MyNav>
       <Router>
         <LandingPage path='/'></LandingPage>
-        <FormPage path='/form'></FormPage>
+        <MultiForm path='/form'></MultiForm>
         <ContentPage path='/content/'></ContentPage>
         <SigningDone path='/signingDone/'></SigningDone>
         <NotFound default />

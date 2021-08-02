@@ -23,7 +23,7 @@ const MyNav = () => {
           <Nav.Link href='/'>
             Home
           </Nav.Link>
-          <Nav.Link href='/form/'>
+          <Nav.Link href='/form#5e5e5f/'>
             Form
           </Nav.Link>
           <NavDropdown title="External resources" id="basic-nav-dropdown">
@@ -33,9 +33,13 @@ const MyNav = () => {
             <NavDropdown.Item href="https://github.com/nsortur/b-signature">Source code</NavDropdown.Item>
           </NavDropdown>
         </Nav>
-        {/* <Navbar.Text>
-          Signed in as: <a href="#login">John Doe</a>
-        </Navbar.Text> */}
+        
+        <Navbar.Collapse className="justify-content-end">
+          <Nav.Link href='https://docusign2021.devpost.com' style={{color: "#717172"}}>
+            DocuSign Good Code Hackathon 2021
+          </Nav.Link>
+        </Navbar.Collapse>
+        
       </Navbar.Collapse>
       </Container>
     </Navbar>

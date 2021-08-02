@@ -8,7 +8,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #528055;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
 }
 
 #homeContainer {
-  margin-top: 20px;
+  margin-top: 5vh;
 }
 
 .button1 {
@@ -68,20 +68,17 @@
   }
 }
 
-.input-info {
+.input-page {
   /* padding-right: 50px;
   padding-left: 50px; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* margin-top: 5vh; */
+  color: darkgreen;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-card {
+  margin-top: 5vh;
+}
+
+.form-button {
+  margin: 10px;
 }
