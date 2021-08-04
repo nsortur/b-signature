@@ -20,7 +20,7 @@ class ParentInformation extends React.Component {
         <Col xs={8}>
           <Card className="input-card">
             <Card.Body>
-            <Card.Title>Parent/Legal Guardian Information (1/3)</Card.Title>
+            <Card.Title >Parent/Legal Guardian Information (1/3)</Card.Title>
             <Form>
               <Form.Group as={Col}>
                 <Form.Label>Name</Form.Label>
@@ -30,7 +30,7 @@ class ParentInformation extends React.Component {
 
               <Form.Group className="mb-3">
                 <Form.Label>Address</Form.Label>
-                <Form.Control type="text" placeholder="1234 Main St" name="parentAddress" defaultValue={this.props.values.parentAddress} onChange={this.props.handleChange} required/>
+                <Form.Control type="text" placeholder="1234 Main Street" name="parentAddress" defaultValue={this.props.values.parentAddress} onChange={this.props.handleChange} required/>
               </Form.Group>
 
               <Row className="mb-3">
@@ -99,7 +99,7 @@ class ParentInformation extends React.Component {
 
               <Form.Group as={Col}>
                 <Form.Label>Zip</Form.Label>
-                <Form.Control name="parentZip" defaultValue={this.props.values.parentZip} onChange={this.props.handleChange} required/>
+                <Form.Control name="parentZip" defaultValue={this.props.values.parentZip} onChange={this.props.handleChange} placeholder="44101" required/>
               </Form.Group>
                 
             </Row>
@@ -107,18 +107,18 @@ class ParentInformation extends React.Component {
             <Row>
               <Form.Group as={Col} >
                 <Form.Label>Phone</Form.Label>
-                <Form.Control type="number" name="parentPhone" placeholder="Enter phone #" defaultValue={this.props.values.parentPhone} onChange={this.props.handleChange} required/>
+                <Form.Control name="parentPhone" placeholder="(555) 555-1212" defaultValue={this.props.values.parentPhone} onChange={this.props.handleChange} required/>
               </Form.Group>
 
               <Form.Group as={Col} >
                 <Form.Label>Cell phone</Form.Label>
-                <Form.Control type="number" name="parentCell" placeholder="Enter cell phone #" defaultValue={this.props.values.parentCell} onChange={this.props.handleChange} required/>
+                <Form.Control name="parentCell" placeholder="(555) 123-4545" defaultValue={this.props.values.parentCell} onChange={this.props.handleChange} required/>
               </Form.Group>
 
             </Row>
             <Form.Group as={Col} >
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" name="parentEmail" defaultValue={this.props.values.parentEmail} onChange={this.props.handleChange} required/>
+              <Form.Control type="email" placeholder="name@example.com" name="parentEmail" defaultValue={this.props.values.parentEmail} onChange={this.props.handleChange} required/>
             </Form.Group>
             <Button variant="success" onClick={this.continue} className='form-button'>Next Page</Button>
           </Form>

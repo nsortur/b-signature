@@ -1,6 +1,7 @@
 import React from 'react';
-import {Row, Col, Card, Form, Button, Spinner, Alert} from 'react-bootstrap';
+import {Row, Col, Card, Form, Button, Spinner, Alert, ListGroup, InputGroup} from 'react-bootstrap';
 
+// TODO disabled when loading
 class IncomeInformation extends React.Component {
 
   constructor(props) {
@@ -38,17 +39,15 @@ class IncomeInformation extends React.Component {
       fillAlert = (
         <Alert variant="danger" onClose={this.props.dismissFillAlert} dismissible>
           <Alert.Heading>Please fill out the following fields:</Alert.Heading>
-          <ul>
+          <ListGroup variant="flush">
             {this.props.values.fieldsNeedFilling.map((field) => 
-              <li>{field}</li>
+              <ListGroup.Item variant="danger">{field}</ListGroup.Item>
             )}
-          </ul>
+          </ListGroup>
       </Alert>
       )
     }
     
-    // TODO display message (some bootstrap thing) to show all fields aren't filled out
-
     return (
       <Row>
         <Col></Col>
@@ -59,15 +58,24 @@ class IncomeInformation extends React.Component {
             <Form>
               <Form.Group as={Col}>
                 <Form.Label>Annual Income ($)</Form.Label>
-                <Form.Control type="number" step="500" min="0" name="annualIncome" defaultValue={this.props.values.annualIncome} onChange={this.props.handleChange} required>
-                </Form.Control>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text>$</InputGroup.Text>
+                  <Form.Control type="number" step="500" min="0" name="annualIncome" defaultValue={this.props.values.annualIncome} onChange={this.props.handleChange} required>
+                  </Form.Control>
+                  <InputGroup.Text>.00</InputGroup.Text>
+                </InputGroup>
                 <Form.Text>i.e. government assistance, child support, alimony, family assistance, <u>all sources of income to pay living expenses</u></Form.Text>
               </Form.Group>
               
               <Form.Group as={Col}>
                 <Form.Label>Request Grant Amount ($)</Form.Label>
-                <Form.Control type="number" step="500" min="0" name="requestedGrant" defaultValue={this.props.values.requestedGrant} onChange={this.props.handleChange} required>
-                </Form.Control>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text>$</InputGroup.Text>
+                  <Form.Control type="number" step="500" min="0" name="requestedGrant" defaultValue={this.props.values.requestedGrant} onChange={this.props.handleChange} required>
+                  </Form.Control>
+                  <InputGroup.Text>.00</InputGroup.Text>
+                </InputGroup>
+                
               </Form.Group>
 
               <Form.Group>

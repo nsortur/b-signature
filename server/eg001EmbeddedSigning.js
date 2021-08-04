@@ -1,9 +1,3 @@
-/**
- * @file
- * Example 001: Use embedded signing
- * @author DocuSign
- */
-
 const path = require('path')
     , fs = require('fs-extra')
     , docusign = require('docusign-esign')
@@ -257,12 +251,12 @@ function makeEnvelope(args){
     // We're using anchor (autoPlace) positioning
     let parentSignature = docusign.SignHere.constructFromObject({
           anchorString: 'Parent/Legal Guardian\'s Hand-Written Signature',
-          anchorYOffset: '-0.35', anchorUnits: 'inches'})
+          anchorYOffset: '-0.33', anchorUnits: 'inches'})
         , parentDateSigned = docusign.DateSigned.constructFromObject({
             anchorString: 'Date', anchorYOffset: '-0.35', anchorUnits: 'inches'});
 
     let childName = makeTextTab('Child\'s Name:', 1, 230, args.childName)
-        , childDob = makeTextTab('DOB:', 0.35, 45, args.childDOB)
+        , childDob = makeTextTab('DOB:', 0.35, 40, args.childDOB)
         , childGender = makeTextTab('Gender:', 0.55, 45, args.childGender)
         , africanEth = makeCheckbox('African-American', 1.3,  isAfricanEth)
         , asianEth = makeCheckbox('Asian/Pacific Islander', 1.65, isAsianEth)
@@ -302,7 +296,7 @@ function makeEnvelope(args){
         })
 
     // Tabs are set per recipient / signer
-    let textualTabs = [childName, childDob, childGender, parentName, parentAddress, parentCity, parentState, parentSignature, parentZipcode, parentPhone, parentCell, parentEmail, annualIncome, requestedGrant, intendedUse];
+    let textualTabs = [childName, childDob, childGender, parentName, parentAddress, parentCity, parentState, parentZipcode, parentPhone, parentCell, parentEmail, annualIncome, requestedGrant, intendedUse];
     if (isOtherEth) {
         textualTabs.push(otherInfoEth)
     }

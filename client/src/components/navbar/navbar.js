@@ -23,7 +23,7 @@ const MyNav = () => {
           <Nav.Link href='/'>
             Home
           </Nav.Link>
-          <Nav.Link href='/form#5e5e5f/'>
+          <Nav.Link href='/form/'>
             Form
           </Nav.Link>
           <NavDropdown title="External resources" id="basic-nav-dropdown">
