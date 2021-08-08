@@ -94,6 +94,10 @@
   margin-top: 3vh;
 }
 
+#med-form-click-here {
+  text-decoration: none;
+}
+
 .form-button {
   margin: 10px;
 }

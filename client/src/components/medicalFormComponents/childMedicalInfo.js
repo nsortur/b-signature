@@ -59,7 +59,7 @@ class ChildMedicalInfo extends React.Component {
               <Form.Group>
                 <Form.Label>Medical Condition Details</Form.Label>
                 <Form.Control as="textarea" rows={3} type="text" name="notableFacts" defaultValue={this.props.values.notableFacts} onChange={this.props.handleChange} required/>
-                <Form.Text>Please describe the child's medical condition, anticipated hospital stay, and any other notable facts. If needed, send a letter to <a href="mailto:assistance@bepositive.org">assistance@bepositive.org</a></Form.Text>
+                <Form.Text>Please describe the child's medical condition, anticipated hospital stay, and any other notable facts.</Form.Text>
               </Form.Group>
 
               <Button variant="secondary" onClick={this.back} className='form-button'>Previous Page</Button>

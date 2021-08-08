@@ -259,35 +259,6 @@ documentInformation.makeDocDetails = (doc, req, res) => {
         }),
         makeYTextTab('Social Worker\'s Name and Title', 3.4, -0.2, 250, body.socialWorkerName),
         makeTextTab('Social Worker\'s Email Address', 2.85, 170, body.socialWorkerEmail)  
-        // makeTextTab('Child\'s Name:', 1, 230, body.childName),
-        // makeTextTab('DOB:', 0.35, 40, body.childDOB),
-        // makeTextTab('Gender:', 0.55, 45, body.childGender),
-        // makeTextTab('Parent/Legal Guardian Name:', 2.2, 340, body.parentName),
-        // docusign.Text.constructFromObject({
-        //     anchorString: 'Information will be used', anchorUnits: 'inches',
-        //     anchorYOffset: '1.05', anchorXOffset: '0.7',
-        //     font: 'helvetica', fontSize: 'size11',
-        //     bold: 'true', value: body.parentAddress,
-        //     locked: 'false', tabId: 'Address',
-        //     tabLabel: 'Address', width:450
-        // }),
-        // makeTextTab('City:', 0.25, 100, body.parentCity),
-        // makeTextTab('State:', 0.35, 80, body.parentState),
-        // makeTextTab('Zip Code', 0.7, 200, body.parentZip),
-        // makeTextTab('Cell', -1.75, 100, body.parentPhone),
-        // makeTextTab('Cell', 0.8, 150, body.parentCell),
-        // makeTextTab('E-mail Address:', 1.4, 400, body.parentEmail),
-        // makeTextTab('to pay living expenses):', 2.5, 150, usFormat.format(body.annualIncome)),
-        // makeTextTab('Requested grant amount ($ amount required):', 3.5, 100, usFormat.format(body.requestedGrant)),
-        // docusign.Text.constructFromObject({
-        //     anchorString: 'account number', anchorUnits: 'inches',
-        //     anchorCaseSensitive: false, 
-        //     anchorYOffset: '0.1', anchorXOffset: 0,
-        //     font: 'helvetica', fontSize: 'size7',
-        //     bold: 'true', value: body.intendedUse,
-        //     locked: 'false', tabId: 'account number',
-        //     tabLabel: 'account number', width:600, height: 15
-        // })
       ];
 
       break;
