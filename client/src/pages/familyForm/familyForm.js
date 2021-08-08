@@ -1,9 +1,10 @@
 import React from "react";
-import ParentInformation from "../../components/forms/parentInfo";
-import ChildInformation from "../../components/forms/childInfo";
-import IncomeInformation from "../../components/forms/incomeInfo";
+import ParentInformation from "../../components/familyFormComponents/parentInfo";
+import ChildInformation from "../../components/familyFormComponents/childInfo";
+import IncomeInformation from "../../components/familyFormComponents/incomeInfo";
+import { navigate } from "@reach/router";
 
-class MultiForm extends React.Component {
+class FamilyForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -13,21 +14,21 @@ class MultiForm extends React.Component {
       loadingSigning: false,
       otherEthSelected: false,
       showFillAlert: false,
-      childName: '', 
-      childDOB: '', 
-      childGender: '',
-      childEthnicity: '',
-      parentName: '',
-      parentAddress: '',
-      parentCity: '',
-      parentState: '',
-      parentZip: '',
-      parentPhone: '',
-      parentCell: '',
-      parentEmail: '',
-      annualIncome: '',
-      requestedGrant: '',
-      intendedUse: '',
+      childName: 'Example Name', 
+      childDOB: '02/14/2006', 
+      childGender: 'Female',
+      childEthnicity: 'Hispanic',
+      parentName: 'John Doe',
+      parentAddress: '101 Rockland Cir.',
+      parentCity: 'Wilmington',
+      parentState: 'Delaware',
+      parentZip: '19803',
+      parentPhone: '(302) 555-5555',
+      parentCell: '(302) 231-1234',
+      parentEmail: 'example@domain.com',
+      annualIncome: '200000',
+      requestedGrant: '200000',
+      intendedUse: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et massa sed dui mollis maximus. Sed mauris lorem, lobortis nec quam a.",
       fieldsNeedFilling: []
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -79,6 +80,11 @@ class MultiForm extends React.Component {
         inputNotFilled.push(key);
       }
     }
+    // validate email
+    if (!(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.parentEmail))) { 
+      inputNotFilled.push('Parent\'s email');
+    }
+
     if (inputNotFilled.length !== 0) {
       this.setState({showFillAlert: true, fieldsNeedFilling: inputNotFilled});
       return;
@@ -88,7 +94,7 @@ class MultiForm extends React.Component {
     this.setState({loadingSigning: true, showFillAlert: false});
     try {
       await this.runLogin();
-      fetch('/api/eg001',
+      fetch('/api/eg001/family',
       {
         headers: {
           'Accept': 'application/json',
@@ -115,7 +121,13 @@ class MultiForm extends React.Component {
         }),
         credentials: 'include'
       })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Signing input not accepted');
+        }
+      })
       .then(data => {
         this.setState({signingUrl: data.signingUrl}, () => {
           window.location.href = data.signingUrl;
@@ -123,11 +135,11 @@ class MultiForm extends React.Component {
       })
       .catch(error => {
         console.log(error);
-        throw new Error('Signing ceremony failed');
+        navigate('/bad/');
       })
     } catch (error) {
       console.log(error);
-      return;
+      navigate('/bad');
     }
   }
 
@@ -202,4 +214,4 @@ class MultiForm extends React.Component {
   }
 }
 
-export default MultiForm;
+export default FamilyForm;

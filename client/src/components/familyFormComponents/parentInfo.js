@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form,Card, Row, Col, Button} from 'react-bootstrap';
 
+// page 1/3
 class ParentInformation extends React.Component {
 
   constructor(props) {

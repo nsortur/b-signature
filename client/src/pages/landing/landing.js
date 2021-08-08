@@ -24,14 +24,19 @@ class LandingPage extends React.Component {
         <Row>
           <Col>
             <div className='Landing-card'>
-              <h1>Welcome!</h1>
+              <h1>Recieve Aid.</h1>
               <p>If your family is looking for financial assistance and meets the criteria specified by the B+ Foundation, you'll need to provide some information about you as a parent/guardian, and information about your child. </p>
             </div>
             
             <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
               <Button id='criteria' variant="outline-dark">See criteria</Button>
             </OverlayTrigger> 
-            <Button href='/form/' variant="success">Get started</Button>
+            <Button href='/family-form/' variant="success">Get started</Button>
+            
+            <div id='social-worker-link'>
+            <b>Social Worker?</b> <a href='/medical-form'>Click here</a>
+            </div>
+            
           </Col>
           <Col xs={7}>
             <Image src={beposLogo} className="App-logo" alt="logo" />

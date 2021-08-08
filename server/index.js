@@ -1,19 +1,18 @@
 const express = require('express')
 , session = require('express-session')  // https://github.com/expressjs/session
-, bodyParser = require('body-parser')
 , cookieParser = require('cookie-parser')
 , MemoryStore = require('memorystore')(session) // https://github.com/roccomuso/memorystore
 , path = require('path')
 , DsJwtAuth = require('../lib/DSJwtAuth')
 , passport = require('passport')
 , DocusignStrategy = require('passport-docusign')
-, docOptions = require('../config/documentOptions.json')
 , dsConfig = require('../config/index.js').config
-, flash = require('express-flash')
 , helmet = require('helmet') // https://expressjs.com/en/advanced/best-practice-security.html
 , moment = require('moment')
 , csrf = require('csurf') // https://www.npmjs.com/package/csurf
-  , eg001 = require('./eg001EmbeddedSigning');
+  , eg001 = require('./embeddedSigning')
+, documentInformation = require('./documentInformation')
+, documents = require('./documentsToSign').documents;
 
 const PORT = process.env.PORT || 3001
   , HOST = process.env.HOST || 'localhost'
@@ -56,7 +55,24 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.post("/api/login", (req, res, next) => {
   req.dsAuthJwt.login(req, res, next);
 });
-app.post('/api/eg001', eg001.createController);
+
+app.post('/api/eg001/family', async (req, res, next) => {
+  const docDetails = documentInformation.makeDocDetails(documents.FAMILY, req, res);
+  await eg001.createController(req, res, docDetails.docPath, docDetails.displayName, docDetails.prefillVals, docDetails.dsTabs, docDetails.recipients)
+  .catch(error => {
+    // client error, misunderstood syntax
+    res.statusCode = 400;
+    next();
+  });
+});
+app.post('/api/eg001/socialworker', async (req, res, next) => {
+  const docDetails = documentInformation.makeDocDetails(documents.SOCIAL_WORKER, req, res);
+  await eg001.createController(req, res, docDetails.docPath, docDetails.displayName, docDetails.prefillVals, docDetails.dsTabs, docDetails.recipients)
+  .catch(error => {
+    res.statusCode = 400;
+    next();
+  });
+});
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import {Row, Col, Card, Form, Button, Spinner, Alert, ListGroup, InputGroup} from 'react-bootstrap';
 
 // TODO disabled when loading
+// page 3/3
 class IncomeInformation extends React.Component {
 
   constructor(props) {
@@ -38,10 +39,10 @@ class IncomeInformation extends React.Component {
     if (this.props.values.showFillAlert) {
       fillAlert = (
         <Alert variant="danger" onClose={this.props.dismissFillAlert} dismissible>
-          <Alert.Heading>Please fill out the following fields:</Alert.Heading>
+          <Alert.Heading>Please fill out or fix the following fields:</Alert.Heading>
           <ListGroup variant="flush">
-            {this.props.values.fieldsNeedFilling.map((field) => 
-              <ListGroup.Item variant="danger">{field}</ListGroup.Item>
+            {this.props.values.fieldsNeedFilling.map((field, idx) => 
+              <ListGroup.Item variant="danger" key={idx}>{field}</ListGroup.Item>
             )}
           </ListGroup>
       </Alert>

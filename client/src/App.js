@@ -1,7 +1,8 @@
 import React from "react"
 import './App.css';
 import MyNav from "./components/navbar/navbar"
-import MultiForm from "./pages/form/multiForm";
+import FamilyForm from "./pages/familyForm/familyForm";
+import SocialWorkerForm from "./pages/socialWorkerForm/socialWorkerForm";
 import ContentPage from './pages/content/content'
 import LandingPage from './pages/landing/landing'
 import SigningDone from './pages/signingCompleted/signingCompleted'
@@ -9,7 +10,7 @@ import { Router } from "@reach/router"
 
 const NotFound = () => (
   <div className='App-header'>
-    <h2>Page not found.</h2>
+    <h2>Page not found, or there's been some error.</h2>
   </div>
 );
 
@@ -20,7 +21,8 @@ function App() {
       <MyNav></MyNav>
       <Router>
         <LandingPage path='/'></LandingPage>
-        <MultiForm path='/form'></MultiForm>
+        <FamilyForm path='/family-form/'></FamilyForm>
+        <SocialWorkerForm path='medical-form'></SocialWorkerForm>
         <ContentPage path='/content/'></ContentPage>
         <SigningDone path='/signingDone/'></SigningDone>
         <NotFound default />
