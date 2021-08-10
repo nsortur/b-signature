@@ -23,15 +23,19 @@ const MyNav = () => {
           <Nav.Link href='/'>
             Home
           </Nav.Link>
-          <Nav.Link href='/family-form/'>
-            Application form
-          </Nav.Link>
+          <NavDropdown title="Forms" id="basic-nav-dropdown">
+            <NavDropdown.Item href='/family-form/'>Family application</NavDropdown.Item>
+            <NavDropdown.Item href='/medical-form/'>Social worker</NavDropdown.Item>
+          </NavDropdown>
           <NavDropdown title="External resources" id="basic-nav-dropdown">
             <NavDropdown.Item href='https://bepositive.org'>B+ Official</NavDropdown.Item>
             <NavDropdown.Item href='https://www.docusign.com/'>DocuSign</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="https://github.com/nsortur/b-signature">Source code</NavDropdown.Item>
           </NavDropdown>
+          <Nav.Link href='/admin'>
+            Admin
+          </Nav.Link>
         </Nav>
         
         <Navbar.Collapse className="justify-content-end">

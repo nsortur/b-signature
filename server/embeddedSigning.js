@@ -5,6 +5,7 @@
  * pre-filled tabs of type text and checkbox.
  *
  * @author Neel Sortur.
+ * @author DocuSign.
  */
 
 const path = require('path')

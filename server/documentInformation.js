@@ -1,3 +1,10 @@
+/**
+ * Contains information about documents present in documentsToSign.js, including
+ * text, checkbox, recipients/signers, and date signed DocuSign Tabs
+ *
+ * @author Neel Sortur.
+ */
+
 const documentInformation = exports
       , docusign = require('docusign-esign')
       , documents = require('./documentsToSign').documents;
@@ -195,7 +202,6 @@ documentInformation.makeDocDetails = (doc, req, res) => {
 
     case documents.SOCIAL_WORKER:
       displayName = 'Medical Information'
-      // TODO make these fields in frontend, compartmentalize
       prefillVals.childName = body.childName;
       prefillVals.childDiagnosis = body.childDiagnosis;
       prefillVals.diagnosisDate = body.diagnosisDate;

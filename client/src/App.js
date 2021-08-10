@@ -6,6 +6,7 @@ import SocialWorkerForm from "./pages/socialWorkerForm/socialWorkerForm";
 import ContentPage from './pages/content/content'
 import LandingPage from './pages/landing/landing'
 import SigningDone from './pages/signingCompleted/signingCompleted'
+import AdminPage from "./pages/admin/admin";
 import { Router } from "@reach/router"
 
 const NotFound = () => (
@@ -24,6 +25,7 @@ function App() {
         <FamilyForm path='/family-form/'></FamilyForm>
         <SocialWorkerForm path='medical-form'></SocialWorkerForm>
         <ContentPage path='/content/'></ContentPage>
+        <AdminPage path='/admin/'></AdminPage>
         <SigningDone path='/signingDone/'></SigningDone>
         <NotFound default />
       </Router>

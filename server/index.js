@@ -12,7 +12,8 @@ const express = require('express')
 , csrf = require('csurf') // https://www.npmjs.com/package/csurf
   , eg001 = require('./embeddedSigning')
 , documentInformation = require('./documentInformation')
-, documents = require('./documentsToSign').documents;
+, documents = require('./documentsToSign').documents
+, database = require('./database');
 
 const PORT = process.env.PORT || 3001
   , HOST = process.env.HOST || 'localhost'
@@ -56,23 +57,46 @@ app.post("/api/login", (req, res, next) => {
   req.dsAuthJwt.login(req, res, next);
 });
 
-app.post('/api/eg001/family', async (req, res, next) => {
-  const docDetails = documentInformation.makeDocDetails(documents.FAMILY, req, res);
+app.post('/api/eg001/family', (req, res, next) => handleFormSubmission(req, res, next, documents.FAMILY, "familyAidInfo"));
+
+app.post('/api/eg001/socialworker', (req, res, next) => handleFormSubmission(req, res, next, documents.SOCIAL_WORKER, "childMedicalInfo"));
+
+// handles submitting a form and putting data to a database collection
+async function handleFormSubmission(req, res, next, docType, collectionName) {
+  const docDetails = documentInformation.makeDocDetails(docType, req, res);
+
   await eg001.createController(req, res, docDetails.docPath, docDetails.displayName, docDetails.prefillVals, docDetails.dsTabs, docDetails.recipients)
-  .catch(error => {
-    // client error, misunderstood syntax
-    res.statusCode = 400;
-    next();
-  });
-});
-app.post('/api/eg001/socialworker', async (req, res, next) => {
-  const docDetails = documentInformation.makeDocDetails(documents.SOCIAL_WORKER, req, res);
-  await eg001.createController(req, res, docDetails.docPath, docDetails.displayName, docDetails.prefillVals, docDetails.dsTabs, docDetails.recipients)
+  .then(() => database.populateAidInfo(docDetails.prefillVals, collectionName))
   .catch(error => {
     res.statusCode = 400;
     next();
   });
-});
+}
+
+app.post('/api/queryAidInfo', async (req, res, next) => {
+  const queryData = req.body;
+  await database.queryByPatientName(queryData.childName, queryData.searchSingle, res)
+  // propagate to frontend
+  .then(data => {
+    res.json(data);
+  })
+  .catch(error => {
+    res.statusCode = 400;
+    next();
+  });
+})
+
+app.post('/api/adminLogin', (req, res) => {
+  try {
+    if (req.body.adminPassword === dsConfig.adminPassword) {
+      res.json({loginSuccess: true})
+    } else {
+      res.json({loginSuccess: false})
+    }
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
