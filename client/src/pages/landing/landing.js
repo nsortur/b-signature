@@ -24,7 +24,7 @@ class LandingPage extends React.Component {
         <Row>
           <Col>
             <div className='Landing-card'>
-              <h1>Recieve Aid.</h1>
+              <h1>Receive Aid.</h1>
               <p>If your family is looking for financial assistance and meets the criteria specified by the B+ Foundation, you'll need to provide some information about you as a parent/guardian, and information about your child. </p>
             </div>
             

@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+![app-logo](./img/B-Signature-logo.png)
+## What it does
+The B(e)Signature web application provides a user-friendly way to fill out B+'s financial aid form. It uses DocuSign's eSignature so families can agree to the terms of receiving aid for the patient, with the signer being the parent/legal guardian. It also uses eSignature to receive the patient's medical information, where the signer is a social worker (allows signing separately to make it easy for both parties). Additionally, it holds signing status and patient information in a database, allowing B+ to easily see if both forms were filled out, and also all the information submitted in the forms for each patient. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How I built it
+![app-diagram](./img/IMG_0018.jpg)
+This app was created using a React.js frontend, Node + Express backend, and MongoDB database. I felt this was more extensible than purely a full Node + Express application like in the eSignature quickstart. Instead of directly accessing the eSignature API, I used the SDK which simplified creating the signing ceremony with authentication. I then deployed both the client and server under the same domain on Heroku for production.
 
-## Available Scripts
+## Challenges I ran into
+- It was difficult to translate the full Node + Express quickstart application into just a backend. This required a lot of refactoring and understanding of the eSignature SDK to see what each line did, but after quite a bit of work I was able to separate the client and server and keep only the code I needed from quickstart.
+- Deploying into production was difficult, because I had never done so with a full-stack application. I first tried different hosting services like Netlify and Vercel, but none of them were easily compatible with my backend. I then had to understand how environment variables work, and added/refactored the variables in quickstart ensuring any private information like API keys weren't exposed. After fiddling with Heroku's GitHub integration which didn't work, I ended up using Heroku Git CLI.
+- Getting DocuSign's tabs placed with pre-filled values. I first made the fillable fields in the pdf, then tried eSignature's automaticPdfTransform which didn't place the Tabs correctly. Anchor tagging had some duplicate strings was burdensome, but I eventually used this method to place all the tabs. 
 
-In the project directory, you can run:
+## Accomplishments that I'm proud of
+Considering I've never worked with and deployed a client/server architecture before, and also never used Node or MongoDB, I'm happy that the app is running successfully in production along with the eSignature SDK integration. I'm proud of the focus I put on ease of use, minimizing problems and frustrations that already burdened families might face. I'm also proud of writing extensible, readable code, rather than just something that works – I organized the frontend with reusable components and compartmentalized backend functionality. I'm glad the website looks professional and secure too.
 
-### `npm start`
+## What I learned
+I learned how a client/server architecture works, how to communicate with a database, and I now understand the methods to develop and deploy such an application. I also learned how to use DocuSign's eSignature and the other developer tools it offers – I think this skill will be valuable in a variety of situations I face in future careers. I also more deeply understood how to translate a client's business needs into product solutions, as when I reached out to B+ they informed me of problems they faced with paper agreements – this inspired all the features of the application. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## What's next for B-Signature
+- DocuSign ID verification for parents and social workers filling the forms
+- Deleting select patient data in the database
+- A better way to search the database that's not case sensitive and by exact name
+- More secure admin portal (instead of just password)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Inspiration
+Childhood cancer needs more attention, funding, and research – families with children who have cancer often face difficulties navigating this situation. The Andrew McDonough B+ Foundation helps thousands of families across the country whose children have cancer through direct financial assistance, advocating for research, and awareness. 
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Currently, the agreement between family and B+ for financial assistance is done through mail-in forms. I wanted families, who are already burdened enough, to easily submit applications for assistance and have them reviewed __instantly__, providing quick aid for the children who need care urgently. After reaching out to B+, I also discovered sometimes hand-written applications couldn't be read, and all applications were scanned and shredded eventually. I thought a web app containing forms and implementing DocuSign's eSignature would be a great way to make agreements virtually, helping both families who need urgent care and B+. It would also benefit the environment, as no postage is required and documents don't need to be shredded.
