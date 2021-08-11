@@ -2,6 +2,8 @@
 ## What it does
 The B(e)Signature web application provides a user-friendly way to fill out B+'s financial aid form. It uses DocuSign's eSignature so families can agree to the terms of receiving aid for the patient, with the signer being the parent/legal guardian. It also uses eSignature to receive the patient's medical information, where the signer is a social worker (allows signing separately to make it easy for both parties). Additionally, it holds signing status and patient information in a database, allowing B+ to easily see if both forms were filled out, and also all the information submitted in the forms for each patient. 
 
+Note: Form information is pre-filled, for demonstration purposes. Try it out by submitting a form, completing a demo eSignature, and viewing data in the admin portal.
+
 ## How I built it
 ![app-diagram](./img/IMG_0018.jpg)
 This app was created using a React.js frontend, Node + Express backend, and MongoDB database. I felt this was more extensible than purely a full Node + Express application like in the eSignature quickstart. Instead of directly accessing the eSignature API, I used the SDK which simplified creating the signing ceremony with authentication. I then deployed both the client and server under the same domain on Heroku for production.

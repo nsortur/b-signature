@@ -23,7 +23,6 @@ class AdminPage extends React.Component {
   }
 
   handleLogin(event) {
-    // TODO set post in API and set environment variable
     try {
       fetch('/api/adminLogin', 
       {

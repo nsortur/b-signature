@@ -20,7 +20,6 @@ class ChildMedicalInfo extends React.Component {
     this.props.prevPage();
   }
 
-  // TODO change to submit form
   render() {
     return (
       <Row>

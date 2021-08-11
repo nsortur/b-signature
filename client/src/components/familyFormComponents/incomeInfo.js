@@ -1,7 +1,6 @@
 import React from 'react';
 import {Row, Col, Card, Form, Button, Spinner, Alert, ListGroup, InputGroup} from 'react-bootstrap';
 
-// TODO disabled when loading
 // page 3/3
 class IncomeInformation extends React.Component {
 
@@ -27,12 +26,20 @@ class IncomeInformation extends React.Component {
     let backDisp = <Button variant="secondary" onClick={this.back} 
     className='form-button'>Previous Page</Button>
     if (this.props.values.loadingSigning) {
-      buttonDisp = (<Spinner animation="border" role="status" variant="light">
-                      <span className="visually-hidden">Loading...</span>
-                    </Spinner>);
+      buttonDisp = (
+        <Button variant="success" disabled>
+          <Spinner animation="border" role="status" variant="light">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </Button>
+        );
       backDisp = null;
     } else {
-      buttonDisp = 'Review and eSign';
+      buttonDisp = (
+        <Button variant="success" onClick={this.submit} className='form-button' type="submit">
+          Review and eSign
+        </Button>
+      );
     }
 
     let fillAlert;
@@ -85,11 +92,10 @@ class IncomeInformation extends React.Component {
                 <Form.Text>if applicable, please provide bills <u>paid directly to the vendor</u> with the vendor name, account number, mailing address, family's last name, and dollar amount owed.</Form.Text>
               </Form.Group>
               {backDisp}
-              <Button variant="success" onClick={this.submit} className='form-button' type="submit">
-                {buttonDisp}
-              </Button>
+              {buttonDisp}
             </Form>
             </Card.Body>
+            <p style={{color: 'grey'}}>Note: Upon submission of this form, information will be stored.</p>
           </Card>
           {fillAlert}
         </Col>
