@@ -1,7 +1,5 @@
 ![app-logo](./img/B-Signature-logo.png)
-[Hackathon Submission](https://devpost.com/software/b-signature)
 
-[Demo Video](https://youtu.be/S90DYvv6p8I)
 ## What it does
 The B(e)Signature web application provides a user-friendly way to fill out B+'s financial aid form. It uses DocuSign's eSignature so families can agree to the terms of receiving aid for the patient, with the signer being the parent/legal guardian. It also uses eSignature to receive the patient's medical information, where the signer is a social worker (allows signing separately to make it easy for both parties). Additionally, it holds signing status and patient information in a database, allowing B+ to easily see if both forms were filled out, and also all the information submitted in the forms for each patient. 
 
