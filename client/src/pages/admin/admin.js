@@ -266,6 +266,7 @@ class AdminPage extends React.Component {
               <InputGroup size="sm" >
                 <InputGroup.Text id="inputGroup-sizing-sm">Password</InputGroup.Text>
                 <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" value={this.state.passwordInput} onChange={this.handleInputChange} name="passwordInput"
+                {/* demo: admin password as 1234 with placeholder */}
                 placeholder="1234 (for demonstration)"/>
               </InputGroup>
               <Button variant="warning" onClick={this.handleLogin} className="form-button">Login</Button>

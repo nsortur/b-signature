@@ -8,6 +8,7 @@ class FamilyForm extends React.Component {
 
   constructor(props) {
     super(props);
+    // demo: initalizing state to pre-filled values
     this.state = {
       step: 1, 
       signingUrl: '', 
@@ -209,6 +210,7 @@ class FamilyForm extends React.Component {
       <div className='input-page'>
         <div id='form-header'>Apply For Aid</div>
         {curForm}
+        {/* demo: the following information */}
         <p>This application is in demonstration mode, <u>do not</u> enter personal information</p>
       </div>
     )

@@ -8,15 +8,16 @@ class SocialWorkerForm extends React.Component {
 
   constructor(props) {
     super(props);
+    // demo: initalizing state to pre-filled values
     this.state = {
       step: 1, 
       signingUrl: '', 
       loadingSigning: false,
       showFillAlert: false,
-      childName: 'Adam Smith',
+      childName: 'Example Name',
       childDiagnosis: 'Leukemia',
       diagnosisDate: '02/14/1995',
-      childPhysician: 'Dr. John Doe',
+      childPhysician: 'Dr. Albert Einstein',
       hospital: 'AI Dupont Hospital for Children',
       hospitalAddress: '1600 Rockland Road',
       hospitalCity: 'Wilmington',
@@ -24,7 +25,7 @@ class SocialWorkerForm extends React.Component {
       hospitalZip: '19803',
       socialWorkerPhone: '(302) 555-5555, ext. 2525',
       notableFacts: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et massa sed dui mollis maximus. Sed mauris lorem, lobortis nec quam a, venenatis suscipit ligula. In hac habitasse platea dictumst. Maecenas et ornare purus. Praesent pharetra ipsum vitae purus fermentum, in gravida ex pretium. Cras malesuada orci sit amet tincidunt aliquam. Etiam feugiat augue sed eros tincidunt, ac faucibus massa sodales. Cras fringilla, eros vitae venenatis consequat, justo nibh dictum est, id auctor sem purus suscipit sem. In malesuada at nibh sit amet aliquam. Maecenas non eros eget sapien facilisis efficitur nec tempus neque. Integer quis tellus in felis tristique imperdiet non ac turpis. Vivamus ultrices tincidunt sodales. Etiam eros lacus, dignissim nec massa in, sodales mattis dolor.",
-      socialWorkerName: 'Example Name',
+      socialWorkerName: 'John Doe',
       socialWorkerEmail: 'socialworker@socialwork.com',
       fieldsNeedFilling: []
     };
@@ -192,6 +193,7 @@ class SocialWorkerForm extends React.Component {
       <div className='input-page'>
         <div id='form-header'>Provide Medical Information</div>
         {curForm}
+        {/* demo: the following information */}
         <p>This application is in demonstration mode, <u>do not</u> enter personal information</p>
       </div>
     )
