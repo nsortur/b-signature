@@ -192,6 +192,7 @@ class SocialWorkerForm extends React.Component {
       <div className='input-page'>
         <div id='form-header'>Provide Medical Information</div>
         {curForm}
+        <p>This application is in demonstration mode, <u>do not</u> enter personal information</p>
       </div>
     )
   }

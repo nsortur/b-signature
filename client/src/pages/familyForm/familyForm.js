@@ -209,6 +209,7 @@ class FamilyForm extends React.Component {
       <div className='input-page'>
         <div id='form-header'>Apply For Aid</div>
         {curForm}
+        <p>This application is in demonstration mode, <u>do not</u> enter personal information</p>
       </div>
     )
   }
