@@ -24,7 +24,7 @@ class AdminPage extends React.Component {
       passwordInput: "",
       loadingSearch: false,
       loadingSearchAll: false,
-      authenticated: true,
+      authenticated: false,
       showFailLogin: false,
     };
     this.handleLogin = this.handleLogin.bind(this);
@@ -147,6 +147,7 @@ class AdminPage extends React.Component {
   }
 
   renderResults(medFamilyInfo) {
+    console.log(medFamilyInfo);
     const allNames = [];
 
     // all information in name, table pairs
