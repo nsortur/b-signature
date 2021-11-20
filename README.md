@@ -1,7 +1,9 @@
 ![app-logo](./img/B-Signature-logo.png)
 
+[Devpost Submission (includes demo video)](https://devpost.com/software/b-signature)
+
 ## What it does
-The B(e)Signature web application provides a user-friendly way to fill out B+'s financial aid form. It uses DocuSign's eSignature so families can agree to the terms of receiving aid for the patient, with the signer being the parent/legal guardian. It also uses eSignature to receive the patient's medical information, where the signer is a social worker (allows signing separately to make it easy for both parties). Additionally, it holds signing status and patient information in a database, allowing B+ to easily see if both forms were filled out, and also all the information submitted in the forms for each patient. 
+The B(e)Signature web application provides a user-friendly way to fill out B+'s financial aid forms, and for staff to manage patient data. It uses DocuSign's eSignature so families can agree to the terms of receiving aid for the patient, with the signer being the parent/legal guardian. It also uses eSignature to receive the patient's medical information, where the signer is a social worker (allows signing separately to make it easy for both parties). Additionally, it holds signing status and patient information in a database, allowing B+ to easily see if both forms were filled out, and also all the information submitted in the forms for each patient. 
 
 __Demo Notes__: Form information is pre-filled, just for demonstration purposes. Try it out by submitting a form, completing a demo eSignature, and viewing data in the admin portal. The website might take ~10s to load, since Heroku Dynos sleep with 30 minutes of inactivity.
 

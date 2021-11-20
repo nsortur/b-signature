@@ -33,8 +33,7 @@ const moment = require('moment')
     , docusign = require('docusign-esign')
     , dsConfig = require('../config/index.js').config
     , tokenReplaceMin = 10 // The accessToken must expire at least this number of
-    , tokenReplaceMinGet = 30
-console.log(dsConfig);
+    , tokenReplaceMinGet = 30;
 
 let rsaKey;
 try {

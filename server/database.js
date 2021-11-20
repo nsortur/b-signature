@@ -6,7 +6,11 @@
 
 const database  = exports
     , {MongoClient} = require('mongodb')
-    , dsConfig = require('../config/index.js').config;
+    , dsConfig = require('../config/index.js').config
+    , fastcsv = require('fast-csv')
+    , fs = require("fs")
+    , path = require("path")
+    , exportAllPath = path.resolve(__dirname, "bepos_all_patient_data.csv");
 
 const uri = `mongodb+srv://nsortur:${dsConfig.mongodbPassword}@projects.zj6ot.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&useNewUrlParser=true&useUnifiedTopology=true`
     , client = new MongoClient(uri);
@@ -25,6 +29,7 @@ database.populateAidInfo = async (info, collectionName) => {
     const col = db.collection(collectionName);
     
     // Insert a single document
+    if (col.find({'childName': {$exists}}))
     const p = await col.insertOne(info);
     console.log('Successfully added');
     // Find one document
@@ -88,4 +93,52 @@ async function allMatchingInCollection(matchName, searchSingle, collection) {
     infoResults.push(doc);
   });
   return infoResults;
+}
+
+database.exportAll = async (req, res) => {
+  try {
+    await client.connect();
+    const col = client.db("bsignature")
+        , medInfo = col.collection("childMedicalInfo")
+        , familyInfo = col.collection("familyAidInfo")
+
+    const medInfoResults = await allMatchingInCollection("", false, medInfo)
+    , familyInfoResults = await allMatchingInCollection("", false, familyInfo)
+    , allResults = [];
+    // join patient information
+    medInfoResults.forEach((patientInfo) => {
+      delete patientInfo['_id'];
+      let patientName = patientInfo['childName']
+        , familyInfo = familyInfoResults.find(elem => elem.childName === patientName);
+      // merge dictionary and push to all results, only if both are filled
+      if (familyInfo !== undefined) {
+        delete familyInfo['_id'];
+        // no duplicate patient name
+        delete familyInfo['childName']
+        allResults.push(Object.assign({}, patientInfo, familyInfo));
+      }
+    })
+
+    // write to csv and send to frontend
+    try {
+      await fastcsv
+      .writeToPath(exportAllPath, allResults, {headers: true})
+      .on("finish", () => {
+        console.log('Writing successful, sending file to frontend');
+        res.download(exportAllPath);
+      })
+      .on("error", err => console.log(err))
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+  } catch (err) {
+    console.log(err.stack);
+    throw new Error("Querying failed");
+  }
+
+  finally {
+    await client.close();
+  }
 }
