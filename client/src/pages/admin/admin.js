@@ -156,6 +156,7 @@ class AdminPage extends React.Component {
   }
 
   renderResults(medFamilyInfo) {
+    console.log(medFamilyInfo);
     const allNames = [];
 
     // all information in name, table pairs
