@@ -144,6 +144,8 @@ app.post("/api/adminLogin", (req, res) => {
 // exports all data
 app.post("/api/exportAll", database.exportAll);
 
+app.post('/api/exportAll', database.exportAll)
+
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
