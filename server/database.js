@@ -16,7 +16,8 @@ const uri = `mongodb+srv://nsortur:${dsConfig.mongodbPassword}@projects.zj6ot.mo
   client = new MongoClient(uri);
 
 /**
- * Populates information into the bsignature database.
+ * Populates patient aid information into the bsignature database
+ * if it doesn't exist already
  * @param {object} info values to populate
  * @param {String} collectionName collection to populate values into
  */
@@ -28,7 +29,9 @@ database.populateAidInfo = async (info, collectionName) => {
     const db = client.db("bsignature");
     const col = db.collection(collectionName);
 
-    // Insert a single document
+    // standardize name format: firstlast
+    info.childName = info.childName.toLowerCase().trim();
+
     const p = await col.insertOne(info);
     console.log("Successfully added");
     // Find one document
@@ -47,7 +50,7 @@ database.populateAidInfo = async (info, collectionName) => {
  *
  * @param {String} patientName the patient's first and last name to search
  * @param {Boolean} searchSingle whether to search for a value or query entire database
- * @returns {object} medInfoResults and familyInfoResults stemming from patient name
+ * @returns {Promise<object>} medInfoResults and familyInfoResults stemming from patient name
  */
 database.queryByPatientName = async (patientName, searchSingle, res) => {
   try {
@@ -56,20 +59,22 @@ database.queryByPatientName = async (patientName, searchSingle, res) => {
       medInfo = col.collection("childMedicalInfo"),
       familyInfo = col.collection("familyAidInfo");
 
-    const medInfoResults = await allMatchingInCollection(
-        patientName,
-        searchSingle,
-        medInfo
-      ),
-      familyInfoResults = await allMatchingInCollection(
-        patientName,
-        searchSingle,
-        familyInfo
-      );
+    let medInfoResults, familyInfoResults;
+    if (searchSingle) {
+      const searchName = patientName.toLowerCase().trim();
+      medInfoResults = await allMatchingInCollection(searchName, medInfo);
+      familyInfoResults = await allMatchingInCollection(searchName, familyInfo);
+    } else {
+      medInfoResults = await allInCollection(medInfo);
+      familyInfoResults = await allInCollection(familyInfo);
+    }
 
+    // if we get results, uppercase the names in all results back
+    const medInfoFormatted = formatNames(medInfoResults);
+    const familyInfoFormatted = formatNames(familyInfoResults);
     return {
-      medInfoResults: medInfoResults,
-      familyInfoResults: familyInfoResults,
+      medInfoResults: medInfoFormatted,
+      familyInfoResults: familyInfoFormatted,
     };
   } catch (err) {
     console.log(err.stack);
@@ -79,15 +84,41 @@ database.queryByPatientName = async (patientName, searchSingle, res) => {
   }
 };
 
-// gets all matching patient names in given collection
-async function allMatchingInCollection(matchName, searchSingle, collection) {
-  let infoCursor;
-  if (searchSingle) {
-    infoCursor = await collection.find({ childName: matchName });
-  } else {
-    infoCursor = await collection.find();
-  }
+// formats names properly for viewing documents' information
+function formatNames(documents) {
+  // uppercase first letter of each part of name
+  return documents.map((document) => {
+    document.childName = document.childName
+      .split(" ")
+      .map((x) => {
+        return x[0].toUpperCase() + x.substring(1);
+      })
+      .join(" ");
+    return document;
+  });
+}
 
+// gets all matching patient names in given collection
+async function allMatchingInCollection(matchName, collection) {
+  const infoCursor = await collection.find({ childName: matchName });
+
+  console.log(
+    `Found results for collection ${
+      collection.collectionName
+    }, size: ${await infoCursor.count()}`
+  );
+  const infoResults = [];
+
+  // get all results
+  await infoCursor.forEach((doc) => {
+    infoResults.push(doc);
+  });
+  return infoResults;
+}
+
+// gets all information from a collection
+async function allInCollection(collection) {
+  const infoCursor = await collection.find();
   console.log(
     `Found results for collection ${
       collection.collectionName
@@ -109,10 +140,11 @@ database.exportAll = async (req, res) => {
       medInfo = col.collection("childMedicalInfo"),
       familyInfo = col.collection("familyAidInfo");
 
-    const medInfoResults = await allMatchingInCollection("", false, medInfo),
-      familyInfoResults = await allMatchingInCollection("", false, familyInfo),
+    const medInfoResults = await allInCollection(medInfo),
+      familyInfoResults = await allInCollection(familyInfo),
       allResults = [];
     // join patient information
+
     medInfoResults.forEach((patientInfo) => {
       delete patientInfo["_id"];
       let patientName = patientInfo["childName"],

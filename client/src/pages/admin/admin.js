@@ -115,18 +115,27 @@ class AdminPage extends React.Component {
 
   fetchAidInfo(searchSingle) {
     try {
-      fetch("/api/queryAidInfo", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          childName: this.state.patientName,
-          searchSingle: searchSingle,
-        }),
-        credentials: "include",
-      })
+      (searchSingle
+        ? fetch("/api/queryAidInfo", {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({
+              childName: this.state.patientName,
+            }),
+            credentials: "include",
+          })
+        : fetch("/api/queryAllPatientInfo", {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            credentials: "include",
+          })
+      )
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -147,7 +156,6 @@ class AdminPage extends React.Component {
   }
 
   renderResults(medFamilyInfo) {
-    console.log(medFamilyInfo);
     const allNames = [];
 
     // all information in name, table pairs
@@ -167,6 +175,8 @@ class AdminPage extends React.Component {
       display = (
         <Accordion defaultActiveKey="0">
           {allNames.map((nameTablePair, idx) => {
+            // iterate through all the names (probably lots of double counting)
+
             // data:
             // nameTablePair.group
             // nameTablePair.patientName
@@ -175,6 +185,8 @@ class AdminPage extends React.Component {
             // don't double count names in both forms
             if (!visitedNames.includes(name)) {
               visitedNames.push(name);
+
+              // declare badges that will be conditionally rendered
               let familyBadge = (
                   <Badge pill bg="danger">
                     Family application unfilled
@@ -190,6 +202,8 @@ class AdminPage extends React.Component {
                 familyInput = false,
                 medicalInput = false;
 
+              // if name is in original family info [{patientName, info}, {...}, ...]
+              // then update badge and family application info
               if (
                 nameTableFamilyInfo
                   .map((elem) => elem.patientName)
@@ -206,6 +220,8 @@ class AdminPage extends React.Component {
                   (elem) => elem.patientName === name
                 ).group;
               }
+              // if name is in original medical info [{patientName, info}, {...}, ...]
+              // then update badge and medical form info
               if (
                 nameTableMedicalInfo
                   .map((elem) => elem.patientName)
@@ -273,7 +289,7 @@ class AdminPage extends React.Component {
         </Accordion>
       );
     } else {
-      display = <h2>Patient not found! Search is case-sensitive.</h2>;
+      display = <h2>Patient not found! Please double check spelling.</h2>;
     }
 
     this.setState({ resultsDisplay: display });
