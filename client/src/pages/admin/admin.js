@@ -36,6 +36,7 @@ class AdminPage extends React.Component {
     this.renderResults = this.renderResults.bind(this);
   }
 
+  // attempts administrator login for admin portal access
   handleLogin(event) {
     try {
       fetch("/api/adminLogin", {
@@ -68,6 +69,7 @@ class AdminPage extends React.Component {
     }
   }
 
+  // handles input change
   handleInputChange(event) {
     const target = event.target;
     this.setState({
@@ -75,18 +77,21 @@ class AdminPage extends React.Component {
     });
   }
 
+  // retrieve specific patient information
   triggerSearch(event) {
     event.preventDefault();
     this.setState({ loadingSearch: true });
     this.fetchAidInfo(true);
   }
 
+  // retrieves all patient information
   triggerSearchAll(event) {
     event.preventDefault();
     this.setState({ loadingSearchAll: true });
     this.fetchAidInfo(false);
   }
 
+  // downloads CSV from backend data
   triggerExportCSV(event) {
     try {
       fetch("/api/exportAll", {
@@ -113,6 +118,11 @@ class AdminPage extends React.Component {
     }
   }
 
+  /**
+   * Retrieves information about a patient from their submitted forms
+   *
+   * @param {boolean} searchSingle Whether to query specific patient info or query all information
+   */
   fetchAidInfo(searchSingle) {
     try {
       (searchSingle
@@ -155,6 +165,11 @@ class AdminPage extends React.Component {
     }
   }
 
+  /**
+   * Creates and displays patient information from submitted form(s) and submitted form status
+   *
+   * @param {object} medFamilyInfo all social worker and family information from both forms
+   */
   renderResults(medFamilyInfo) {
     const allNames = [];
 
@@ -175,11 +190,7 @@ class AdminPage extends React.Component {
       display = (
         <Accordion defaultActiveKey="0">
           {allNames.map((nameTablePair, idx) => {
-            // iterate through all the names (probably lots of double counting)
-
-            // data:
-            // nameTablePair.group
-            // nameTablePair.patientName
+            // iterate through all the names
             let name = nameTablePair.patientName;
 
             // don't double count names in both forms
@@ -336,62 +347,54 @@ class AdminPage extends React.Component {
   }
 
   render() {
-    let buttonDisp, searchAllDisp;
-    if (this.state.loadingSearch) {
-      buttonDisp = (
-        <Spinner animation="border" role="status" variant="light">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      );
-    } else {
-      buttonDisp = "Search";
-    }
-    if (this.state.loadingSearchAll) {
-      searchAllDisp = (
-        <Spinner animation="border" role="status" variant="light">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      );
-    } else {
-      searchAllDisp = "Display all patients";
-    }
+    const loadingIcon = (
+      <Spinner animation="border" role="status" variant="light">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+
     if (this.state.authenticated) {
       return (
         <Container id="">
-          <div id="form-header">Search Patients</div>
-          <InputGroup size="lg">
-            <InputGroup.Text id="inputGroup-sizing-lg">
-              Patient Name
-            </InputGroup.Text>
-            <FormControl
-              aria-label="Large"
-              aria-describedby="inputGroup-sizing-sm"
-              value={this.state.patientName}
-              onChange={this.handleInputChange}
-              name="patientName"
-            />
-          </InputGroup>
-          <Button
-            variant="secondary"
-            onClick={this.triggerExportCSV}
-            className="form-button"
-          >
-            Download all complete data
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={this.triggerSearchAll}
-            className="form-button"
-          >
-            {searchAllDisp}
-          </Button>
-          <Button
-            variant="success"
-            onClick={this.triggerSearch}
-            className="form-button"
-          >
-            {buttonDisp}
-          </Button>
+          <form>
+            <div id="form-header">Search Patients</div>
+            <InputGroup size="lg">
+              <InputGroup.Text id="inputGroup-sizing-lg">
+                Patient Name
+              </InputGroup.Text>
+              <FormControl
+                aria-label="Large"
+                aria-describedby="inputGroup-sizing-sm"
+                value={this.state.patientName}
+                onChange={this.handleInputChange}
+                name="patientName"
+              />
+            </InputGroup>
+            <Button
+              variant="secondary"
+              onClick={this.triggerExportCSV}
+              className="form-button"
+            >
+              Download all complete data
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={this.triggerSearchAll}
+              className="form-button"
+            >
+              {this.state.loadingSearchAll
+                ? loadingIcon
+                : "Display all patients"}
+            </Button>
+            <Button
+              variant="success"
+              type="submit"
+              onClick={this.triggerSearch}
+              className="form-button"
+            >
+              {this.state.loadingSearch ? loadingIcon : "Search"}
+            </Button>
+          </form>
           {this.state.resultsDisplay}
         </Container>
       );
