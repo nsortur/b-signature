@@ -252,10 +252,18 @@ class AdminPage extends React.Component {
               // attached documents
               const popover = (
                 <Popover id="popover-basic">
-                  <Popover.Header as="h3">Popover right</Popover.Header>
+                  <Popover.Header as="h3">Envelope information</Popover.Header>
                   <Popover.Body>
-                    And here's some <strong>amazing</strong> content. It's very
-                    engaging. right?
+                    <p>
+                      Sign status:{" "}
+                      <a style={{ color: "green" }}>Signing completed</a>
+                    </p>
+                    <p>
+                      Parent form: <a href="">View</a>
+                    </p>
+                    <p>
+                      Social worker form: <a href="">View</a>
+                    </p>
                   </Popover.Body>
                 </Popover>
               );
@@ -269,13 +277,13 @@ class AdminPage extends React.Component {
                   </Accordion.Header>
                   <Accordion.Body>
                     <div className="d-grid gap-2" id="attachDocButton">
-                      <Button variant="primary">Attach documents</Button>
+                      {/* <Button variant="primary">Attach documents</Button> */}
                       <OverlayTrigger
                         trigger="click"
                         placement="bottom"
                         overlay={popover}
                       >
-                        <Button variant="secondary">View documents</Button>
+                        <Button variant="primary">View envelope info</Button>
                       </OverlayTrigger>
                     </div>
                     {familyInput ? (
