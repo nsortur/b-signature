@@ -61,39 +61,52 @@ app.post("/api/login", (req, res, next) => {
 
 // submitting the "apply for aid" family form
 app.post("/api/eg001/family", (req, res, next) =>
-  handleFormSubmission(req, res, next, documents.FAMILY, "familyAidInfo")
-);
-
-// submitting the "provide medical information" social worker form
-app.post("/api/eg001/socialworker", (req, res, next) =>
   handleFormSubmission(
     req,
     res,
     next,
-    documents.SOCIAL_WORKER,
-    "childMedicalInfo"
+    [documents.FAMILY, documents.SOCIAL_WORKER],
+    "familyAidInfo"
   )
 );
 
+// TODO delete social worker part altogether
+// submitting the "provide medical information" social worker form
+// app.post("/api/eg001/socialworker", (req, res, next) =>
+//   handleFormSubmission(
+//     req,
+//     res,
+//     next,
+//     documents.SOCIAL_WORKER,
+//     "childMedicalInfo"
+//   )
+// );
+
 // handles submitting a form and putting data to a database collection
-async function handleFormSubmission(req, res, next, docType, collectionName) {
-  const docDetails = documentInformation.makeDocDetails(docType, req, res);
+async function handleFormSubmission(req, res, next, docTypes, collectionName) {
+  const envDetails = documentInformation.makeEnvelopeDetails(
+    docTypes,
+    req,
+    res
+  );
 
   await eg001
     .createController(
       req,
       res,
-      docDetails.docPath,
-      docDetails.displayName,
-      docDetails.prefillVals,
-      docDetails.dsTabs,
-      docDetails.recipients
+      envDetails.docPaths,
+      envDetails.displayName,
+      envDetails.prefillVals,
+      envDetails.dsTabs,
+      envDetails.recipients
     )
-    .then(() =>
-      database.populateAidInfo(docDetails.prefillVals, collectionName)
-    )
+    // .then(() =>
+    //   database.populateAidInfo(docDetails.prefillVals, collectionName)
+
+    // )
     .catch((error) => {
       res.statusCode = 400;
+      console.log(error);
       next();
     });
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Card, Form, Button } from "react-bootstrap";
 
-// page 2/3
+// page 2/4
 class ChildInformation extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +26,7 @@ class ChildInformation extends React.Component {
         <Col xs={8}>
           <Card className="input-card">
             <Card.Body>
-              <Card.Title>Child/Patient Information (2/3)</Card.Title>
+              <Card.Title>Child/Patient Information (2/4)</Card.Title>
               <Form>
                 <Row>
                   <Form.Group as={Col}>

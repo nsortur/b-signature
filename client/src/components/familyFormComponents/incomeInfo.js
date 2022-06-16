@@ -11,13 +11,12 @@ import {
   InputGroup,
 } from "react-bootstrap";
 
-// page 3/3
+// page 3/4
 class IncomeInformation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showFillAlert: false };
     this.back = this.back.bind(this);
-    this.submit = this.submit.bind(this);
+    this.continue = this.continue.bind(this);
   }
 
   back(event) {
@@ -25,69 +24,19 @@ class IncomeInformation extends React.Component {
     this.props.prevPage();
   }
 
-  submit(event) {
+  continue(event) {
     event.preventDefault();
-    this.props.submitForm();
+    this.props.nextPage();
   }
 
   render() {
-    let buttonDisp;
-    let backDisp = (
-      <Button variant="secondary" onClick={this.back} className="form-button">
-        Previous Page
-      </Button>
-    );
-    if (this.props.values.loadingSigning) {
-      buttonDisp = (
-        <Button variant="success" disabled>
-          <Spinner animation="border" role="status" variant="light">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </Button>
-      );
-      backDisp = null;
-    } else {
-      buttonDisp = (
-        <Button
-          variant="success"
-          onClick={this.submit}
-          className="form-button"
-          type="submit"
-        >
-          Review and eSign
-        </Button>
-      );
-    }
-
-    let fillAlert;
-    if (this.props.values.showFillAlert) {
-      fillAlert = (
-        <Alert
-          variant="danger"
-          onClose={this.props.dismissFillAlert}
-          dismissible
-        >
-          <Alert.Heading>
-            Please fill out or fix the following fields:
-          </Alert.Heading>
-          <ListGroup variant="flush">
-            {this.props.values.fieldsNeedFilling.map((field, idx) => (
-              <ListGroup.Item variant="danger" key={idx}>
-                {field}
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Alert>
-      );
-    }
-
     return (
       <Row>
         <Col></Col>
         <Col xs={8}>
           <Card className="input-card">
             <Card.Body>
-              <Card.Title>Income Information (3/3)</Card.Title>
+              <Card.Title>Income Information (3/4)</Card.Title>
               <Form>
                 <Form.Group as={Col}>
                   <Form.Label>Annual Income ($)</Form.Label>
@@ -146,15 +95,23 @@ class IncomeInformation extends React.Component {
                     dollar amount owed.
                   </Form.Text>
                 </Form.Group>
-                {backDisp}
-                {buttonDisp}
+                <Button
+                  variant="secondary"
+                  onClick={this.back}
+                  className="form-button"
+                >
+                  Previous Page
+                </Button>
+                <Button
+                  variant="success"
+                  onClick={this.continue}
+                  className="form-button"
+                >
+                  Next Page
+                </Button>
               </Form>
             </Card.Body>
-            <p style={{ color: "grey" }}>
-              Note: Upon submission of this form, information will be stored.
-            </p>
           </Card>
-          {fillAlert}
         </Col>
         <Col></Col>
       </Row>

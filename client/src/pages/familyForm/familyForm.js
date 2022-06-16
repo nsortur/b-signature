@@ -2,6 +2,7 @@ import React from "react";
 import ParentInformation from "../../components/familyFormComponents/parentInfo";
 import ChildInformation from "../../components/familyFormComponents/childInfo";
 import IncomeInformation from "../../components/familyFormComponents/incomeInfo";
+import SocWorkInformation from "../../components/familyFormComponents/socWorkInfo";
 import { navigate } from "@reach/router";
 
 class FamilyForm extends React.Component {
@@ -28,6 +29,8 @@ class FamilyForm extends React.Component {
       parentEmail: "example@domain.com",
       annualIncome: "200000",
       requestedGrant: "200000",
+      socWorkName: "Social Worker",
+      socWorkEmail: "exampleWorker@domain.com",
       intendedUse:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et massa sed dui mollis maximus. Sed mauris lorem, lobortis nec quam a.",
       fieldsNeedFilling: [],
@@ -78,6 +81,8 @@ class FamilyForm extends React.Component {
       "Annual income": this.state.annualIncome,
       "Requested grant": this.state.requestedGrant,
       "Intended use of grant": this.state.intendedUse,
+      "Social worker name": this.state.socWorkName,
+      "Social worker email": this.state.socWorkEmail,
     };
     const inputNotFilled = [];
     for (const [key, value] of Object.entries(inputVals)) {
@@ -124,6 +129,8 @@ class FamilyForm extends React.Component {
           annualIncome: this.state.annualIncome,
           requestedGrant: this.state.requestedGrant,
           intendedUse: this.state.intendedUse,
+          socialWorkerName: this.state.socWorkName,
+          socialWorkerEmail: this.state.socWorkEmail,
         }),
         credentials: "include",
       })
@@ -166,7 +173,7 @@ class FamilyForm extends React.Component {
 
   nextPage() {
     const step = this.state.step;
-    if (step < 3) {
+    if (step < 4) {
       this.setState({ step: step + 1 });
     }
   }
@@ -207,6 +214,16 @@ class FamilyForm extends React.Component {
       case 3:
         curForm = (
           <IncomeInformation
+            handleChange={this.handleInputChange}
+            prevPage={this.prevPage}
+            nextPage={this.nextPage}
+            values={this.state}
+          />
+        );
+        break;
+      case 4:
+        curForm = (
+          <SocWorkInformation
             handleChange={this.handleInputChange}
             prevPage={this.prevPage}
             submitForm={this.runSigning}

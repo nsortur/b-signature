@@ -23,17 +23,17 @@ const eg001EmbeddedSigning = exports,
  * Create the envelope, the embedded signing, and then redirect to the DocuSign signing
  * @param {object} req Request obj
  * @param {object} res Response obj
- * @param {String} docPath Relative path of document
- * @param {String} displayName Display name of document
+ * @param {Array} docPaths Relative paths of documents
+ * @param {String} displayName Display name of envelope
  * @param {object} prefillVals All information field values to prefill
- * @param {object} dsTabs All DocuSign tags to display on the document, positioned correctly
+ * @param {object} dsTabs All DocuSign tags to display on the documents, positioned correctly
  * @param {object} recipients All signer, carbon copy, etc. information
  * @throws {Error} if signing cannot happen with given arguments
  */
 eg001EmbeddedSigning.createController = async (
   req,
   res,
-  docPath,
+  docPaths,
   displayName,
   prefillVals,
   dsTabs,
@@ -54,7 +54,7 @@ eg001EmbeddedSigning.createController = async (
         accountId: req.session.accountId,
         docInfo: {
           envelopeArgs: prefillVals,
-          docPath: docPath,
+          docPaths: docPaths,
           docName: displayName,
           docTabs: dsTabs,
           docRecipients: recipients,
@@ -112,7 +112,7 @@ eg001EmbeddedSigning.worker = async (args) => {
 };
 
 /**
- * Creates envelope
+ * Creates envelope with parent and social worker signers
  * @function
  * @param {Object} docInfo parameters for the envelope:
  * @param {Number} signerClientId the signer id within this application
@@ -120,10 +120,16 @@ eg001EmbeddedSigning.worker = async (args) => {
  * @private
  */
 function makeEnvelope(docInfo, signerClientId) {
-  let docPdfBytes;
+  let doc1PdfBytes;
+  let doc2PdfBytes;
   // read file from a local directory
   try {
-    docPdfBytes = fs.readFileSync(path.resolve(demoDocsPath, docInfo.docPath));
+    doc1PdfBytes = fs.readFileSync(
+      path.resolve(demoDocsPath, docInfo.docPaths[0])
+    );
+    doc2PdfBytes = fs.readFileSync(
+      path.resolve(demoDocsPath, docInfo.docPaths[1])
+    );
   } catch (error) {
     console.log("bad: ", error);
     return false;
@@ -135,45 +141,70 @@ function makeEnvelope(docInfo, signerClientId) {
 
   // add the documents
   let doc1 = new docusign.Document(),
-    doc1b64 = Buffer.from(docPdfBytes).toString("base64");
+    doc1b64 = Buffer.from(doc1PdfBytes).toString("base64");
   doc1.documentBase64 = doc1b64;
   doc1.name = docInfo.docName; // can be different from actual file name
   doc1.fileExtension = "pdf";
   doc1.documentId = "3";
 
+  // add the documents
+  let doc2 = new docusign.Document(),
+    doc2b64 = Buffer.from(doc2PdfBytes).toString("base64");
+  doc2.documentBase64 = doc2b64;
+  doc2.name = docInfo.docName; // can be different from actual file name
+  doc2.fileExtension = "pdf";
+  doc2.documentId = "4";
+
   // The order in the docs array determines the order in the envelope
-  env.documents = [doc1];
+  env.documents = [doc1, doc2];
 
   // Create a signer recipient to sign the document, identified by name and email
   const signers = [];
-  docInfo.docRecipients.signers.forEach((signer) => {
-    signers.push(
-      docusign.Signer.constructFromObject({
-        email: signer.email,
-        name: signer.name,
-        clientUserId: signerClientId,
-        recipientId: 1,
-      })
-    );
-  });
+  // parent is embedded, so specify clientUserId
+  signers.push(
+    docusign.Signer.constructFromObject({
+      email: docInfo.docRecipients.signers[0].email,
+      name: docInfo.docRecipients.signers[0].name,
+      clientUserId: signerClientId,
+      recipientId: 1,
+    })
+  );
+  // social worker is remote, so don't specify clientUserId
+  signers.push(
+    docusign.Signer.constructFromObject({
+      email: docInfo.docRecipients.signers[1].email,
+      name: docInfo.docRecipients.signers[1].name,
+      recipientId: 2,
+    })
+  );
+
   if (signers.length === 0) {
     throw new Error("Must have at least one signer.");
   }
-  let signer1 = signers[0];
+  let parentSigner = signers[0];
+  let socWorkSigner = signers[1];
 
   const tabs = docInfo.docTabs;
   // Tabs are set per recipient / signer
-  let signer1Tabs = docusign.Tabs.constructFromObject({
-    signHereTabs: tabs.signHereTabs,
-    dateSignedTabs: tabs.dateSignedTabs,
-    checkboxTabs: tabs.checkboxTabs,
-    textTabs: tabs.textTabs,
+  let parentTabs = docusign.Tabs.constructFromObject({
+    signHereTabs: tabs.parentTabs.signHereTabs,
+    dateSignedTabs: tabs.parentTabs.dateSignedTabs,
+    checkboxTabs: tabs.parentTabs.checkboxTabs,
+    textTabs: tabs.parentTabs.textTabs,
   });
-  signer1.tabs = signer1Tabs;
+  parentSigner.tabs = parentTabs;
+
+  let socWorkTabs = docusign.Tabs.constructFromObject({
+    signHereTabs: tabs.socWorkTabs.signHereTabs,
+    dateSignedTabs: tabs.socWorkTabs.dateSignedTabs,
+    checkboxTabs: tabs.socWorkTabs.checkboxTabs,
+    textTabs: tabs.socWorkTabs.textTabs,
+  });
+  socWorkSigner.tabs = socWorkTabs;
 
   // Add the recipient to the envelope object
   let recipients = docusign.Recipients.constructFromObject({
-    signers: [signer1],
+    signers: [parentSigner, socWorkSigner],
   });
   env.recipients = recipients;
 
@@ -210,6 +241,8 @@ function makeRecipientViewRequest(args) {
 
   // Recipient information must match embedded recipient info
   // we used to create the envelope.
+
+  // first signer (signers[0]) is parent, who uses embedded signing
   viewRequest.email = args.docInfo.docRecipients.signers[0].email;
   viewRequest.userName = args.docInfo.docRecipients.signers[0].name;
   viewRequest.clientUserId = args.signerClientId;
