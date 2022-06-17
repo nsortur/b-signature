@@ -167,6 +167,7 @@ function makeEnvelope(docInfo, signerClientId) {
       name: docInfo.docRecipients.signers[0].name,
       clientUserId: signerClientId,
       recipientId: 1,
+      routingOrder: 1,
     })
   );
   // social worker is remote, so don't specify clientUserId
@@ -175,6 +176,7 @@ function makeEnvelope(docInfo, signerClientId) {
       email: docInfo.docRecipients.signers[1].email,
       name: docInfo.docRecipients.signers[1].name,
       recipientId: 2,
+      routingOrder: 2,
     })
   );
 

@@ -33,7 +33,14 @@ class SigningDone extends React.Component {
         );
         break;
       default:
-        showSignResult = <h1>Thank you! You'll hear back from us soon.</h1>;
+        showSignResult = (
+          <h1>
+            Thank you!
+            <h3>
+              The form has been sent to your social worker for completion.
+            </h3>
+          </h1>
+        );
     }
     return <header className="App-header">{showSignResult}</header>;
   }
