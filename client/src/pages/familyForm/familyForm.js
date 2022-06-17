@@ -31,6 +31,7 @@ class FamilyForm extends React.Component {
       requestedGrant: "200000",
       socWorkName: "Social Worker",
       socWorkEmail: "exampleWorker@domain.com",
+      socialWorkerEmailConfirm: "exampleWorker@domain.com",
       intendedUse:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et massa sed dui mollis maximus. Sed mauris lorem, lobortis nec quam a.",
       fieldsNeedFilling: [],
@@ -83,6 +84,7 @@ class FamilyForm extends React.Component {
       "Intended use of grant": this.state.intendedUse,
       "Social worker name": this.state.socWorkName,
       "Social worker email": this.state.socWorkEmail,
+      "Social worker email confirmation": this.state.socialWorkerEmailConfirm,
     };
     const inputNotFilled = [];
     for (const [key, value] of Object.entries(inputVals)) {
@@ -95,6 +97,9 @@ class FamilyForm extends React.Component {
       !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.parentEmail)
     ) {
       inputNotFilled.push("Parent's email");
+    }
+    if (this.state.socWorkEmail !== this.state.socialWorkerEmailConfirm) {
+      inputNotFilled.push("Please confirm emails match");
     }
 
     if (inputNotFilled.length !== 0) {

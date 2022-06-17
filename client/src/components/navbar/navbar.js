@@ -21,14 +21,7 @@ const MyNav = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <NavDropdown title="Forms" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/family-form/">
-                Family application
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/medical-form/">
-                Social worker
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link href="/family-form">Application</Nav.Link>
             <NavDropdown title="External resources" id="basic-nav-dropdown">
               <NavDropdown.Item href="https://bepositive.org">
                 B+ Official
@@ -43,15 +36,6 @@ const MyNav = () => {
             </NavDropdown>
             <Nav.Link href="/admin">Admin</Nav.Link>
           </Nav>
-
-          <Navbar.Collapse className="justify-content-end">
-            <Nav.Link
-              href="https://docusign2021.devpost.com"
-              style={{ color: "#717172" }}
-            >
-              DocuSign Good Code Hackathon 2021
-            </Nav.Link>
-          </Navbar.Collapse>
         </Navbar.Collapse>
       </Container>
     </Navbar>

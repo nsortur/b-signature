@@ -58,13 +58,6 @@ class LandingPage extends React.Component {
             <Button href="/family-form/" variant="success">
               Get started
             </Button>
-
-            <div id="social-worker-link">
-              Social Worker?{" "}
-              <a href="/medical-form" id="med-form-click-here">
-                Provide medical information.
-              </a>
-            </div>
           </Col>
           <Col xs={7}>
             <Image src={beposLogo} className="App-logo" alt="logo" />

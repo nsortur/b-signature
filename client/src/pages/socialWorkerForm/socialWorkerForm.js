@@ -4,6 +4,7 @@ import SocialWorkerInfo from "../../components/medicalFormComponents/socialWorke
 import HospitalInfo from "../../components/medicalFormComponents/hospitalInfo";
 import { navigate } from "@reach/router";
 
+// PAGE NO LONGER USED IN NEW WORKFLOW
 class SocialWorkerForm extends React.Component {
   constructor(props) {
     super(props);

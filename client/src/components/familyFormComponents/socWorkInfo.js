@@ -111,6 +111,18 @@ class SocWorkInformation extends React.Component {
                     required
                   />
                 </Form.Group>
+
+                <Form.Group as={Col}>
+                  <Form.Label>Confirm Social Worker Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="socialworker@domain.com"
+                    name="socialWorkerEmailConfirm"
+                    defaultValue={this.props.values.socialWorkerEmailConfirm}
+                    onChange={this.props.handleChange}
+                    required
+                  />
+                </Form.Group>
                 {backDisp}
                 {buttonDisp}
               </Form>
