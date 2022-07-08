@@ -12,7 +12,7 @@ const express = require("express"),
   csrf = require("csurf"), // https://www.npmjs.com/package/csurf
   eg001 = require("./embeddedSigning"),
   documentInformation = require("./documentInformation"),
-  documents = require("./documentsToSign").documents,
+  documents = require("./documentsToSign").documents;
 
 const PORT = process.env.PORT || 3001,
   HOST = process.env.HOST || "localhost",
