@@ -201,6 +201,7 @@ function makeEnvelope(docInfo, signerClientId) {
     dateSignedTabs: tabs.socWorkTabs.dateSignedTabs,
     checkboxTabs: tabs.socWorkTabs.checkboxTabs,
     textTabs: tabs.socWorkTabs.textTabs,
+    signerAttachmentTabs: tabs.socWorkTabs.signerAttachmentTabs,
   });
   socWorkSigner.tabs = socWorkTabs;
 

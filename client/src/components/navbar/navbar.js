@@ -34,7 +34,6 @@ const MyNav = () => {
                 Source code
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/admin">Admin</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

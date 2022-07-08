@@ -1,4 +1,5 @@
 /**
+ * DATABASE NO LONGER USED IN NEW WORKFLOW
  * Populates and manages database operations, currently using MongoDB Atlas Cluster.
  *
  * @author Neel Sortur.

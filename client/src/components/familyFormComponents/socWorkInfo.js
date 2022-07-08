@@ -38,11 +38,14 @@ class SocWorkInformation extends React.Component {
     );
     if (this.props.values.loadingSigning) {
       buttonDisp = (
-        <Button variant="success" disabled>
-          <Spinner animation="border" role="status" variant="light">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </Button>
+        <div>
+          <br></br>
+          <Button variant="success" disabled>
+            <Spinner animation="border" role="status" variant="light">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </Button>
+        </div>
       );
       backDisp = null;
     } else {

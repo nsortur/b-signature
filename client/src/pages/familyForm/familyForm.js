@@ -43,6 +43,70 @@ class FamilyForm extends React.Component {
     this.dismissFillAlert = this.dismissFillAlert.bind(this);
   }
 
+  componentDidMount() {
+    this.formData = JSON.parse(localStorage.getItem("user"));
+    // pull data from local storage, if it exists
+    if (localStorage.getItem("user")) {
+      this.setState({
+        step: 1,
+        signingUrl: this.formData.signingUrl,
+        loadingSigning: false,
+        otherEthSelected: false,
+        showFillAlert: false,
+        childName: this.formData.childName,
+        childDOB: this.formData.childDOB,
+        childGender: this.formData.childGender,
+        childEthnicity: this.formData.childEthnicity,
+        parentName: this.formData.parentName,
+        parentAddress: this.formData.parentAddress,
+        parentCity: this.formData.parentCity,
+        parentState: this.formData.parentState,
+        parentZip: this.formData.parentZip,
+        parentPhone: this.formData.parentPhone,
+        parentCell: this.formData.parentCell,
+        parentEmail: this.formData.parentEmail,
+        annualIncome: this.formData.annualIncome,
+        requestedGrant: this.formData.requestedGrant,
+        socWorkName: this.formData.socWorkName,
+        socWorkEmail: this.formData.socWorkEmail,
+        socialWorkerEmailConfirm: this.formData.socialWorkerEmailConfirm,
+        intendedUse: this.formData.intendedUse,
+        fieldsNeedFilling: this.formData.fieldsNeedFilling,
+      });
+    } else {
+      this.setState({
+        step: 1,
+        signingUrl: "",
+        loadingSigning: false,
+        otherEthSelected: false,
+        showFillAlert: false,
+        childName: "",
+        childDOB: "",
+        childGender: "",
+        childEthnicity: "",
+        parentName: "",
+        parentAddress: "",
+        parentCity: "",
+        parentState: "",
+        parentZip: "",
+        parentPhone: "",
+        parentCell: "",
+        parentEmail: "",
+        annualIncome: "",
+        requestedGrant: "",
+        socWorkName: "",
+        socWorkEmail: "",
+        socialWorkerEmailConfirm: "",
+        intendedUse: "",
+        fieldsNeedFilling: [],
+      });
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem("user", JSON.stringify(nextState));
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const name = target.name;

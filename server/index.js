@@ -13,7 +13,6 @@ const express = require("express"),
   eg001 = require("./embeddedSigning"),
   documentInformation = require("./documentInformation"),
   documents = require("./documentsToSign").documents,
-  database = require("./database");
 
 const PORT = process.env.PORT || 3001,
   HOST = process.env.HOST || "localhost",
@@ -70,19 +69,7 @@ app.post("/api/eg001/family", (req, res, next) =>
   )
 );
 
-// TODO delete social worker part altogether
-// submitting the "provide medical information" social worker form
-// app.post("/api/eg001/socialworker", (req, res, next) =>
-//   handleFormSubmission(
-//     req,
-//     res,
-//     next,
-//     documents.SOCIAL_WORKER,
-//     "childMedicalInfo"
-//   )
-// );
-
-// handles submitting a form and putting data to a database collection
+// handles submitting a form
 async function handleFormSubmission(req, res, next, docTypes, collectionName) {
   const envDetails = documentInformation.makeEnvelopeDetails(
     docTypes,
@@ -100,46 +87,12 @@ async function handleFormSubmission(req, res, next, docTypes, collectionName) {
       envDetails.dsTabs,
       envDetails.recipients
     )
-    // .then(() =>
-    //   database.populateAidInfo(docDetails.prefillVals, collectionName)
-
-    // )
     .catch((error) => {
       res.statusCode = 400;
       console.log(error);
       next();
     });
 }
-
-// searching the database for all information pertaining to a patient
-app.post("/api/queryAidInfo", async (req, res, next) => {
-  const queryData = req.body;
-  await database
-    .queryByPatientName(queryData.childName, true, res)
-    // propagate to frontend
-    .then((data) => {
-      res.json(data);
-    })
-    .catch(() => {
-      res.statusCode = 400;
-      next();
-    });
-});
-
-// searching database for all patients' information
-app.post("/api/queryAllPatientInfo", async (req, res, next) => {
-  const queryData = req.body;
-  await database
-    .queryByPatientName(queryData.childName, false, res)
-    // propagate to frontend
-    .then((data) => {
-      res.json(data);
-    })
-    .catch(() => {
-      res.statusCode = 400;
-      next();
-    });
-});
 
 // handles admin authentication
 app.post("/api/adminLogin", (req, res) => {
@@ -153,9 +106,6 @@ app.post("/api/adminLogin", (req, res) => {
     console.log(error);
   }
 });
-
-// exports all data
-app.post("/api/exportAll", database.exportAll);
 
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {

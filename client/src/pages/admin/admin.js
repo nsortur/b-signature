@@ -15,6 +15,7 @@ import {
 } from "react-bootstrap";
 import download from "downloadjs";
 
+// PAGE NO LONGER USED IN NEW WORKFLOW
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
