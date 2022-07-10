@@ -8,32 +8,30 @@ import { navigate } from "@reach/router";
 class FamilyForm extends React.Component {
   constructor(props) {
     super(props);
-    // demo: initalizing state to pre-filled values
     this.state = {
       step: 1,
       signingUrl: "",
       loadingSigning: false,
       otherEthSelected: false,
       showFillAlert: false,
-      childName: "Example Name",
-      childDOB: "02/14/2006",
-      childGender: "Female",
-      childEthnicity: "Hispanic",
-      parentName: "John Doe",
-      parentAddress: "101 Rockland Cir.",
-      parentCity: "Wilmington",
-      parentState: "Delaware",
-      parentZip: "19803",
-      parentPhone: "(302) 555-5555",
-      parentCell: "(302) 231-1234",
-      parentEmail: "example@domain.com",
-      annualIncome: "200000",
-      requestedGrant: "200000",
-      socWorkName: "Social Worker",
-      socWorkEmail: "exampleWorker@domain.com",
-      socialWorkerEmailConfirm: "exampleWorker@domain.com",
-      intendedUse:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et massa sed dui mollis maximus. Sed mauris lorem, lobortis nec quam a.",
+      childName: "",
+      childDOB: "",
+      childGender: "",
+      childEthnicity: "",
+      parentName: "",
+      parentAddress: "",
+      parentCity: "",
+      parentState: "",
+      parentZip: "",
+      parentPhone: "",
+      parentCell: "",
+      parentEmail: "",
+      annualIncome: "",
+      requestedGrant: "",
+      socWorkName: "",
+      socWorkEmail: "",
+      socialWorkerEmailConfirm: "",
+      intendedUse: "",
       fieldsNeedFilling: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -156,16 +154,23 @@ class FamilyForm extends React.Component {
         inputNotFilled.push(key);
       }
     }
-    // validate email
+    // validate family email
     if (
       !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.parentEmail)
     ) {
       inputNotFilled.push("Parent's email");
     }
+    // validate social worker email
+    if (
+      !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.socWorkEmail)
+    ) {
+      inputNotFilled.push("Social worker's email");
+    }
     if (this.state.socWorkEmail !== this.state.socialWorkerEmailConfirm) {
       inputNotFilled.push("Please confirm emails match");
     }
 
+    // validate all fields are filled
     if (inputNotFilled.length !== 0) {
       this.setState({ showFillAlert: true, fieldsNeedFilling: inputNotFilled });
       return;
@@ -211,9 +216,39 @@ class FamilyForm extends React.Component {
           }
         })
         .then((data) => {
-          this.setState({ signingUrl: data.signingUrl }, () => {
-            window.location.href = data.signingUrl;
-          });
+          this.setState(
+            {
+              signingUrl: data.signingUrl,
+              step: 4,
+              loadingSigning: true,
+              otherEthSelected: false,
+              showFillAlert: false,
+              childName: "",
+              childDOB: "",
+              childGender: "",
+              childEthnicity: "",
+              parentName: "",
+              parentAddress: "",
+              parentCity: "",
+              parentState: "",
+              parentZip: "",
+              parentPhone: "",
+              parentCell: "",
+              parentEmail: "",
+              annualIncome: "",
+              requestedGrant: "",
+              socWorkName: "",
+              socWorkEmail: "",
+              socialWorkerEmailConfirm: "",
+              intendedUse: "",
+              fieldsNeedFilling: [],
+            },
+            () => {
+              // clear local storage for security
+              localStorage.clear();
+              window.location.href = data.signingUrl;
+            }
+          );
         })
         .catch((error) => {
           console.log(error);
@@ -308,11 +343,6 @@ class FamilyForm extends React.Component {
       <div className="input-page">
         <div id="form-header">Apply For Aid</div>
         {curForm}
-        {/* demo: the following information */}
-        <p>
-          This application is in demonstration mode, <u>do not</u> enter
-          personal information
-        </p>
       </div>
     );
   }

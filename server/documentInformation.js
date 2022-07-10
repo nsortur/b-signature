@@ -136,8 +136,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
   const recipients = {
     signers: [],
   };
-  let displayName =
-    "B+ Foundation: " + body.childName + "'s Financial Assistance Agreement";
+  let displayName = body.childName + "'s Financial Assistance Agreement";
 
   docs.forEach((doc) => {
     switch (doc) {

@@ -12,7 +12,7 @@ const express = require("express"),
   csrf = require("csurf"), // https://www.npmjs.com/package/csurf
   eg001 = require("./embeddedSigning"),
   documentInformation = require("./documentInformation"),
-  documents = require("./documentsToSign").documents,
+  documents = require("./documentsToSign").documents;
 
 const PORT = process.env.PORT || 3001,
   HOST = process.env.HOST || "localhost",
@@ -93,19 +93,6 @@ async function handleFormSubmission(req, res, next, docTypes, collectionName) {
       next();
     });
 }
-
-// handles admin authentication
-app.post("/api/adminLogin", (req, res) => {
-  try {
-    if (req.body.adminPassword === dsConfig.adminPassword) {
-      res.json({ loginSuccess: true });
-    } else {
-      res.json({ loginSuccess: false });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {

@@ -408,7 +408,6 @@ class AdminPage extends React.Component {
         </Container>
       );
     } else {
-      // demo: admin password as 1234 with placeholder
       return (
         <Container id="">
           <Row>

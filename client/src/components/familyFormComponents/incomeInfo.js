@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Row,
-  Col,
-  Card,
-  Form,
-  Button,
-  Spinner,
-  Alert,
-  ListGroup,
-  InputGroup,
-} from "react-bootstrap";
+import { Row, Col, Card, Form, Button, InputGroup } from "react-bootstrap";
 
 // page 3/4
 class IncomeInformation extends React.Component {
