@@ -86,12 +86,14 @@ class SocWorkInformation extends React.Component {
     return (
       <Row>
         <Col></Col>
-        <Col xs={8}>
+        <Col sm={8}>
           <Card className="input-card">
             <Card.Body>
-              <Card.Title>Social Worker Information (4/4)</Card.Title>
+              <Card.Title style={{ textAlign: "center" }}>
+                Social Worker Information (4/4)
+              </Card.Title>
               <Form>
-                <Form.Group as={Col}>
+                <Form.Group as={Col} className="mb-3">
                   <Form.Label>Social Worker Name</Form.Label>
                   <Form.Control
                     type="text"
@@ -103,7 +105,7 @@ class SocWorkInformation extends React.Component {
                   />
                 </Form.Group>
 
-                <Form.Group as={Col}>
+                <Form.Group as={Col} className="mb-3">
                   <Form.Label>Social Worker Email</Form.Label>
                   <Form.Control
                     type="email"
@@ -115,7 +117,7 @@ class SocWorkInformation extends React.Component {
                   />
                 </Form.Group>
 
-                <Form.Group as={Col}>
+                <Form.Group as={Col} className="mb-3">
                   <Form.Label>Confirm Social Worker Email</Form.Label>
                   <Form.Control
                     type="email"
@@ -126,11 +128,13 @@ class SocWorkInformation extends React.Component {
                     required
                   />
                 </Form.Group>
-                {backDisp}
-                {buttonDisp}
+                <div id="nav-buttons">
+                  {backDisp}
+                  {buttonDisp}
+                </div>
               </Form>
             </Card.Body>
-            <p style={{ color: "grey" }}>
+            <p style={{ color: "grey" }} id="nav-buttons">
               Note: Upon submission of this form, information will be stored.
             </p>
           </Card>

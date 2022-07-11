@@ -23,14 +23,16 @@ class IncomeInformation extends React.Component {
     return (
       <Row>
         <Col></Col>
-        <Col xs={8}>
+        <Col sm={8}>
           <Card className="input-card">
             <Card.Body>
-              <Card.Title>Income Information (3/4)</Card.Title>
+              <Card.Title className="page-title">
+                Income Information (3/4)
+              </Card.Title>
               <Form>
-                <Form.Group as={Col}>
+                <Form.Group as={Col} className="mb-3">
                   <Form.Label>Annual Income ($)</Form.Label>
-                  <InputGroup className="mb-3">
+                  <InputGroup>
                     <InputGroup.Text>$</InputGroup.Text>
                     <Form.Control
                       type="number"
@@ -67,7 +69,7 @@ class IncomeInformation extends React.Component {
                   </InputGroup>
                 </Form.Group>
 
-                <Form.Group>
+                <Form.Group className="mb-3">
                   <Form.Label>Intended Use of Grant</Form.Label>
                   <Form.Control
                     as="textarea"
@@ -85,20 +87,22 @@ class IncomeInformation extends React.Component {
                     dollar amount owed.
                   </Form.Text>
                 </Form.Group>
-                <Button
-                  variant="secondary"
-                  onClick={this.back}
-                  className="form-button"
-                >
-                  Previous Page
-                </Button>
-                <Button
-                  variant="success"
-                  onClick={this.continue}
-                  className="form-button"
-                >
-                  Next Page
-                </Button>
+                <div id="nav-buttons">
+                  <Button
+                    variant="secondary"
+                    onClick={this.back}
+                    className="form-button"
+                  >
+                    Previous Page
+                  </Button>
+                  <Button
+                    variant="success"
+                    onClick={this.continue}
+                    className="form-button"
+                  >
+                    Next Page
+                  </Button>
+                </div>
               </Form>
             </Card.Body>
           </Card>

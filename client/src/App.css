@@ -2,6 +2,18 @@
   text-align: center;
 }
 
+.left-stuff {
+  text-align: left;
+}
+
+.page-title {
+  text-align: center;
+}
+
+#nav-buttons {
+  text-align: center;
+}
+
 .App-logo {
   height: 80vmin;
   pointer-events: none;

@@ -23,12 +23,14 @@ class ChildInformation extends React.Component {
     return (
       <Row>
         <Col></Col>
-        <Col xs={8}>
+        <Col sm={8}>
           <Card className="input-card">
             <Card.Body>
-              <Card.Title>Child/Patient Information (2/4)</Card.Title>
+              <Card.Title className="page-title">
+                Child/Patient Information (2/4)
+              </Card.Title>
               <Form>
-                <Row>
+                <Row className="mb-3">
                   <Form.Group as={Col}>
                     <Form.Label>Child's Name</Form.Label>
                     <Form.Control
@@ -65,7 +67,7 @@ class ChildInformation extends React.Component {
                   </Form.Group>
                 </Row>
 
-                <Row>
+                <Row className="mb-3">
                   <Form.Group as={Col}>
                     <Form.Label>Ethnicity</Form.Label>
                     <Form.Select
@@ -100,20 +102,22 @@ class ChildInformation extends React.Component {
                     />
                   </Form.Group>
                 </Row>
-                <Button
-                  variant="secondary"
-                  onClick={this.back}
-                  className="form-button"
-                >
-                  Previous Page
-                </Button>
-                <Button
-                  variant="success"
-                  onClick={this.continue}
-                  className="form-button"
-                >
-                  Next Page
-                </Button>
+                <div id="nav-buttons">
+                  <Button
+                    variant="secondary"
+                    onClick={this.back}
+                    className="form-button"
+                  >
+                    Previous Page
+                  </Button>
+                  <Button
+                    variant="success"
+                    onClick={this.continue}
+                    className="form-button"
+                  >
+                    Next Page
+                  </Button>
+                </div>
               </Form>
             </Card.Body>
           </Card>

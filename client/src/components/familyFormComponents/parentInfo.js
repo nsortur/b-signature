@@ -17,12 +17,14 @@ class ParentInformation extends React.Component {
     return (
       <Row>
         <Col></Col>
-        <Col xs={8}>
+        <Col sm={8}>
           <Card className="input-card">
             <Card.Body>
-              <Card.Title>Parent/Legal Guardian Information (1/4)</Card.Title>
+              <Card.Title className="page-title">
+                Parent/Legal Guardian Information (1/4)
+              </Card.Title>
               <Form>
-                <Form.Group as={Col}>
+                <Form.Group as={Col} className="mb-3">
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
@@ -134,7 +136,7 @@ class ParentInformation extends React.Component {
                   </Form.Group>
                 </Row>
 
-                <Row>
+                <Row className="mb-3">
                   <Form.Group as={Col}>
                     <Form.Label>Phone</Form.Label>
                     <Form.Control
@@ -157,7 +159,11 @@ class ParentInformation extends React.Component {
                     />
                   </Form.Group>
                 </Row>
-                <Form.Group as={Col}>
+                <Form.Group
+                  as={Col}
+                  controlId="formBasicEmail"
+                  className="mb-3"
+                >
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
@@ -168,13 +174,15 @@ class ParentInformation extends React.Component {
                     required
                   />
                 </Form.Group>
-                <Button
-                  variant="success"
-                  onClick={this.continue}
-                  className="form-button"
-                >
-                  Next Page
-                </Button>
+                <div id="nav-buttons">
+                  <Button
+                    variant="success"
+                    onClick={this.continue}
+                    className="form-button"
+                  >
+                    Next Page
+                  </Button>
+                </div>
               </Form>
             </Card.Body>
           </Card>
