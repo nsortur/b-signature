@@ -212,7 +212,7 @@ class FamilyForm extends React.Component {
           if (res.ok) {
             return res.json();
           } else {
-            throw new Error("Signing input not accepted");
+            throw new Error("Signing input is not accepted");
           }
         })
         .then((data) => {
