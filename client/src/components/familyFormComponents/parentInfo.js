@@ -177,6 +177,7 @@ class ParentInformation extends React.Component {
                 <div id="nav-buttons">
                   <Button
                     variant="success"
+                    style={{ background: "#008046" }}
                     onClick={this.continue}
                     className="form-button"
                   >

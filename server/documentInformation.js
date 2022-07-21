@@ -136,7 +136,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
   const recipients = {
     signers: [],
   };
-  let displayName = body.childName + "'s Financial Assistance Agreement";
+  let displayName = body.childName + "'s Financial Assistance Application";
 
   docs.forEach((doc) => {
     switch (doc) {
@@ -174,8 +174,10 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
         dsTabs.parentTabs.dateSignedTabs = [
           docusign.DateSigned.constructFromObject({
             anchorString: "name and medical condition",
-            anchorYOffset: "-0.60",
+            anchorYOffset: "-0.70",
+            anchorXOffset: "0.2",
             anchorUnits: "inches",
+            tabLabel: "Family Parent/Guardian: Date Signed",
           }),
         ];
 
@@ -224,23 +226,23 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             otherEthInfoDial = body.childEthnicity;
         }
         dsTabs.parentTabs.checkboxTabs = [
-          makeCheckbox("African-American", 1.3, isAfricanEth),
-          makeCheckbox("Asian/Pacific Islander", 1.65, isAsianEth),
-          makeCheckbox("Caucasian", 0.75, isCaucasianEth),
-          makeCheckbox("Hispanic", 0.75, isHispanicEth),
-          makeCheckbox("Native American", 2.5, isNativeEth),
+          makeCheckbox("African American", 1.27, isAfricanEth),
+          makeCheckbox("Asian/Pacific Islander", 1.53, isAsianEth),
+          makeCheckbox("Caucasian", 0.78, isCaucasianEth),
+          makeCheckbox("Hispanic", 0.67, isHispanicEth),
+          makeCheckbox("Native American", 1.26, isNativeEth),
           docusign.Checkbox.constructFromObject({
             anchorString: "Native American",
             anchorUnits: "inches",
-            anchorXOffset: 3.5,
-            anchorYOffset: -0.1,
+            anchorYOffset: "-0.1",
+            anchorXOffset: 2.1,
             anchorCaseSensitive: false,
             locked: false,
             selected: isOtherEth,
             tabId: "Other",
             tabLabel: "Other",
           }),
-          makeCheckbox("Prefer not to answer", 1.5, isNoAnswerEth),
+          makeCheckbox("Prefer not to answer", 1.43, isNoAnswerEth),
         ];
 
         // plain text tabs
@@ -263,7 +265,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             locked: "false",
             tabId: "Child's Name",
             tabLabel: "Child's Name",
-            width: 230,
+            width: 210,
           }),
           makePrefilledTextTab(
             "DOB:",
@@ -304,7 +306,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Information will",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.3,
+            anchorYOffset: 1.4,
             anchorXOffset: 0.3,
             font: "helvetica",
             fontSize: "size11",
@@ -320,8 +322,8 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Information will",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.3,
-            anchorXOffset: 2.4,
+            anchorYOffset: 1.4,
+            anchorXOffset: 2.6,
             font: "helvetica",
             fontSize: "size11",
             bold: "false",
@@ -335,8 +337,8 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Information will",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.3,
-            anchorXOffset: 4.3,
+            anchorYOffset: 1.4,
+            anchorXOffset: 5,
             font: "helvetica",
             fontSize: "size11",
             bold: "false",
@@ -349,7 +351,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
           makePrefilledTextTab(
             "Cell",
             "Parent phone",
-            -1.75,
+            -2.5,
             100,
             body.parentPhone
           ),
@@ -360,17 +362,25 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             150,
             body.parentCell
           ),
+          docusign.Text.constructFromObject({
+            anchorString: "Information will",
+            anchorUnits: "inches",
+            anchorCaseSensitive: false,
+            anchorYOffset: 2.1,
+            anchorXOffset: 1.0,
+            font: "helvetica",
+            fontSize: "size11",
+            bold: "false",
+            value: body.parentEmail,
+            locked: "false",
+            tabId: "Parent Email",
+            tabLabel: "Parent Email",
+            width: 400,
+          }),
           makePrefilledTextTab(
-            "E-mail Address:",
-            "Parent email",
-            1.4,
-            400,
-            body.parentEmail
-          ),
-          makePrefilledTextTab(
-            "to pay living expenses):",
+            "to pay living expenses)*:",
             "Annual household income",
-            2.5,
+            1.5,
             150,
             usFormat.format(body.annualIncome)
           ),
@@ -378,24 +388,24 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             "Requested grant amount ($ amount required):",
             "Requested grant amount",
             3.5,
-            100,
+            150,
             usFormat.format(body.requestedGrant)
           ),
           docusign.Text.constructFromObject({
             anchorString: "account number",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: "0.1",
-            anchorXOffset: 0,
+            anchorYOffset: "0.25",
+            anchorXOffset: "-0.8",
             font: "helvetica",
-            fontSize: "size7",
+            fontSize: "size8",
             bold: "false",
             value: body.intendedUse,
             locked: "false",
             tabId: "account number",
             tabLabel: "Intended use of grant",
-            width: 600,
-            height: 15,
+            width: 530,
+            height: 40,
           }),
         ];
         if (isOtherEth) {
@@ -403,12 +413,27 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             makePrefilledTextTab(
               "Prefer not to answer",
               "Ethnicity",
-              1.7,
-              150,
-              `Other: ${otherEthInfoDial}`
+              -1.5,
+              100,
+              otherEthInfoDial
             )
           );
         }
+
+        // attachment tab for bills
+        dsTabs.parentTabs.signerAttachmentTabs = [
+          docusign.SignerAttachment.constructFromObject({
+            anchorString: "paid directly to the vendor",
+            anchorUnits: "inches",
+            anchorCaseSensitive: false,
+            anchorXOffset: "2.4",
+            anchorYOffset: "-0.3",
+            tabId: "Bills",
+            tabLabel: "Family Bills",
+            tooltip: "Bills",
+          }),
+        ];
+
         break;
 
       case documents.SOCIAL_WORKER:
@@ -426,16 +451,23 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
           docusign.SignHere.constructFromObject({
             anchorString: "Social Worker's Hand-Written Signature",
             anchorXOffset: "3",
-            anchorYOffset: "0.1",
             anchorUnits: "inches",
           }),
         ];
         dsTabs.socWorkTabs.dateSignedTabs = [
           docusign.DateSigned.constructFromObject({
             anchorString: "Social Worker's Hand-Written Signature",
-            anchorYOffset: "0.45",
+            anchorYOffset: "0.40",
             anchorXOffset: "0.45",
             anchorUnits: "inches",
+            tabLabel: "Social Worker: Date Signed",
+          }),
+          docusign.DateSigned.constructFromObject({
+            anchorString: "deserving families",
+            anchorYOffset: "0.3",
+            anchorUnits: "inches",
+            fontColor: "White",
+            tabLabel: "Social Worker Date Signed",
           }),
         ];
 
@@ -450,8 +482,8 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Child's Diagnosis:",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: -0.4,
-            anchorXOffset: 1.3,
+            anchorYOffset: -0.45,
+            anchorXOffset: 1.2,
             font: "helvetica",
             fontSize: "size11",
             bold: "false",
@@ -468,7 +500,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Date of Diagnosis",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 0.7,
+            anchorYOffset: 0.9,
             anchorXOffset: 0.6, //-1
             font: "helvetica",
             fontSize: "size11",
@@ -482,7 +514,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Date of Diagnosis",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.0,
+            anchorYOffset: 1.2,
             anchorXOffset: 0.3, //-1.3
             font: "helvetica",
             fontSize: "size11",
@@ -496,7 +528,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Date of Diagnosis",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.0,
+            anchorYOffset: 1.2,
             anchorXOffset: 2.7,
             font: "helvetica",
             fontSize: "size11",
@@ -504,14 +536,14 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             locked: "false",
             tabId: "Hospital State",
             tabLabel: "Hospital State",
-            width: 65,
+            width: 75,
           }),
           docusign.Text.constructFromObject({
             anchorString: "Date of Diagnosis",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.0,
-            anchorXOffset: 4.3,
+            anchorYOffset: 1.2,
+            anchorXOffset: 5.2,
             font: "helvetica",
             fontSize: "size11",
             bold: "false",
@@ -523,8 +555,8 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
           makeYTextTab(
             "Social Worker's Direct Phone Number and Extension:",
             "Social Worker Phone",
-            4.25,
-            -0.05,
+            3.7,
+            -0.1,
             200
           ),
           docusign.Text.constructFromObject({
@@ -539,17 +571,19 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             locked: "false",
             tabId: "Please describe",
             tabLabel: "Medical Condition Description",
-            width: 600,
-            height: 230,
+            width: 570,
+            height: 190,
+            validationPattern: "^.{10,}$",
+            validationMessage: "Must be 10 characters long",
           }),
           makeTextTab(
             "Clark/Perlmans",
             "The Change Reaction assistance",
-            1.0,
+            1.1,
             80
           ),
           makeTextTab(
-            "Social Worker's Name and Title",
+            "Social Worker Name and Title",
             "Social Worker Name",
             3.4,
             250
@@ -565,10 +599,11 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
         // social worker supporting description attachment tab
         dsTabs.socWorkTabs.signerAttachmentTabs = [
           docusign.SignerAttachment.constructFromObject({
-            anchorString: "Has this family",
+            anchorString: "please attach letter",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: "-0.8",
+            anchorXOffset: "1.8",
+            anchorYOffset: "-0.5",
             tabId: "Attachment",
             tabLabel: "Medical Condition Description attachment",
             optional: true,

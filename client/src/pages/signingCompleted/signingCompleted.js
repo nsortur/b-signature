@@ -19,7 +19,7 @@ class SigningDone extends React.Component {
       case "cancel":
         showSignResult = (
           <div>
-            <h1>Signing has been cancelled.</h1>
+            <h1 className="page-title">Signing has been cancelled.</h1>
             <h3>If unintentional, please resubmit form.</h3>
           </div>
         );
@@ -27,19 +27,19 @@ class SigningDone extends React.Component {
       case "decline":
         showSignResult = (
           <div>
-            <h1>Signing has been declined.</h1>
+            <h1 className="page-title">Signing has been declined.</h1>
             <h3>If unintentional, please resubmit form.</h3>
           </div>
         );
         break;
       default:
         showSignResult = (
-          <h1>
-            Thank you!
+          <div>
+            <h1 className="page-title">Thank you!</h1>
             <h3>
               The form has been sent to your social worker for completion.
             </h3>
-          </h1>
+          </div>
         );
     }
     return <header className="App-header">{showSignResult}</header>;

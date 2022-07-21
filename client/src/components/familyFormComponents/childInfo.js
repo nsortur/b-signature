@@ -56,14 +56,16 @@ class ChildInformation extends React.Component {
 
                   <Form.Group as={Col}>
                     <Form.Label>Gender</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="e.g. Male, Female, other"
-                      name="childGender"
-                      defaultValue={this.props.values.childGender}
+                    <Form.Select
                       onChange={this.props.handleChange}
+                      defaultValue={this.props.values.childGender}
+                      name="childGender"
                       required
-                    />
+                    >
+                      <option>Choose...</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </Form.Select>
                   </Form.Group>
                 </Row>
 
@@ -72,6 +74,7 @@ class ChildInformation extends React.Component {
                     <Form.Label>Ethnicity</Form.Label>
                     <Form.Select
                       onChange={this.props.handleChange}
+                      defaultValue={this.props.values.childEthnicity}
                       name="childEthnicity"
                       required
                     >
@@ -84,27 +87,32 @@ class ChildInformation extends React.Component {
                       <option>Other</option>
                       <option>Prefer not to answer</option>
                     </Form.Select>
-                    <Form.Text id="passwordHelpBlock" muted>
-                      Information will be used for statistical purposes only and
-                      will not affect eligibility.
+                    <Form.Text id="helpBlock">
+                      <b>
+                        Information will be used for statistical purposes only
+                        and will not affect eligibility.
+                      </b>
                     </Form.Text>
                   </Form.Group>
-
-                  <Form.Group as={Col}>
-                    <Form.Label>If other, please specify</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="childEthnicity"
-                      defaultValue={this.props.values.childEthnicity}
-                      onChange={this.props.handleChange}
-                      readOnly={!this.props.values.otherEthSelected}
-                      required
-                    />
-                  </Form.Group>
+                  {this.props.values.otherEthSelected ? (
+                    <Form.Group as={Col}>
+                      <Form.Label>If other, please specify</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="childEthnicity"
+                        defaultValue={this.props.values.childEthnicity}
+                        onChange={this.props.handleChange}
+                        required
+                      />
+                    </Form.Group>
+                  ) : (
+                    <span></span>
+                  )}
                 </Row>
                 <div id="nav-buttons">
                   <Button
                     variant="secondary"
+                    style={{ background: "#414141" }}
                     onClick={this.back}
                     className="form-button"
                   >
@@ -112,6 +120,7 @@ class ChildInformation extends React.Component {
                   </Button>
                   <Button
                     variant="success"
+                    style={{ background: "#008046" }}
                     onClick={this.continue}
                     className="form-button"
                   >

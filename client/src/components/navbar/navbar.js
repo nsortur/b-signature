@@ -6,11 +6,11 @@ const MyNav = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand>
+        <Navbar.Brand href="/">
           <img
             src={logo}
-            width="30"
-            height="30"
+            width="34"
+            height="34"
             className="d-inline-block align-top"
             alt=""
           />{" "}
@@ -20,20 +20,22 @@ const MyNav = () => {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/family-form">Application</Nav.Link>
-            <NavDropdown title="External resources" id="basic-nav-dropdown">
-              <NavDropdown.Item href="https://bepositive.org">
-                B+ Official
-              </NavDropdown.Item>
-              <NavDropdown.Item href="https://www.docusign.com/">
-                DocuSign
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="https://github.com/nsortur/b-signature">
-                Source code
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link href="/">
+              <span style={{ color: "#414141" }}>Home</span>
+            </Nav.Link>
+            <Nav.Link href="/family-form">
+              <span style={{ color: "#414141" }}>Application</span>
+            </Nav.Link>
+            <span style={{ color: "#414141" }}>
+              <NavDropdown title="External resources" id="basic-nav-dropdown">
+                <NavDropdown.Item href="https://www.bepositive.org/">
+                  <span style={{ color: "#414141" }}>B+ Official</span>
+                </NavDropdown.Item>
+                <NavDropdown.Item href="https://www.docusign.com/">
+                  <span style={{ color: "#414141" }}>DocuSign</span>
+                </NavDropdown.Item>
+              </NavDropdown>
+            </span>
           </Nav>
         </Navbar.Collapse>
       </Container>

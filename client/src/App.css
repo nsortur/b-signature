@@ -1,5 +1,24 @@
 .App {
   text-align: center;
+  font-family: "Century Gothic Regular";
+}
+
+@font-face {
+  font-family: "Rama Gothic E Semibold";
+  src: local("Rama Gothic E Semibold"),
+    url(./fonts/Rama\ Gothic\ E\ W01\ SemiBold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Century Gothic Regular";
+  src: local("Century Gothic Regular"),
+    url(./fonts/CenturyGothic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Century Gothic Bold";
+  src: local("Century Gothic Bold"),
+    url(./fonts/Century\ Gothic\ Bold.ttf) format("truetype");
 }
 
 .left-stuff {
@@ -8,9 +27,11 @@
 
 .page-title {
   text-align: center;
+  font-family: "Century Gothic Bold";
 }
 
 #nav-buttons {
+  font-family: "Rama Gothic E Semibold";
   text-align: center;
 }
 
@@ -44,11 +65,10 @@
 }
 
 .Landing-card > h1 {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Rama Gothic E Semibold";
   font-size: 60px !important;
-  font-weight: bold;
   color: black;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 #criteria {
@@ -59,30 +79,8 @@
   margin-top: 5vh;
 }
 
-.button1 {
-  display: inline-block;
-  padding: 0.35em 1.2em;
-  border: 0.1em solid #ffffff;
-  margin: 0 0.3em 0.3em 0;
-  border-radius: 0.12em;
-  box-sizing: border-box;
-  text-decoration: none;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  background-color: Transparent;
-  color: #ffffff;
-  text-align: center;
-  transition: all 0.2s;
-}
-.button1:hover {
-  color: #000000;
-  background-color: #ffffff;
-}
-@media all and (max-width: 30em) {
-  .button1 {
-    display: block;
-    margin: 0.4em auto;
-  }
+#helpBlock {
+  color: black;
 }
 
 /* .input-page {
@@ -94,11 +92,11 @@
 
 .input-card {
   /* margin-top: 5vh; */
-  color: darkgreen;
+  color: #008046;
 }
 
 #form-header {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Rama Gothic E Semibold";
   font-weight: bold;
 
   font-size: 40px !important;
@@ -116,4 +114,5 @@
 
 .form-button {
   margin: 10px;
+  outline: none;
 }

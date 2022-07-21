@@ -45,10 +45,12 @@ class IncomeInformation extends React.Component {
                     ></Form.Control>
                     <InputGroup.Text>.00</InputGroup.Text>
                   </InputGroup>
-                  <Form.Text>
-                    i.e. government assistance, child support, alimony, family
-                    assistance,{" "}
-                    <u>all sources of income to pay living expenses</u>
+                  <Form.Text id="helpBlock">
+                    <b>
+                      i.e. government assistance, child support, alimony, family
+                      assistance,{" "}
+                      <u>all sources of income to pay living expenses</u>
+                    </b>
                   </Form.Text>
                 </Form.Group>
 
@@ -80,16 +82,18 @@ class IncomeInformation extends React.Component {
                     onChange={this.props.handleChange}
                     required
                   />
-                  <Form.Text>
-                    if applicable, please provide bills{" "}
-                    <u>paid directly to the vendor</u> with the vendor name,
-                    account number, mailing address, family's last name, and
-                    dollar amount owed.
-                  </Form.Text>
+                  {/* <Form.Text>
+                    <b>
+                      Please provide bills <u>paid directly to the vendor</u>{" "}
+                      with the vendor name, account number, mailing address,
+                      family's last name, and dollar amount owed.
+                    </b>
+                  </Form.Text> */}
                 </Form.Group>
                 <div id="nav-buttons">
                   <Button
                     variant="secondary"
+                    style={{ background: "#414141" }}
                     onClick={this.back}
                     className="form-button"
                   >
@@ -97,6 +101,7 @@ class IncomeInformation extends React.Component {
                   </Button>
                   <Button
                     variant="success"
+                    style={{ background: "#008046" }}
                     onClick={this.continue}
                     className="form-button"
                   >

@@ -50,8 +50,8 @@ eg001EmbeddedSigning.createController = async (
     let body = req.body,
       args = {
         accessToken: req.user.accessToken,
-        basePath: req.session.basePath,
-        accountId: req.session.accountId,
+        basePath: req.session.passport.user.basePath,
+        accountId: req.session.passport.user.accountId,
         docInfo: {
           envelopeArgs: prefillVals,
           docPaths: docPaths,
@@ -143,7 +143,7 @@ function makeEnvelope(docInfo, signerClientId) {
   let doc1 = new docusign.Document(),
     doc1b64 = Buffer.from(doc1PdfBytes).toString("base64");
   doc1.documentBase64 = doc1b64;
-  doc1.name = docInfo.docName; // can be different from actual file name
+  doc1.name = docInfo.docName + ": Family"; // can be different from actual file name
   doc1.fileExtension = "pdf";
   doc1.documentId = "3";
 
@@ -151,7 +151,7 @@ function makeEnvelope(docInfo, signerClientId) {
   let doc2 = new docusign.Document(),
     doc2b64 = Buffer.from(doc2PdfBytes).toString("base64");
   doc2.documentBase64 = doc2b64;
-  doc2.name = docInfo.docName; // can be different from actual file name
+  doc2.name = docInfo.docName + ": Social Worker"; // can be different from actual file name
   doc2.fileExtension = "pdf";
   doc2.documentId = "4";
 
@@ -172,13 +172,22 @@ function makeEnvelope(docInfo, signerClientId) {
   );
   // social worker is remote, so don't specify clientUserId
   signers.push(
-    docusign.Signer.constructFromObject({
+    docusign.Editor.constructFromObject({
       email: docInfo.docRecipients.signers[1].email,
       name: docInfo.docRecipients.signers[1].name,
       recipientId: 2,
       routingOrder: 2,
+      emailNotification:
+        docusign.RecipientEmailNotification.constructFromObject({
+          emailSubject: docInfo.docName,
+          emailBody:
+            "As our trusted partner in this process, please sign your family’s application using DocuSign to verify the authenticity of all information. Thank you. Katie",
+        }),
     })
   );
+
+  // let familyVisList = new docusign.DocumentVisibilityList()
+  // familyVisList.documentVisibility = [doc1]
 
   if (signers.length === 0) {
     throw new Error("Must have at least one signer.");
@@ -193,6 +202,7 @@ function makeEnvelope(docInfo, signerClientId) {
     dateSignedTabs: tabs.parentTabs.dateSignedTabs,
     checkboxTabs: tabs.parentTabs.checkboxTabs,
     textTabs: tabs.parentTabs.textTabs,
+    signerAttachmentTabs: tabs.parentTabs.signerAttachmentTabs,
   });
   parentSigner.tabs = parentTabs;
 
