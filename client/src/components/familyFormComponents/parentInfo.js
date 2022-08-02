@@ -28,7 +28,6 @@ class ParentInformation extends React.Component {
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Adam Smith"
                     name="parentName"
                     defaultValue={this.props.values.parentName}
                     onChange={this.props.handleChange}
@@ -40,7 +39,6 @@ class ParentInformation extends React.Component {
                   <Form.Label>Address</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="1234 Main Street"
                     name="parentAddress"
                     defaultValue={this.props.values.parentAddress}
                     onChange={this.props.handleChange}
@@ -53,7 +51,6 @@ class ParentInformation extends React.Component {
                     <Form.Label>City</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Cleveland"
                       name="parentCity"
                       defaultValue={this.props.values.parentCity}
                       onChange={this.props.handleChange}
@@ -130,7 +127,6 @@ class ParentInformation extends React.Component {
                       name="parentZip"
                       defaultValue={this.props.values.parentZip}
                       onChange={this.props.handleChange}
-                      placeholder="44101"
                       required
                     />
                   </Form.Group>
@@ -141,7 +137,6 @@ class ParentInformation extends React.Component {
                     <Form.Label>Phone</Form.Label>
                     <Form.Control
                       name="parentPhone"
-                      placeholder="(555) 555-1212"
                       defaultValue={this.props.values.parentPhone}
                       onChange={this.props.handleChange}
                       required
@@ -152,7 +147,6 @@ class ParentInformation extends React.Component {
                     <Form.Label>Cell phone</Form.Label>
                     <Form.Control
                       name="parentCell"
-                      placeholder="(555) 123-4545"
                       defaultValue={this.props.values.parentCell}
                       onChange={this.props.handleChange}
                       required
@@ -167,7 +161,6 @@ class ParentInformation extends React.Component {
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="name@example.com"
                     name="parentEmail"
                     defaultValue={this.props.values.parentEmail}
                     onChange={this.props.handleChange}

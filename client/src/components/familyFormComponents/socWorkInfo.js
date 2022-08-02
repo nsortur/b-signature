@@ -106,7 +106,6 @@ class SocWorkInformation extends React.Component {
                   <Form.Label>Social Worker Name</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Adam Smith"
                     name="socWorkName"
                     defaultValue={this.props.values.socWorkName}
                     onChange={this.props.handleChange}
@@ -118,7 +117,6 @@ class SocWorkInformation extends React.Component {
                   <Form.Label>Social Worker Email</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="socialworker@domain.com"
                     name="socWorkEmail"
                     defaultValue={this.props.values.socWorkEmail}
                     onChange={this.props.handleChange}
@@ -130,7 +128,6 @@ class SocWorkInformation extends React.Component {
                   <Form.Label>Confirm Social Worker Email</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="socialworker@domain.com"
                     name="socialWorkerEmailConfirm"
                     defaultValue={this.props.values.socialWorkerEmailConfirm}
                     onChange={this.props.handleChange}

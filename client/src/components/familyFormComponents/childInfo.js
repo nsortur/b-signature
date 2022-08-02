@@ -35,7 +35,6 @@ class ChildInformation extends React.Component {
                     <Form.Label>Child's Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="John Doe"
                       name="childName"
                       defaultValue={this.props.values.childName}
                       onChange={this.props.handleChange}
