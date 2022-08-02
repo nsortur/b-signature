@@ -64,7 +64,7 @@ class LandingPage extends React.Component {
               </Button>
             </OverlayTrigger>
             <Button
-              href="/family-form/"
+              href="/family-form"
               size="lg"
               style={{
                 background: "#008046",

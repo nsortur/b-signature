@@ -18,8 +18,8 @@ function App() {
       <MyNav></MyNav>
       <Router>
         <LandingPage path="/"></LandingPage>
-        <FamilyForm path="/family-form/"></FamilyForm>
-        <SigningDone path="/signingDone/"></SigningDone>
+        <FamilyForm path="family-form"></FamilyForm>
+        <SigningDone path="signingDone"></SigningDone>
         <NotFound default />
       </Router>
     </div>
