@@ -573,8 +573,8 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             tabLabel: "Medical Condition Description",
             width: 570,
             height: 190,
-            validationPattern: "^.{10,}$",
-            validationMessage: "Must be 10 characters long",
+            validationPattern: "^.{500,}$",
+            validationMessage: "Must be 500 characters (~100 words) long",
           }),
           makeTextTab(
             "Clark/Perlmans",
@@ -594,21 +594,26 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             1.8,
             170
           ),
-        ];
-
-        // social worker supporting description attachment tab
-        dsTabs.socWorkTabs.signerAttachmentTabs = [
-          docusign.SignerAttachment.constructFromObject({
+          docusign.Text.constructFromObject({
             anchorString: "please attach letter",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorXOffset: "1.8",
-            anchorYOffset: "-0.5",
-            tabId: "Attachment",
-            tabLabel: "Medical Condition Description attachment",
-            optional: true,
+            anchorYOffset: "-0.1",
+            anchorXOffset: 1.7,
+            font: "helvetica",
+            fontSize: "size9",
+            bold: "true",
+            value: "(If necessary, please paste letter below)",
+            locked: "true",
+            tabId: "ignore",
+            tabLabel: "ignore",
+            optinal: "true",
+            width: 100,
           }),
         ];
+
+        // social worker supporting description attachment tab
+        dsTabs.socWorkTabs.signerAttachmentTabs = [];
 
         break;
       default:

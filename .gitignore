@@ -9,7 +9,9 @@ client/.pnp.js
 client/coverage
 
 # production
-# client/build
+client/build
+ecosystem.config.js
+nginx_signing.key
 
 # misc
 client/.DS_Store
