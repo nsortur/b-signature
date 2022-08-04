@@ -118,6 +118,7 @@ DsJwtAuth.prototype.getToken = async function _getToken() {
     rsaKey,
     jwtLifeSec
   );
+  console.log("request results", results);
   const expiresAt = moment()
     .add(results.body.expires_in, "s")
     .subtract(tokenReplaceMin, "m");
@@ -205,6 +206,7 @@ DsJwtAuth.prototype.login = function (req, res, next) {
   req.session.authMethod = "jwt-auth";
   const log = async () => {
     const auth = await this.getToken();
+    console.log("after get token", auth);
     const user = await this.getUserInfo(auth.accessToken);
     req.session.accountId = user.accountId;
     req.session.accountName = user.accountName;
