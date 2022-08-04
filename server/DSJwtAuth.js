@@ -111,6 +111,9 @@ DsJwtAuth.prototype.getToken = async function _getToken() {
     dsApi = new docusign.ApiClient();
   const newServer = dsConfig.dsOauthServer.replace("https://", "");
   dsApi.setOAuthBasePath(newServer); // it should be domain only.
+  console.log("dsclientid", dsConfig.dsClientId);
+  console.log("impersonated", dsConfig.impersonatedUserGuid);
+  console.log("rsa", rsaKey);
   const results = await dsApi.requestJWTUserToken(
     dsConfig.dsClientId,
     dsConfig.impersonatedUserGuid,
@@ -118,7 +121,7 @@ DsJwtAuth.prototype.getToken = async function _getToken() {
     rsaKey,
     jwtLifeSec
   );
-  console.log("request results", results);
+
   const expiresAt = moment()
     .add(results.body.expires_in, "s")
     .subtract(tokenReplaceMin, "m");
