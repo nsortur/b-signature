@@ -110,10 +110,12 @@ DsJwtAuth.prototype.getToken = async function _getToken() {
   const jwtLifeSec = 10 * 60, // requested lifetime for the JWT is 10 min
     dsApi = new docusign.ApiClient();
   const newServer = dsConfig.dsOauthServer.replace("https://", "");
+  console.log("Server", newServer);
   dsApi.setOAuthBasePath(newServer); // it should be domain only.
   console.log("dsclientid", dsConfig.dsClientId);
   console.log("impersonated", dsConfig.impersonatedUserGuid);
   console.log("rsa", rsaKey);
+  console.log("lifesec", jwtLifeSec);
   const results = await dsApi.requestJWTUserToken(
     dsConfig.dsClientId,
     dsConfig.impersonatedUserGuid,
