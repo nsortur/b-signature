@@ -4,6 +4,7 @@ import ChildInformation from "../../components/familyFormComponents/childInfo";
 import IncomeInformation from "../../components/familyFormComponents/incomeInfo";
 import SocWorkInformation from "../../components/familyFormComponents/socWorkInfo";
 import { navigate } from "@reach/router";
+import CryptoJS from "crypto-js";
 
 class FamilyForm extends React.Component {
   constructor(props) {
@@ -39,70 +40,101 @@ class FamilyForm extends React.Component {
     this.prevPage = this.prevPage.bind(this);
     this.runSigning = this.runSigning.bind(this);
     this.dismissFillAlert = this.dismissFillAlert.bind(this);
+    this.salt = process.env.SALT || "development-salt-98sdi3u-o82bfip";
+  }
+
+  encryptData(data) {
+    // encryption for local storage
+    return CryptoJS.AES.encrypt(JSON.stringify(data), this.salt).toString();
+  }
+
+  decryptData(cipherText) {
+    // decryption for local storage
+    const bytes = CryptoJS.AES.decrypt(cipherText, this.salt);
+    try {
+      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    } catch (err) {
+      return null;
+    }
+  }
+
+  emptyState() {
+    // empties state
+    this.setState({
+      step: 1,
+      signingUrl: "",
+      loadingSigning: false,
+      otherEthSelected: false,
+      showFillAlert: false,
+      childName: "",
+      childDOB: "",
+      childGender: "",
+      childEthnicity: "",
+      parentName: "",
+      parentAddress: "",
+      parentCity: "",
+      parentState: "",
+      parentZip: "",
+      parentPhone: "",
+      parentCell: "",
+      parentEmail: "",
+      annualIncome: "",
+      requestedGrant: "",
+      socWorkName: "",
+      socWorkEmail: "",
+      socialWorkerEmailConfirm: "",
+      intendedUse: "",
+      fieldsNeedFilling: [],
+    });
   }
 
   componentDidMount() {
-    this.formData = JSON.parse(localStorage.getItem("user"));
-    // pull data from local storage, if it exists
-    if (localStorage.getItem("user")) {
-      this.setState({
-        step: 1,
-        signingUrl: this.formData.signingUrl,
-        loadingSigning: false,
-        otherEthSelected: false,
-        showFillAlert: false,
-        childName: this.formData.childName,
-        childDOB: this.formData.childDOB,
-        childGender: this.formData.childGender,
-        childEthnicity: this.formData.childEthnicity,
-        parentName: this.formData.parentName,
-        parentAddress: this.formData.parentAddress,
-        parentCity: this.formData.parentCity,
-        parentState: this.formData.parentState,
-        parentZip: this.formData.parentZip,
-        parentPhone: this.formData.parentPhone,
-        parentCell: this.formData.parentCell,
-        parentEmail: this.formData.parentEmail,
-        annualIncome: this.formData.annualIncome,
-        requestedGrant: this.formData.requestedGrant,
-        socWorkName: this.formData.socWorkName,
-        socWorkEmail: this.formData.socWorkEmail,
-        socialWorkerEmailConfirm: this.formData.socialWorkerEmailConfirm,
-        intendedUse: this.formData.intendedUse,
-        fieldsNeedFilling: this.formData.fieldsNeedFilling,
-      });
+    // local storage data in case user accidentally hits back or forward
+    const localData = localStorage.getItem("user");
+
+    if (localData) {
+      // if data exists
+      const originalData = this.decryptData(localData);
+
+      if (!originalData) {
+        // data has been changed
+        this.emptyState();
+      } else {
+        this.formData = originalData;
+        this.setState({
+          step: 1,
+          signingUrl: this.formData.signingUrl,
+          loadingSigning: false,
+          otherEthSelected: false,
+          showFillAlert: false,
+          childName: this.formData.childName,
+          childDOB: this.formData.childDOB,
+          childGender: this.formData.childGender,
+          childEthnicity: this.formData.childEthnicity,
+          parentName: this.formData.parentName,
+          parentAddress: this.formData.parentAddress,
+          parentCity: this.formData.parentCity,
+          parentState: this.formData.parentState,
+          parentZip: this.formData.parentZip,
+          parentPhone: this.formData.parentPhone,
+          parentCell: this.formData.parentCell,
+          parentEmail: this.formData.parentEmail,
+          annualIncome: this.formData.annualIncome,
+          requestedGrant: this.formData.requestedGrant,
+          socWorkName: this.formData.socWorkName,
+          socWorkEmail: this.formData.socWorkEmail,
+          socialWorkerEmailConfirm: this.formData.socialWorkerEmailConfirm,
+          intendedUse: this.formData.intendedUse,
+          fieldsNeedFilling: this.formData.fieldsNeedFilling,
+        });
+      }
     } else {
-      this.setState({
-        step: 1,
-        signingUrl: "",
-        loadingSigning: false,
-        otherEthSelected: false,
-        showFillAlert: false,
-        childName: "",
-        childDOB: "",
-        childGender: "",
-        childEthnicity: "",
-        parentName: "",
-        parentAddress: "",
-        parentCity: "",
-        parentState: "",
-        parentZip: "",
-        parentPhone: "",
-        parentCell: "",
-        parentEmail: "",
-        annualIncome: "",
-        requestedGrant: "",
-        socWorkName: "",
-        socWorkEmail: "",
-        socialWorkerEmailConfirm: "",
-        intendedUse: "",
-        fieldsNeedFilling: [],
-      });
+      this.emptyState();
     }
   }
 
   componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem("user", JSON.stringify(nextState));
+    localStorage.setItem("user", this.encryptData(nextState));
   }
 
   handleInputChange(event) {
