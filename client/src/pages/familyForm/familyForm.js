@@ -40,7 +40,7 @@ class FamilyForm extends React.Component {
     this.prevPage = this.prevPage.bind(this);
     this.runSigning = this.runSigning.bind(this);
     this.dismissFillAlert = this.dismissFillAlert.bind(this);
-    this.salt = process.env.SALT || "development-salt-98sdi3u-o82bfip";
+    this.salt = process.env.BSIG_SALT || "development-salt-98sdi3u-o82bfip";
   }
 
   encryptData(data) {
