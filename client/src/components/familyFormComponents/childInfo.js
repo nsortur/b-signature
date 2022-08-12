@@ -43,12 +43,12 @@ class ChildInformation extends React.Component {
                   </Form.Group>
 
                   <Form.Group as={Col}>
-                    <Form.Label>Date of birth</Form.Label>
+                    <Form.Label>Age</Form.Label>
                     <Form.Control
-                      type="date"
-                      name="childDOB"
+                      type="text"
+                      name="childAge"
                       onChange={this.props.handleChange}
-                      defaultValue={this.props.values.childDOB}
+                      defaultValue={this.props.values.childAge}
                       required
                     ></Form.Control>
                   </Form.Group>

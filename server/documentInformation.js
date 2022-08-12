@@ -142,7 +142,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
     switch (doc) {
       case documents.FAMILY:
         prefillVals.childName = body.childName;
-        prefillVals.childDOB = body.childDOB;
+        prefillVals.childAge = body.childAge;
         prefillVals.childGender = body.childGender;
         prefillVals.childEthnicity = body.childEthnicity;
         prefillVals.parentName = body.parentName;
@@ -267,13 +267,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             tabLabel: "Child's Name",
             width: 210,
           }),
-          makePrefilledTextTab(
-            "DOB:",
-            "Child Date of Birth",
-            0.35,
-            30,
-            body.childDOB
-          ),
+          makePrefilledTextTab("Age:", "Child Age", 0.35, 30, body.childAge),
           makePrefilledTextTab(
             "Gender:",
             "Child Gender",

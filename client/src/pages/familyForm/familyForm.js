@@ -16,7 +16,7 @@ class FamilyForm extends React.Component {
       otherEthSelected: false,
       showFillAlert: false,
       childName: "",
-      childDOB: "",
+      childAge: "",
       childGender: "",
       childEthnicity: "",
       parentName: "",
@@ -67,7 +67,7 @@ class FamilyForm extends React.Component {
       otherEthSelected: false,
       showFillAlert: false,
       childName: "",
-      childDOB: "",
+      childAge: "",
       childGender: "",
       childEthnicity: "",
       parentName: "",
@@ -108,7 +108,7 @@ class FamilyForm extends React.Component {
           otherEthSelected: false,
           showFillAlert: false,
           childName: this.formData.childName,
-          childDOB: this.formData.childDOB,
+          childAge: this.formData.childAge,
           childGender: this.formData.childGender,
           childEthnicity: this.formData.childEthnicity,
           parentName: this.formData.parentName,
@@ -162,7 +162,7 @@ class FamilyForm extends React.Component {
     // get information about unfilled fields to user, if necessary
     const inputVals = {
       "Child's name": this.state.childName,
-      "Child's DOB": this.state.childDOB,
+      "Child's Age": this.state.childAge,
       "Child's gender": this.state.childGender,
       "Child's ethnicity": this.state.childEthnicity,
       "Parent's name": this.state.parentName,
@@ -221,7 +221,7 @@ class FamilyForm extends React.Component {
         body: JSON.stringify({
           // transmit form info to backend
           childName: this.state.childName,
-          childDOB: this.state.childDOB,
+          childAge: this.state.childAge,
           childGender: this.state.childGender,
           childEthnicity: this.state.childEthnicity,
           parentName: this.state.parentName,
@@ -256,7 +256,7 @@ class FamilyForm extends React.Component {
               otherEthSelected: false,
               showFillAlert: false,
               childName: "",
-              childDOB: "",
+              childAge: "",
               childGender: "",
               childEthnicity: "",
               parentName: "",
