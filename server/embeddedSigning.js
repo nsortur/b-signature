@@ -180,8 +180,7 @@ function makeEnvelope(docInfo, signerClientId) {
       emailNotification:
         docusign.RecipientEmailNotification.constructFromObject({
           emailSubject: docInfo.docName,
-          emailBody:
-            "As our trusted partner in this process, please sign your family’s application using DocuSign to verify the authenticity of all information. Thank you. Katie",
+          emailBody: "The B+ Foundation sent you this document to review.",
         }),
     })
   );
