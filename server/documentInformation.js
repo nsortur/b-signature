@@ -567,8 +567,9 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             tabLabel: "Medical Condition Description",
             width: 570,
             height: 190,
-            validationPattern: "^.{500,}$",
-            validationMessage: "Must be 500 characters (~100 words) long",
+            validationPattern: "^(.|\n){500,}$",
+            validationMessage:
+              "*Must be AT LEAST 500 characters long (approx. 100 words)*",
           }),
           makeTextTab(
             "Clark/Perlmans",
