@@ -14,7 +14,7 @@ const express = require("express"),
   documentInformation = require("./documentInformation"),
   documents = require("./documentsToSign").documents;
 
-const PORT = process.env.PORT || 3001,
+const PORT = process.env.PORT || 3000,
   HOST = process.env.HOST || "localhost",
   max_session_min = 180;
 let hostUrl = "http://" + HOST + ":" + PORT;
