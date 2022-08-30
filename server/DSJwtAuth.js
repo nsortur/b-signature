@@ -152,16 +152,18 @@ DsJwtAuth.prototype.getUserInfo = async function _getUserInfo(token) {
     baseUriSuffix = "/restapi";
   dsApi.setOAuthBasePath(dsConfig.dsOauthServer.replace("https://", "")); // it have to be domain name
   const results = await dsApi.getUserInfo(token);
-  const accountInfo = results.accounts.find(
-    (account) => account.isDefault === "true"
-  );
-  // if (!Boolean(targetAccountId)) {
-  //     // find the default account
-
-  // } else {
-  //     // find the matching account
-  //     accountInfo = results.accounts.find(account => account.accountId == targetAccountId);
-  // }
+  let accountInfo;
+  if (!Boolean(targetAccountId)) {
+    // find the default account
+    accountInfo = results.accounts.find(
+      (account) => account.isDefault === "true"
+    );
+  } else {
+    // find the matching account
+    accountInfo = results.accounts.find(
+      (account) => account.accountId == targetAccountId
+    );
+  }
   if (typeof accountInfo === "undefined") {
     throw new Error(`Target account ${targetAccountId} not found!`);
   }
