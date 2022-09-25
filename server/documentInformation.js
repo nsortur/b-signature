@@ -231,11 +231,12 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
           makeCheckbox("Caucasian", 0.78, isCaucasianEth),
           makeCheckbox("Hispanic", 0.67, isHispanicEth),
           makeCheckbox("Native American", 1.26, isNativeEth),
+          // make this one manually bc weird and has y offset
           docusign.Checkbox.constructFromObject({
             anchorString: "Native American",
             anchorUnits: "inches",
             anchorYOffset: "-0.1",
-            anchorXOffset: 2.1,
+            anchorXOffset: 2.2,
             anchorCaseSensitive: false,
             locked: false,
             selected: isOtherEth,
@@ -332,7 +333,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorUnits: "inches",
             anchorCaseSensitive: false,
             anchorYOffset: 1.4,
-            anchorXOffset: 5,
+            anchorXOffset: 5.1,
             font: "helvetica",
             fontSize: "size11",
             bold: "false",
@@ -340,7 +341,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             locked: "false",
             tabId: "Parent Zip",
             tabLabel: "Parent Zip",
-            width: 150,
+            width: 140,
           }),
           makePrefilledTextTab(
             "Cell",
@@ -401,18 +402,23 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             width: 530,
             height: 40,
           }),
+          docusign.Text.constructFromObject({
+            anchorString: "Prefer not to answer",
+            anchorUnits: "inches",
+            anchorCaseSensitive: false,
+            anchorYOffset: "-0.1",
+            anchorXOffset: "1.9",
+            font: "helvetica",
+            fontSize: "size10",
+            bold: "false",
+            value: body.childEthnicity,
+            locked: "false",
+            tabId: "child eth",
+            tabLabel: "Child Ethnicity",
+            width: 10,
+            height: 5,
+          }),
         ];
-        if (isOtherEth) {
-          dsTabs.parentTabs.textTabs.push(
-            makePrefilledTextTab(
-              "Prefer not to answer",
-              "Ethnicity",
-              -1.5,
-              100,
-              otherEthInfoDial
-            )
-          );
-        }
 
         // attachment tab for bills
         dsTabs.parentTabs.signerAttachmentTabs = [
@@ -602,7 +608,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             locked: "true",
             tabId: "ignore",
             tabLabel: "ignore",
-            optinal: "true",
+            optional: "true",
             width: 100,
           }),
         ];
