@@ -11,6 +11,7 @@ client/coverage
 # production
 client/build
 ecosystem.config.js
+dev_ecosystem.config.js
 nginx_signing.key
 
 # misc
