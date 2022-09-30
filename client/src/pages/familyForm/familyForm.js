@@ -395,17 +395,11 @@ class FamilyForm extends React.Component {
         );
         break;
       default:
-        curForm = <h1>Impossible! :o</h1>;
+        curForm = <h1>Error</h1>;
     }
     return (
       <div className="input-page">
         <div id="form-header">Apply For Aid</div>
-        <Row className="left-stuff">
-          <Col></Col>
-          {curForm}
-          <Col></Col>
-        </Row>
-        &nbsp;
         {this.state.showFillAlert ? (
           <Row>
             <Col></Col>
@@ -432,6 +426,11 @@ class FamilyForm extends React.Component {
         ) : (
           <span></span>
         )}
+        <Row className="left-stuff">
+          <Col></Col>
+          {curForm}
+          <Col></Col>
+        </Row>
       </div>
     );
   }
