@@ -162,10 +162,6 @@ class FamilyForm extends React.Component {
   async runSigning(event) {
     // get information about unfilled fields to user, if necessary
     const inputVals = {
-      "Child's name": this.state.childName,
-      "Child's Age": this.state.childAge,
-      "Child's gender": this.state.childGender,
-      "Child's ethnicity": this.state.childEthnicity,
       "Parent's name": this.state.parentName,
       "Parent's address": this.state.parentAddress,
       "Parent's city": this.state.parentCity,
@@ -174,12 +170,37 @@ class FamilyForm extends React.Component {
       "Parent's phone": this.state.parentPhone,
       "Parent's cell": this.state.parentCell,
       "Parent's email": this.state.parentEmail,
+      "Child's name": this.state.childName,
+      "Child's Age": this.state.childAge,
+      "Child's gender": this.state.childGender,
+      "Child's ethnicity": this.state.childEthnicity,
       "Annual income": this.state.annualIncome,
       "Requested grant": this.state.requestedGrant,
       "Intended use of grant": this.state.intendedUse,
       "Social worker name": this.state.socWorkName,
       "Social worker email": this.state.socWorkEmail,
       "Social worker email confirmation": this.state.socialWorkerEmailConfirm,
+    };
+    // page each value is on, for guiding user back to potential unfilled fields
+    const valPages = {
+      "Parent's name": 1,
+      "Parent's address": 1,
+      "Parent's city": 1,
+      "Parent's state": 1,
+      "Parent's zipcode": 1,
+      "Parent's phone": 1,
+      "Parent's cell": 1,
+      "Parent's email": 1,
+      "Child's name": 2,
+      "Child's Age": 2,
+      "Child's gender": 2,
+      "Child's ethnicity": 2,
+      "Annual income": 3,
+      "Requested grant": 3,
+      "Intended use of grant": 3,
+      "Social worker name": 4,
+      "Social worker email": 4,
+      "Social worker email confirmation": 4,
     };
     const inputNotFilled = [];
     for (const [key, value] of Object.entries(inputVals)) {
@@ -205,7 +226,11 @@ class FamilyForm extends React.Component {
 
     // validate all fields are filled
     if (inputNotFilled.length !== 0) {
-      this.setState({ showFillAlert: true, fieldsNeedFilling: inputNotFilled });
+      this.setState({
+        showFillAlert: true,
+        fieldsNeedFilling: inputNotFilled,
+        step: valPages[inputNotFilled[0]],
+      });
       return;
     }
 
