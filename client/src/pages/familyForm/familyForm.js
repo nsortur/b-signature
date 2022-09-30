@@ -5,6 +5,7 @@ import IncomeInformation from "../../components/familyFormComponents/incomeInfo"
 import SocWorkInformation from "../../components/familyFormComponents/socWorkInfo";
 import { navigate } from "@reach/router";
 import CryptoJS from "crypto-js";
+import { Alert, Col, ListGroup, Row } from "react-bootstrap";
 
 class FamilyForm extends React.Component {
   constructor(props) {
@@ -374,7 +375,38 @@ class FamilyForm extends React.Component {
     return (
       <div className="input-page">
         <div id="form-header">Apply For Aid</div>
-        <div className="left-stuff">{curForm}</div>
+        <Row className="left-stuff">
+          <Col></Col>
+          {curForm}
+          <Col></Col>
+        </Row>
+        &nbsp;
+        {this.state.showFillAlert ? (
+          <Row>
+            <Col></Col>
+            <Col sm={8}>
+              <Alert
+                variant="danger"
+                onClose={this.dismissFillAlert}
+                dismissible
+              >
+                <Alert.Heading>
+                  Please fill out or fix the following fields:
+                </Alert.Heading>
+                <ListGroup variant="flush">
+                  {this.state.fieldsNeedFilling.map((field, idx) => (
+                    <ListGroup.Item variant="danger" key={idx}>
+                      {field}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Alert>
+            </Col>
+            <Col></Col>
+          </Row>
+        ) : (
+          <span></span>
+        )}
       </div>
     );
   }

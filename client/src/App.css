@@ -21,20 +21,6 @@
     url(./fonts/Century\ Gothic\ Bold.ttf) format("truetype");
 }
 
-.left-stuff {
-  text-align: left;
-}
-
-.page-title {
-  text-align: center;
-  font-family: "Century Gothic Bold";
-}
-
-#nav-buttons {
-  font-family: "Rama Gothic E Semibold";
-  text-align: center;
-}
-
 .App-logo {
   height: 80vmin;
   pointer-events: none;
@@ -59,6 +45,37 @@
   margin: 10px;
 }
 
+#criteria {
+  margin-right: 10px;
+}
+
+.form-button {
+  margin: 10px;
+  outline: none;
+}
+
+#form-header {
+  font-family: "Rama Gothic E Semibold";
+  font-weight: bold;
+
+  font-size: 40px !important;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+}
+
+#homeContainer {
+  margin-top: 5vh;
+}
+
+#helpBlock {
+  color: black;
+}
+
+.input-card {
+  /* margin-top: 5vh; */
+  color: #008046;
+}
+
 .Landing-card {
   padding-top: 100px;
   align-items: flex-start;
@@ -71,48 +88,24 @@
   padding-bottom: 20px;
 }
 
-#criteria {
-  margin-right: 10px;
-}
-
-#homeContainer {
-  margin-top: 5vh;
-}
-
-#helpBlock {
-  color: black;
-}
-
-/* .input-page {
-  padding-right: 50px;
-  padding-left: 50px;
-  margin-top: 5vh;
-  color: darkgreen;
-} */
-
-.input-card {
-  /* margin-top: 5vh; */
-  color: #008046;
-}
-
-#form-header {
-  font-family: "Rama Gothic E Semibold";
-  font-weight: bold;
-
-  font-size: 40px !important;
-  margin-top: 1vh;
-  margin-bottom: 2vh;
-}
-
-#social-worker-link {
-  margin-top: 3vh;
+.left-stuff {
+  text-align: left;
 }
 
 #med-form-click-here {
   text-decoration: none;
 }
 
-.form-button {
-  margin: 10px;
-  outline: none;
+#nav-buttons {
+  font-family: "Rama Gothic E Semibold";
+  text-align: center;
+}
+
+.page-title {
+  text-align: center;
+  font-family: "Century Gothic Bold";
+}
+
+#social-worker-link {
+  margin-top: 3vh;
 }
