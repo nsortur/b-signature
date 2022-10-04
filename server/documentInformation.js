@@ -134,7 +134,15 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
   const recipients = {
     signers: [],
   };
-  let displayName = body.childName + "'s Financial Assistance Application";
+  // document name is child last, child first
+  var firstAndLast = body.childName.split(/[, ]+/);
+  if (firstAndLast.length >= 2) {
+    const last = firstAndLast.pop();
+    firstAndLast.unshift(last);
+  }
+  firstAndLast[0] = firstAndLast[0] + ",";
+  const nameDisp = firstAndLast.join(" ");
+  let displayName = nameDisp;
 
   docs.forEach((doc) => {
     switch (doc) {

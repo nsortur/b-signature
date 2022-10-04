@@ -137,13 +137,14 @@ function makeEnvelope(docInfo, signerClientId) {
 
   // create the envelope definition
   let env = new docusign.EnvelopeDefinition();
-  env.emailSubject = docInfo.docName;
+  env.emailSubject =
+    docInfo.envelopeArgs.childName + "'s Financial Assistance Application";
 
   // add the documents
   let doc1 = new docusign.Document(),
     doc1b64 = Buffer.from(doc1PdfBytes).toString("base64");
   doc1.documentBase64 = doc1b64;
-  doc1.name = docInfo.docName + ": Family"; // can be different from actual file name
+  doc1.name = docInfo.docName + " : Family Assistance Application"; // can be different from actual file name
   doc1.fileExtension = "pdf";
   doc1.documentId = "3";
 
@@ -151,7 +152,7 @@ function makeEnvelope(docInfo, signerClientId) {
   let doc2 = new docusign.Document(),
     doc2b64 = Buffer.from(doc2PdfBytes).toString("base64");
   doc2.documentBase64 = doc2b64;
-  doc2.name = docInfo.docName + ": Social Worker"; // can be different from actual file name
+  doc2.name = docInfo.docName + " : Social Worker Application"; // can be different from actual file name
   doc2.fileExtension = "pdf";
   doc2.documentId = "4";
 
@@ -179,7 +180,9 @@ function makeEnvelope(docInfo, signerClientId) {
       routingOrder: 2,
       emailNotification:
         docusign.RecipientEmailNotification.constructFromObject({
-          emailSubject: docInfo.docName,
+          emailSubject:
+            docInfo.envelopeArgs.childName +
+            "'s Financial Assistance Application",
           emailBody: "The B+ Foundation sent you this document to review.",
         }),
     })
