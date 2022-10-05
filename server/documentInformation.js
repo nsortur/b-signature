@@ -438,6 +438,17 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             tabLabel: "Family Bills",
             tooltip: "Bills",
           }),
+          docusign.SignerAttachment.constructFromObject({
+            anchorString: "photo of your brave hero",
+            anchorUnits: "inches",
+            anchorCaseSensitive: false,
+            anchorXOffset: "1.8",
+            anchorYOffset: "-0.4",
+            tabId: "hero_photo",
+            tabLabel: "Hero Photo",
+            tooltip: "Hero Photo",
+            optional: "true",
+          }),
         ];
 
         break;
