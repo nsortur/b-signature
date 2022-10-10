@@ -580,7 +580,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Please describe",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: "0.5",
+            anchorYOffset: "0.4",
             anchorXOffset: 0,
             font: "helvetica",
             fontSize: "size10",
@@ -589,7 +589,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             tabId: "Please describe",
             tabLabel: "Medical Condition Description",
             width: 570,
-            height: 190,
+            height: 160,
             validationPattern: "^(.|\n){500,}$",
             validationMessage:
               "*Must be AT LEAST 500 characters long (approx. 100 words)*",
@@ -603,14 +603,14 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
           makeTextTab(
             "Social Worker Name and Title",
             "Social Worker Name",
-            3.4,
-            250
+            2.0,
+            350
           ),
           makeTextTab(
-            "Email Address (please print)",
+            "Social Worker's Email Address",
             "Social Worker Email",
-            1.8,
-            170
+            2.0,
+            200
           ),
           docusign.Text.constructFromObject({
             anchorString: "please attach letter",
