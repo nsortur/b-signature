@@ -209,15 +209,11 @@ class FamilyForm extends React.Component {
       }
     }
     // validate family email
-    if (
-      !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.parentEmail)
-    ) {
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$/.test(this.state.parentEmail)) {
       inputNotFilled.push("Parent's email");
     }
     // validate social worker email
-    if (
-      !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.socWorkEmail)
-    ) {
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$/.test(this.state.socWorkEmail)) {
       inputNotFilled.push("Social worker's email");
     }
     if (this.state.socWorkEmail !== this.state.socialWorkerEmailConfirm) {
