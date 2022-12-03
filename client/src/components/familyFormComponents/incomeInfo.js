@@ -80,14 +80,15 @@ class IncomeInformation extends React.Component {
                   onChange={this.props.handleChange}
                   required
                 />
-                {/* <Form.Text>
-                    <b>
-                      Please provide bills <u>paid directly to the vendor</u>{" "}
-                      with the vendor name, account number, mailing address,
-                      family's last name, and dollar amount owed.
-                    </b>
-                  </Form.Text> */}
+                <Form.Text id="helpBlock">
+                  <b>
+                    Please write out the following (when applicable): vendor
+                    name, account number, mailing address, family last name and
+                    dollar amount
+                  </b>
+                </Form.Text>
               </Form.Group>
+
               <div id="nav-buttons">
                 <Button
                   variant="secondary"
