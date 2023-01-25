@@ -172,16 +172,17 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
         // docusign tabs
         dsTabs.parentTabs.signHereTabs = [
           docusign.SignHere.constructFromObject({
-            anchorString: "Parent/Legal Guardian's Hand-Written Signature",
+            anchorString: "Parent/Legal Guardian's Signature",
             anchorYOffset: "-0.3",
+            anchorXOffset: "0.1",
             anchorUnits: "inches",
           }),
         ];
         dsTabs.parentTabs.dateSignedTabs = [
           docusign.DateSigned.constructFromObject({
-            anchorString: "name and medical condition",
+            anchorString: "child's name, photo and medical condition",
             anchorYOffset: "-0.70",
-            anchorXOffset: "0.2",
+            anchorXOffset: "0.5",
             anchorUnits: "inches",
             tabLabel: "Family Parent/Guardian: Date Signed",
           }),
@@ -466,14 +467,14 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
         // docusign tabs
         dsTabs.socWorkTabs.signHereTabs = [
           docusign.SignHere.constructFromObject({
-            anchorString: "Social Worker's Hand-Written Signature",
+            anchorString: "Social Worker's Signature",
             anchorXOffset: "3",
             anchorUnits: "inches",
           }),
         ];
         dsTabs.socWorkTabs.dateSignedTabs = [
           docusign.DateSigned.constructFromObject({
-            anchorString: "Social Worker's Hand-Written Signature",
+            anchorString: "Social Worker's Signature",
             anchorYOffset: "0.40",
             anchorXOffset: "0.45",
             anchorUnits: "inches",
