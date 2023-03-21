@@ -180,7 +180,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
         ];
         dsTabs.parentTabs.dateSignedTabs = [
           docusign.DateSigned.constructFromObject({
-            anchorString: "child's name, photo and medical condition",
+            anchorString: "child's name and medical condition",
             anchorYOffset: "-0.70",
             anchorXOffset: "0.5",
             anchorUnits: "inches",
