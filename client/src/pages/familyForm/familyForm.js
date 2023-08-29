@@ -6,6 +6,7 @@ import SocWorkInformation from "../../components/familyFormComponents/socWorkInf
 import { navigate } from "@reach/router";
 import CryptoJS from "crypto-js";
 import { Alert, Col, ListGroup, Row } from "react-bootstrap";
+import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 
 class FamilyForm extends React.Component {
   constructor(props) {
@@ -33,7 +34,14 @@ class FamilyForm extends React.Component {
       socWorkName: "",
       socWorkEmail: "",
       socialWorkerEmailConfirm: "",
-      intendedUse: "",
+      billVendor: "",
+      billDollar: "",
+      billFamily: "",
+      billAccount: "",
+      vendorAddress: "",
+      vendorCity: "",
+      vendorState: "",
+      vendorZip: "",
       fieldsNeedFilling: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -84,7 +92,14 @@ class FamilyForm extends React.Component {
       socWorkName: "",
       socWorkEmail: "",
       socialWorkerEmailConfirm: "",
-      intendedUse: "",
+      billVendor: "",
+      billDollar: "",
+      billFamily: "",
+      billAccount: "",
+      vendorAddress: "",
+      vendorCity: "",
+      vendorState: "",
+      vendorZip: "",
       fieldsNeedFilling: [],
     });
   }
@@ -125,7 +140,14 @@ class FamilyForm extends React.Component {
           socWorkName: this.formData.socWorkName,
           socWorkEmail: this.formData.socWorkEmail,
           socialWorkerEmailConfirm: this.formData.socialWorkerEmailConfirm,
-          intendedUse: this.formData.intendedUse,
+          billVendor: this.formData.billVendor,
+          billDollar: this.formData.billDollar,
+          billFamily: this.formData.billFamily,
+          billAccount: this.formData.billAccount,
+          vendorAddress: this.formData.vendorAddress,
+          vendorCity: this.formData.vendorCity,
+          vendorState: this.formData.vendorState,
+          vendorZip: this.formData.vendorZip,
           fieldsNeedFilling: this.formData.fieldsNeedFilling,
         });
       }
@@ -176,7 +198,14 @@ class FamilyForm extends React.Component {
       "Child's ethnicity": this.state.childEthnicity,
       "Annual income": this.state.annualIncome,
       "Requested grant": this.state.requestedGrant,
-      "Intended use of grant": this.state.intendedUse,
+      "Bill Vendor": this.state.billVendor,
+      "Bill Dollar Amount": this.state.billDollar,
+      "Bill Family Name": this.state.billFamily,
+      "Bill Account Number": this.state.billAccount,
+      "Vendor Address": this.state.vendorAddress,
+      "Vendor City": this.state.vendorCity,
+      "Vendor State": this.state.vendorState,
+      "Vendor Zip": this.state.vendorZip,
       "Social worker name": this.state.socWorkName,
       "Social worker email": this.state.socWorkEmail,
       "Social worker email confirmation": this.state.socialWorkerEmailConfirm,
@@ -191,15 +220,26 @@ class FamilyForm extends React.Component {
       "Parent's phone": 1,
       "Parent's cell": 1,
       "Parent's email": 1,
+      "Parent's email must be valid email address": 1,
       "Child's name": 2,
       "Child's Age": 2,
       "Child's gender": 2,
       "Child's ethnicity": 2,
       "Annual income": 3,
       "Requested grant": 3,
-      "Intended use of grant": 3,
+      "Bill Vendor": 3,
+      "Bill Dollar Amount": 3,
+      "Bill Family Name": 3,
+      "Bill Account Number": 3,
+      "Vendor Address": 3,
+      "Vendor City": 3,
+      "Vendor State": 3,
+      "Vendor Zip": 3,
+      "Information box must not exceed 400 characters": 3,
       "Social worker name": 4,
       "Social worker email": 4,
+      "Social worker's email must be valid email address": 4,
+      "Please confirm emails match": 4,
       "Social worker email confirmation": 4,
     };
     const inputNotFilled = [];
@@ -209,12 +249,12 @@ class FamilyForm extends React.Component {
       }
     }
     // validate family email
-    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$/.test(this.state.parentEmail)) {
-      inputNotFilled.push("Parent's email");
+    if (!/\S+@\S+\.\S+/.test(this.state.parentEmail)) {
+      inputNotFilled.push("Parent's email must be valid email address");
     }
     // validate social worker email
-    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$/.test(this.state.socWorkEmail)) {
-      inputNotFilled.push("Social worker's email");
+    if (!/\S+@\S+\.\S+/.test(this.state.socWorkEmail)) {
+      inputNotFilled.push("Social worker's email must be valid email address");
     }
     if (this.state.socWorkEmail !== this.state.socialWorkerEmailConfirm) {
       inputNotFilled.push("Please confirm emails match");
@@ -256,7 +296,11 @@ class FamilyForm extends React.Component {
           parentEmail: this.state.parentEmail,
           annualIncome: this.state.annualIncome,
           requestedGrant: this.state.requestedGrant,
-          intendedUse: this.state.intendedUse,
+          billVendor: this.state.billVendor,
+          billDollar: this.state.billDollar,
+          billFamily: this.state.billFamily,
+          billAccount: this.state.billAccount,
+          vendorFullAddress: this.state.vendorAddress + ", " + this.state.vendorCity + ", " + this.state.vendorState + " " + this.state.vendorZip,
           socialWorkerName: this.state.socWorkName,
           socialWorkerEmail: this.state.socWorkEmail,
         }),
@@ -294,7 +338,14 @@ class FamilyForm extends React.Component {
               socWorkName: "",
               socWorkEmail: "",
               socialWorkerEmailConfirm: "",
-              intendedUse: "",
+              billVendor: "",
+              billDollar: "",
+              billFamily: "",
+              billAccount: "",
+              vendorAddress: "",
+              vendorCity: "",
+              vendorState: "",
+              vendorZip: "",
               fieldsNeedFilling: [],
             },
             () => {

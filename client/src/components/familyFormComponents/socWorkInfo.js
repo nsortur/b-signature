@@ -93,7 +93,7 @@ class SocWorkInformation extends React.Component {
                   On the following page in the attachments box, please provide
                   bills <u>paid directly to the vendor</u> with the vendor name,
                   account number, mailing address, family's last name, and
-                  dollar amount owed.
+                  dollar amount owed. There will also be space to attach an optional photo.
                 </b>
                 {/* Note: Upon submission of this form, information will be stored. */}
               </p>
