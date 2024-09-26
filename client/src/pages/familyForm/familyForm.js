@@ -34,21 +34,27 @@ class FamilyForm extends React.Component {
       socWorkName: "",
       socWorkEmail: "",
       socialWorkerEmailConfirm: "",
-      billVendor: "",
-      billDollar: "",
-      billFamily: "",
-      billAccount: "",
-      vendorAddress: "",
-      vendorCity: "",
-      vendorState: "",
-      vendorZip: "",
+      // billVendor: "",
+      // billDollar: "",
+      // billFamily: "",
+      // billAccount: "",
+      // vendorAddress: "",
+      // vendorCity: "",
+      // vendorState: "",
+      // vendorZip: "",
       fieldsNeedFilling: [],
+      vendors: [],
+      activeKey: null,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.runSigning = this.runSigning.bind(this);
     this.dismissFillAlert = this.dismissFillAlert.bind(this);
+    this.addVendor = this.addVendor.bind(this);
+    this.deleteVendor = this.deleteVendor.bind(this);
+    this.handleVendorChange = this.handleVendorChange.bind(this);
+    this.toggleAccordion = this.toggleAccordion.bind(this);
     this.salt = process.env.BSIG_SALT || "development-salt-98sdi3u-o82bfip";
   }
 
@@ -92,15 +98,17 @@ class FamilyForm extends React.Component {
       socWorkName: "",
       socWorkEmail: "",
       socialWorkerEmailConfirm: "",
-      billVendor: "",
-      billDollar: "",
-      billFamily: "",
-      billAccount: "",
-      vendorAddress: "",
-      vendorCity: "",
-      vendorState: "",
-      vendorZip: "",
+      // billVendor: "",
+      // billDollar: "",
+      // billFamily: "",
+      // billAccount: "",
+      // vendorAddress: "",
+      // vendorCity: "",
+      // vendorState: "",
+      // vendorZip: "",
       fieldsNeedFilling: [],
+      vendors: [],
+      activeKey: null,
     });
   }
 
@@ -140,15 +148,17 @@ class FamilyForm extends React.Component {
           socWorkName: this.formData.socWorkName,
           socWorkEmail: this.formData.socWorkEmail,
           socialWorkerEmailConfirm: this.formData.socialWorkerEmailConfirm,
-          billVendor: this.formData.billVendor,
-          billDollar: this.formData.billDollar,
-          billFamily: this.formData.billFamily,
-          billAccount: this.formData.billAccount,
-          vendorAddress: this.formData.vendorAddress,
-          vendorCity: this.formData.vendorCity,
-          vendorState: this.formData.vendorState,
-          vendorZip: this.formData.vendorZip,
+          // billVendor: this.formData.billVendor,
+          // billDollar: this.formData.billDollar,
+          // billFamily: this.formData.billFamily,
+          // billAccount: this.formData.billAccount,
+          // vendorAddress: this.formData.vendorAddress,
+          // vendorCity: this.formData.vendorCity,
+          // vendorState: this.formData.vendorState,
+          // vendorZip: this.formData.vendorZip,
           fieldsNeedFilling: this.formData.fieldsNeedFilling,
+          vendors: this.formData.vendors,
+          activeKey: this.formData.activeKey,
         });
       }
     } else {
@@ -198,14 +208,14 @@ class FamilyForm extends React.Component {
       "Child's ethnicity": this.state.childEthnicity,
       "Annual income": this.state.annualIncome,
       "Requested grant": this.state.requestedGrant,
-      "Bill Vendor": this.state.billVendor,
-      "Bill Dollar Amount": this.state.billDollar,
-      "Bill Family Name": this.state.billFamily,
-      "Bill Account Number": this.state.billAccount,
-      "Vendor Address": this.state.vendorAddress,
-      "Vendor City": this.state.vendorCity,
-      "Vendor State": this.state.vendorState,
-      "Vendor Zip": this.state.vendorZip,
+      // "Bill Vendor": this.state.billVendor,
+      // "Bill Dollar Amount": this.state.billDollar,
+      // "Bill Family Name": this.state.billFamily,
+      // "Bill Account Number": this.state.billAccount,
+      // "Vendor Address": this.state.vendorAddress,
+      // "Vendor City": this.state.vendorCity,
+      // "Vendor State": this.state.vendorState,
+      // "Vendor Zip": this.state.vendorZip,
       "Social worker name": this.state.socWorkName,
       "Social worker email": this.state.socWorkEmail,
       "Social worker email confirmation": this.state.socialWorkerEmailConfirm,
@@ -347,6 +357,8 @@ class FamilyForm extends React.Component {
               vendorState: "",
               vendorZip: "",
               fieldsNeedFilling: [],
+              vendors: [],
+              activeKey: null,
             },
             () => {
               // clear local storage for security
@@ -398,6 +410,45 @@ class FamilyForm extends React.Component {
     this.setState({ showFillAlert: false });
   }
 
+  // Handle the addition of a new vendor
+  addVendor() {
+    const newVendor = {
+      id: Date.now(),  // Use a timestamp or a UUID for a unique ID
+      name: "",
+      dollar: 0,
+      family: "",
+      account: "",
+      address: "",
+      city: "",
+      state: "",
+      zip: ""
+    };
+    this.setState((prevState) => ({
+      vendors: [...prevState.vendors, newVendor],
+    }));
+  };
+  
+
+  // Handle the deletion of a vendor
+  deleteVendor(vendorId) {
+    this.setState((prevState) => ({
+      vendors: prevState.vendors.filter((vendor) => vendor.id !== vendorId),
+    }));
+  };
+
+  // Handle change in vendor details (name/address)
+  handleVendorChange(index, field, value){
+    const updatedVendors = this.state.vendors.map((vendor, i) =>
+      i === index ? { ...vendor, [field]: value } : vendor
+    );
+    this.setState({ vendors: updatedVendors });
+  }
+
+  // Toggle accordion items
+  toggleAccordion(e){
+    this.setState({ activeKey: e })
+  };
+
   render() {
     let curForm;
     switch (this.state.step) {
@@ -426,6 +477,10 @@ class FamilyForm extends React.Component {
             handleChange={this.handleInputChange}
             prevPage={this.prevPage}
             nextPage={this.nextPage}
+            addVendor={this.addVendor}
+            deleteVendor={this.deleteVendor}
+            handleVendorChange={this.handleVendorChange}
+            toggleAccordion={this.toggleAccordion}
             values={this.state}
           />
         );

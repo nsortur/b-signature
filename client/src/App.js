@@ -1,10 +1,10 @@
 import React from "react";
-import "./App.css";
 import MyNav from "./components/navbar/navbar";
 import FamilyForm from "./pages/familyForm/familyForm";
 import LandingPage from "./pages/landing/landing";
 import SigningDone from "./pages/signingCompleted/signingCompleted";
 import { Router } from "@reach/router";
+import "./App.css";
 
 const NotFound = () => (
   <div className="App-header">
