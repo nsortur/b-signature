@@ -21,6 +21,17 @@
     url(./fonts/Century\ Gothic\ Bold.ttf) format("truetype");
 }
 
+/* Change color of accordion header when expanded */
+.accordion-item .accordion-button:not(.collapsed) {
+  background-color: #E6F4E6 !important;  /* Your custom background color */
+  color: black !important;  /* Custom text color */
+}
+
+/* Optionally customize the border or any other styles */
+.accordion-item .accordion-button {
+  border: 1px solid #528055 !important;  /* Custom border color */
+}
+
 .App-logo {
   height: 80vmin;
   pointer-events: none;

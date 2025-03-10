@@ -106,6 +106,12 @@ function makeCheckbox(anchorString, xOffset, checked) {
   });
 }
 
+function calculateVendorYOffset(index) {
+  const baseYOffset = 1.0; // Starting Y-offset
+  const spacing = 1.5; // Spacing between vendors
+  return baseYOffset + index * spacing;
+}
+
 /**
  * Formats object of DocuSign envelope details with multiple documents
  * @param {Array} docs array of document enums to be included in this envelope
@@ -161,10 +167,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
         prefillVals.parentEmail = body.parentEmail;
         prefillVals.annualIncome = body.annualIncome;
         prefillVals.requestedGrant = body.requestedGrant;
-        prefillVals.billVendor = body.billVendor;
-        prefillVals.billDollar = body.billDollar;
-        prefillVals.billFamily = body.billFamily;
-        prefillVals.billAccount = body.billAccount;
+        prefillVals.vendors = body.vendors;
 
         // document recipients, must have at least name and email
         recipients.signers.push({
@@ -238,9 +241,9 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
         dsTabs.parentTabs.checkboxTabs = [
           makeCheckbox("African American", 1.27, isAfricanEth),
           makeCheckbox("Asian/Pacific Islander", 1.53, isAsianEth),
-          makeCheckbox("Caucasian", 0.78, isCaucasianEth),
+          makeCheckbox("Caucasian", 0.81, isCaucasianEth),
           makeCheckbox("Hispanic", 0.67, isHispanicEth),
-          makeCheckbox("Native American", 1.26, isNativeEth),
+          makeCheckbox("Native American", 1.22, isNativeEth),
           // make this one manually bc weird and has y offset
           docusign.Checkbox.constructFromObject({
             anchorString: "Native American",
@@ -253,7 +256,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             tabId: "Other",
             tabLabel: "Other",
           }),
-          makeCheckbox("Prefer not to answer", 1.43, isNoAnswerEth),
+          makeCheckbox("Prefer not to answer", 1.44, isNoAnswerEth),
         ];
 
         // plain text tabs
@@ -267,7 +270,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Information will",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: "-0.4",
+            anchorYOffset: "-0.6",
             anchorXOffset: 1,
             font: "helvetica",
             fontSize: "size10",
@@ -296,7 +299,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
           docusign.Text.constructFromObject({
             anchorString: "Information will be used",
             anchorUnits: "inches",
-            anchorYOffset: "1.05",
+            anchorYOffset: "1.4",
             anchorXOffset: "0.7",
             font: "helvetica",
             fontSize: "size10",
@@ -311,7 +314,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Information will",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.4,
+            anchorYOffset: 1.9,
             anchorXOffset: 0.3,
             font: "helvetica",
             fontSize: "size10",
@@ -327,7 +330,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Information will",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.4,
+            anchorYOffset: 1.9,
             anchorXOffset: 2.6,
             font: "helvetica",
             fontSize: "size10",
@@ -342,7 +345,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Information will",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 1.4,
+            anchorYOffset: 1.9,
             anchorXOffset: 5.1,
             font: "helvetica",
             fontSize: "size10",
@@ -371,7 +374,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             anchorString: "Information will",
             anchorUnits: "inches",
             anchorCaseSensitive: false,
-            anchorYOffset: 2.1,
+            anchorYOffset: 2.85,
             anchorXOffset: 1.0,
             font: "helvetica",
             fontSize: "size10",
@@ -396,11 +399,11 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             150,
             usFormat.format(body.requestedGrant)
           ),
-          makePrefilledTextTab("Vendor name:", "Vendor name", 1.0, 220, body.billVendor),
-          makePrefilledTextTab("Dollar amount:", "Bill dollar", 1.0, 150, usFormat.format(body.billDollar)),
-          makePrefilledTextTab("Family last name:", "Bill family name", 1.2, 200, body.billFamily),
-          makePrefilledTextTab("Account number:", "Bill account", 1.2, 150, body.billAccount),
-          makePrefilledTextTab("Vendor mailing address:", "Vendor mailing", 1.6, 420, body.vendorFullAddress),
+          // makePrefilledTextTab("Vendor name:", "Vendor name", 1.0, 220, body.billVendor),
+          // makePrefilledTextTab("Dollar amount:", "Bill dollar", 1.0, 150, usFormat.format(body.billDollar)),
+          // makePrefilledTextTab("Family last name:", "Bill family name", 1.2, 200, body.billFamily),
+          // makePrefilledTextTab("Account number:", "Bill account", 1.2, 150, body.billAccount),
+          // makePrefilledTextTab("Vendor mailing address:", "Vendor mailing", 1.6, 420, body.vendorFullAddress),
           docusign.Text.constructFromObject({
             anchorString: "Prefer not to answer",
             anchorUnits: "inches",
@@ -418,6 +421,82 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
             height: 5,
           }),
         ];
+        
+        const vendorTabs = [];
+        const blankPageNumber = 2; // Page we're putting vendor info on
+        const spaceScale = 38; // 72 points = 1 inch
+        const spaceStart = 120; // Starting Y-position
+        prefillVals.vendors.forEach((vendor, index) => {
+          // Calculate Y-offsets or positions based on index
+          const yOffset = calculateVendorYOffset(index);
+          const baseY = spaceStart + yOffset * spaceScale;
+        
+          vendorTabs.push(
+            docusign.Text.constructFromObject({
+              documentId: '3',
+              pageNumber: blankPageNumber.toString(),
+              xPosition: '75',
+              yPosition: baseY.toString(),
+              tabLabel: `Vendor Name ${index}`,
+              value: vendor.name,
+              font: "helvetica",
+              fontSize: "size10",
+              bold: "false",
+              locked: "false",
+            }),
+            docusign.Text.constructFromObject({
+              documentId: '3',
+              pageNumber: blankPageNumber.toString(),
+              xPosition: '350',
+              yPosition: baseY.toString(),
+              tabLabel: `Bill Dollar ${index}`,
+              value: usFormat.format(vendor.dollar),
+              font: "helvetica",
+              fontSize: "size10",
+              bold: "false",
+              locked: "false",
+            }),
+            docusign.Text.constructFromObject({
+              documentId: '3',
+              pageNumber: blankPageNumber.toString(),
+              xPosition: '75', 
+              yPosition: (baseY + 20).toString(),
+              tabLabel: `Family Last Name ${index}`,
+              value: vendor.family,
+              font: "helvetica",
+              fontSize: "size10",
+              bold: "false",
+              locked: "false",
+            }),
+            docusign.Text.constructFromObject({
+              documentId: '3',
+              pageNumber: blankPageNumber.toString(),
+              xPosition: '200',
+              yPosition: (baseY + 20).toString(),
+              tabLabel: `Account Number ${index}`,
+              value: vendor.account,
+              font: "helvetica",
+              fontSize: "size10",
+              bold: "false",
+              locked: "false",
+            }),
+            docusign.Text.constructFromObject({
+              documentId: '3',
+              pageNumber: blankPageNumber.toString(),
+              xPosition: '275',
+              yPosition: (baseY + 20).toString(),
+              tabLabel: `Vendor Mailing Address ${index}`,
+              value: `${vendor.address}, ${vendor.city}, ${vendor.state} ${vendor.zip}`,
+              font: "helvetica",
+              fontSize: "size10",
+              bold: "false",
+              locked: "false",
+            })
+          );
+        });
+        
+        // Add vendor tabs to parent tabs
+        dsTabs.parentTabs.textTabs.push(...vendorTabs);
 
         // attachment tab for bills
         dsTabs.parentTabs.signerAttachmentTabs = [
