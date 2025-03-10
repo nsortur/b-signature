@@ -192,6 +192,119 @@ class FamilyForm extends React.Component {
   }
 
   async runSigning(event) {
+    // Done: remove input vals a bunch of non-empty testing values, this is just for testing
+    // this.setState({
+    //   parentName: "Steve",
+    //   parentAddress: "1234 Main St",
+    //   parentCity: "San Francisco",
+    //   parentState: "CA",
+    //   parentZip: "94105",
+    //   parentPhone: "123-456-7890",
+    //   parentCell: "123-456-7890",
+    //   parentEmail: "someemail@gmail.com",
+    //   childName: "Billy",
+    //   childAge: "5",
+    //   childGender: "Male",
+    //   childEthnicity: "Another",
+    //   annualIncome: "50000",
+    //   requestedGrant: "1000",
+    //   socWorkName: "Jane",
+    //   socWorkEmail: "janedoasdasdasd@gmail.com",
+    //   socialWorkerEmailConfirm: "janedoasdasdasd@gmail.com",
+    //   vendors: [
+    //     {
+    //       id: 1,
+    //       name: "Vendor 1 with a really long name",
+    //       dollar: 1000,
+    //       family: "Smith Smith Smith Smith",
+    //       account: "123ABC",
+    //       address: "456 Elm Saint Augustine Very Very Long Address St",
+    //       city: "Los Angeles",
+    //       state: "CA",
+    //       zip: "90001",
+    //     },
+    //     {
+    //       id: 2,
+    //       name: "Vendor 2",
+    //       dollar: 2000,
+    //       family: "Johnson",
+    //       account: "456DEF",
+    //       address: "789 Maple Ave",
+    //       city: "Seattle",
+    //       state: "WA",
+    //       zip: "98101",
+    //     },
+    //     {
+    //       id: 3,
+    //       name: "Vendor 3",
+    //       dollar: 3000,
+    //       family: "Williams",
+    //       account: "789GHI",
+    //       address: "101 Pine St",
+    //       city: "Portland",
+    //       state: "OR",
+    //       zip: "97201",
+    //     },
+    //     {
+    //       id: 4,
+    //       name: "Vendor 4",
+    //       dollar: 4000,
+    //       family: "Brown",
+    //       account: "012JKL",
+    //       address: "202 Oak St",
+    //       city: "Denver",
+    //       state: "CO",
+    //       zip: "80201",
+    //     },
+    //     {
+    //       id: 5,
+    //       name: "Vendor 5",
+    //       dollar: 5000,
+    //       family: "Davis",
+    //       account: "345MNO",
+    //       address: "303 Birch St",
+    //       city: "Austin",
+    //       state: "TX",
+    //       zip: "73301",
+    //     },
+    //     {
+    //       id: 6,
+    //       name: "Vendor 6",
+    //       dollar: 6000,
+    //       family: "Miller",
+    //       account: "678PQR",
+    //       address: "404 Cedar St",
+    //       city: "Boston",
+    //       state: "MA",
+    //       zip: "02101",
+    //     },
+    //     {
+    //       id: 7,
+    //       name: "Vendor 7",
+    //       dollar: 7000,
+    //       family: "Wilson",
+    //       account: "901STU",
+    //       address: "505 Spruce St",
+    //       city: "Chicago",
+    //       state: "IL",
+    //       zip: "60601",
+    //     },
+    //     {
+    //       id: 8,
+    //       name: "Vendor 8",
+    //       dollar: 8000,
+    //       family: "Moore",
+    //       account: "234VWX",
+    //       address: "606 Maple St",
+    //       city: "Miami",
+    //       state: "FL",
+    //       zip: "33101",
+    //     }
+    //   ],
+    // });
+    // END REMOVE
+
+
     // get information about unfilled fields to user, if necessary
     const inputVals = {
       "Parent's name": this.state.parentName,
@@ -208,14 +321,6 @@ class FamilyForm extends React.Component {
       "Child's ethnicity": this.state.childEthnicity,
       "Annual income": this.state.annualIncome,
       "Requested grant": this.state.requestedGrant,
-      // "Bill Vendor": this.state.billVendor,
-      // "Bill Dollar Amount": this.state.billDollar,
-      // "Bill Family Name": this.state.billFamily,
-      // "Bill Account Number": this.state.billAccount,
-      // "Vendor Address": this.state.vendorAddress,
-      // "Vendor City": this.state.vendorCity,
-      // "Vendor State": this.state.vendorState,
-      // "Vendor Zip": this.state.vendorZip,
       "Social worker name": this.state.socWorkName,
       "Social worker email": this.state.socWorkEmail,
       "Social worker email confirmation": this.state.socialWorkerEmailConfirm,
@@ -237,50 +342,82 @@ class FamilyForm extends React.Component {
       "Child's ethnicity": 2,
       "Annual income": 3,
       "Requested grant": 3,
-      "Bill Vendor": 3,
-      "Bill Dollar Amount": 3,
-      "Bill Family Name": 3,
-      "Bill Account Number": 3,
-      "Vendor Address": 3,
-      "Vendor City": 3,
-      "Vendor State": 3,
-      "Vendor Zip": 3,
-      "Information box must not exceed 400 characters": 3,
+      "At least one vendor is required": 3,
+      "No more than 8 vendors are allowed": 3,
       "Social worker name": 4,
       "Social worker email": 4,
       "Social worker's email must be valid email address": 4,
       "Please confirm emails match": 4,
       "Social worker email confirmation": 4,
     };
+
+    // Add vendor field mappings dynamically
+    for (let i = 1; i <= 8; i++) {
+      valPages[`Vendor ${i} name is required`] = 3;
+      valPages[`Vendor ${i} dollar amount is required`] = 3;
+      valPages[`Vendor ${i} family name is required`] = 3;
+      valPages[`Vendor ${i} account number is required`] = 3;
+      valPages[`Vendor ${i} address is required`] = 3;
+      valPages[`Vendor ${i} city is required`] = 3;
+      valPages[`Vendor ${i} state is required`] = 3;
+      valPages[`Vendor ${i} zip is required`] = 3;
+    }
     const inputNotFilled = [];
     for (const [key, value] of Object.entries(inputVals)) {
       if (value === "") {
         inputNotFilled.push(key);
       }
     }
-    // validate family email
+  
+    // Validate family email
     if (!/\S+@\S+\.\S+/.test(this.state.parentEmail)) {
       inputNotFilled.push("Parent's email must be valid email address");
     }
-    // validate social worker email
+  
+    // Validate social worker email
     if (!/\S+@\S+\.\S+/.test(this.state.socWorkEmail)) {
       inputNotFilled.push("Social worker's email must be valid email address");
     }
+  
     if (this.state.socWorkEmail !== this.state.socialWorkerEmailConfirm) {
       inputNotFilled.push("Please confirm emails match");
     }
-
-    // validate all fields are filled
+    
+    if (this.state.vendors.length === 0) {
+      inputNotFilled.push("At least one vendor is required");
+    } else if (this.state.vendors.length > 8) {
+      inputNotFilled.push("No more than 8 vendors are allowed");
+    } else {
+      this.state.vendors.forEach((vendor, index) => {
+      const vendorFields = {
+        [`Vendor ${index + 1} name`]: vendor.name,
+        [`Vendor ${index + 1} dollar amount`]: vendor.dollar,
+        [`Vendor ${index + 1} family name`]: vendor.family,
+        [`Vendor ${index + 1} account number`]: vendor.account,
+        [`Vendor ${index + 1} address`]: vendor.address,
+        [`Vendor ${index + 1} city`]: vendor.city,
+        [`Vendor ${index + 1} state`]: vendor.state,
+        [`Vendor ${index + 1} zip`]: vendor.zip,
+      };
+      for (const [fieldName, fieldValue] of Object.entries(vendorFields)) {
+        if (!fieldValue) {
+        inputNotFilled.push(`${fieldName} is required`);
+        }
+      }
+      });
+    }
+  
+    // Validate all fields are filled
     if (inputNotFilled.length !== 0) {
       this.setState({
         showFillAlert: true,
         fieldsNeedFilling: inputNotFilled,
-        step: valPages[inputNotFilled[0]],
+        step: valPages[inputNotFilled[0]] || 1,
       });
       return;
     }
-
-    // start login and get signing URL
+  
+    // Start login and get signing URL
     this.setState({ loadingSigning: true, showFillAlert: false });
     try {
       await this.runLogin();
@@ -291,7 +428,7 @@ class FamilyForm extends React.Component {
         },
         method: "POST",
         body: JSON.stringify({
-          // transmit form info to backend
+          // Transmit form info to backend
           childName: this.state.childName,
           childAge: this.state.childAge,
           childGender: this.state.childGender,
@@ -306,11 +443,7 @@ class FamilyForm extends React.Component {
           parentEmail: this.state.parentEmail,
           annualIncome: this.state.annualIncome,
           requestedGrant: this.state.requestedGrant,
-          billVendor: this.state.billVendor,
-          billDollar: this.state.billDollar,
-          billFamily: this.state.billFamily,
-          billAccount: this.state.billAccount,
-          vendorFullAddress: this.state.vendorAddress + ", " + this.state.vendorCity + ", " + this.state.vendorState + " " + this.state.vendorZip,
+          vendors: this.state.vendors, // Include vendors array
           socialWorkerName: this.state.socWorkName,
           socialWorkerEmail: this.state.socWorkEmail,
         }),
@@ -331,6 +464,7 @@ class FamilyForm extends React.Component {
               loadingSigning: true,
               otherEthSelected: false,
               showFillAlert: false,
+              // Clear all form fields
               childName: "",
               childAge: "",
               childGender: "",
@@ -348,20 +482,12 @@ class FamilyForm extends React.Component {
               socWorkName: "",
               socWorkEmail: "",
               socialWorkerEmailConfirm: "",
-              billVendor: "",
-              billDollar: "",
-              billFamily: "",
-              billAccount: "",
-              vendorAddress: "",
-              vendorCity: "",
-              vendorState: "",
-              vendorZip: "",
               fieldsNeedFilling: [],
               vendors: [],
               activeKey: null,
             },
             () => {
-              // clear local storage for security
+              // Clear local storage for security
               localStorage.clear();
               window.location.href = data.signingUrl;
             }
