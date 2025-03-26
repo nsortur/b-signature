@@ -157,7 +157,7 @@ class FamilyForm extends React.Component {
           // vendorState: this.formData.vendorState,
           // vendorZip: this.formData.vendorZip,
           fieldsNeedFilling: this.formData.fieldsNeedFilling,
-          vendors: this.formData.vendors,
+          vendors: this.formData.vendors || [],
           activeKey: this.formData.activeKey,
         });
       }
