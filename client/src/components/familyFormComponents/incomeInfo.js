@@ -76,7 +76,7 @@ class IncomeInformation extends React.Component {
 
               
               <Accordion activeKey={this.props.values.activeKey} onSelect={this.props.toggleAccordion}>
-                {this.props.values.vendors.map((vendor, index) => (
+                {(this.props.values.vendors || []).map((vendor, index) => (
                   <Accordion.Item eventKey={vendor.id ? vendor.id.toString() : index.toString()} key={vendor.id ? vendor.id : index} data-testid={`accordion-item-${index}`}>
                     <Accordion.Header>
                       Vendor {index + 1}: {vendor.name || "(No Name)"}

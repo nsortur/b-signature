@@ -167,7 +167,7 @@ documentInformation.makeEnvelopeDetails = (docs, req, res) => {
         prefillVals.parentEmail = body.parentEmail;
         prefillVals.annualIncome = body.annualIncome;
         prefillVals.requestedGrant = body.requestedGrant;
-        prefillVals.vendors = body.vendors;
+        prefillVals.vendors = Array.isArray(body.vendors) ? body.vendors : [];
 
         // document recipients, must have at least name and email
         recipients.signers.push({
