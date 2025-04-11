@@ -209,8 +209,8 @@ class FamilyForm extends React.Component {
     //   annualIncome: "50000",
     //   requestedGrant: "1000",
     //   socWorkName: "Jane",
-    //   socWorkEmail: "janedoasdasdasd@gmail.com",
-    //   socialWorkerEmailConfirm: "janedoasdasdasd@gmail.com",
+    //   // socWorkEmail: "janedoasdasdasd@gmail.com",
+    //   // socialWorkerEmailConfirm: "janedoasdasdasd@gmail.com",
     //   vendors: [
     //     {
     //       id: 1,
@@ -373,12 +373,12 @@ class FamilyForm extends React.Component {
     }
   
     // Validate family email
-    if (!/\S+@\S+\.\S+/.test(parentEmail)) {
+    if (!/\S+@\S+\.\S+/.test(parentEmail) || /\.\@/.test(parentEmail)) {
       inputNotFilled.push("Parent's email must be valid email address");
     }
-  
+
     // Validate social worker email
-    if (!/\S+@\S+\.\S+/.test(socWorkEmail)) {
+    if (!/\S+@\S+\.\S+/.test(socWorkEmail) || /\.\@/.test(socWorkEmail)) {
       inputNotFilled.push("Social worker's email must be valid email address");
     }
   
