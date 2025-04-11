@@ -304,6 +304,9 @@ class FamilyForm extends React.Component {
     // });
     // END REMOVE
 
+    const parentEmail = (this.state.parentEmail || "").replace(/\s/g, '');
+    const socWorkEmail = (this.state.socWorkEmail || "").replace(/\s/g, '');
+    const socialWorkerEmailConfirm = (this.state.socialWorkerEmailConfirm || "").replace(/\s/g, '');
 
     // get information about unfilled fields to user, if necessary
     const inputVals = {
@@ -314,7 +317,7 @@ class FamilyForm extends React.Component {
       "Parent's zipcode": this.state.parentZip,
       "Parent's phone": this.state.parentPhone,
       "Parent's cell": this.state.parentCell,
-      "Parent's email": this.state.parentEmail,
+      "Parent's email": parentEmail,
       "Child's name": this.state.childName,
       "Child's Age": this.state.childAge,
       "Child's gender": this.state.childGender,
@@ -322,8 +325,8 @@ class FamilyForm extends React.Component {
       "Annual income": this.state.annualIncome,
       "Requested grant": this.state.requestedGrant,
       "Social worker name": this.state.socWorkName,
-      "Social worker email": this.state.socWorkEmail,
-      "Social worker email confirmation": this.state.socialWorkerEmailConfirm,
+      "Social worker email": socWorkEmail,
+      "Social worker email confirmation": socialWorkerEmailConfirm,
     };
     // page each value is on, for guiding user back to potential unfilled fields
     const valPages = {
@@ -370,16 +373,16 @@ class FamilyForm extends React.Component {
     }
   
     // Validate family email
-    if (!/\S+@\S+\.\S+/.test(this.state.parentEmail)) {
+    if (!/\S+@\S+\.\S+/.test(parentEmail)) {
       inputNotFilled.push("Parent's email must be valid email address");
     }
   
     // Validate social worker email
-    if (!/\S+@\S+\.\S+/.test(this.state.socWorkEmail)) {
+    if (!/\S+@\S+\.\S+/.test(socWorkEmail)) {
       inputNotFilled.push("Social worker's email must be valid email address");
     }
   
-    if (this.state.socWorkEmail !== this.state.socialWorkerEmailConfirm) {
+    if (socWorkEmail !== socialWorkerEmailConfirm) {
       inputNotFilled.push("Please confirm emails match");
     }
     
@@ -440,12 +443,12 @@ class FamilyForm extends React.Component {
           parentZip: this.state.parentZip,
           parentPhone: this.state.parentPhone,
           parentCell: this.state.parentCell,
-          parentEmail: this.state.parentEmail,
+          parentEmail: parentEmail,
           annualIncome: this.state.annualIncome,
           requestedGrant: this.state.requestedGrant,
           vendors: this.state.vendors, // Include vendors array
           socialWorkerName: this.state.socWorkName,
-          socialWorkerEmail: this.state.socWorkEmail,
+          socialWorkerEmail: socWorkEmail,
         }),
         credentials: "include",
       })
