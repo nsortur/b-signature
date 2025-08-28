@@ -182,6 +182,29 @@ class FamilyForm extends React.Component {
   }
 
   async runSigning(event) {
+
+    // remove input vals a bunch of non-empty testing values, this is just for testing
+    // this.setState({
+    //   parentName: "Steve",
+    //   parentAddress: "1234 Main St",
+    //   parentCity: "San Francisco",
+    //   parentState: "CA",
+    //   parentZip: "94105",
+    //   parentPhone: "123-456-7890",
+    //   parentCell: "123-456-7890",
+    //   parentEmail: "someemail@gmail.com",
+    //   childName: "Billy",
+    //   childAge: "5",
+    //   childGender: "Male",
+    //   childEthnicity: "Another",
+    //   // annualIncome: "50000",
+    //   requestedGrant: "1000",
+    //   socWorkName: "Jane",
+    //   socWorkEmail: "nsortur@yahoo.com",
+    //   socialWorkerEmailConfirm: "nsortur@yahoo.com",
+    // });
+    // END REMOVE
+
     // get information about unfilled fields to user, if necessary
     const inputVals = {
       "Parent's name": this.state.parentName,
@@ -226,6 +249,7 @@ class FamilyForm extends React.Component {
       "Child's gender": 2,
       "Child's ethnicity": 2,
       "Annual income": 3,
+      "Annual income must be greater than 0": 3,
       "Requested grant": 3,
       "Bill Vendor": 3,
       "Bill Dollar Amount": 3,
@@ -259,6 +283,11 @@ class FamilyForm extends React.Component {
     if (this.state.socWorkEmail !== this.state.socialWorkerEmailConfirm) {
       inputNotFilled.push("Please confirm emails match");
     }
+    // annual income
+    if (this.state.annualIncome <= 0) {
+      inputNotFilled.push("Annual income must be greater than 0");
+    }
+    
 
     // validate all fields are filled
     if (inputNotFilled.length !== 0) {
